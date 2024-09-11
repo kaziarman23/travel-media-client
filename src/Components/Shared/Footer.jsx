@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import logo from "../../../public/logo.png";
+import logo from "/logo.png";
 import SocialCard from "../CustomHooks/SocialCards";
 
 const Footer = () => {
   return (
-    <footer className="footer bg-[#2b333c] text-[#707985] p-10">
+    <footer className="footer bg-[#2b333c] text-[#9ea4b2] p-10">
       <aside>
         <Link to="/">
           <img src={logo} alt="website logo" />

@@ -1,24 +1,31 @@
 import { Link, NavLink } from "react-router-dom";
-import BtnWithOutline from "../CustomHooks/BtnWithOutline";
 import UnderlineBtn from "../CustomHooks/UnderlineBtn";
+import BtnWithborder from "../CustomHooks/BtnWithborder";
+import BtnWithYBorder from "../CustomHooks/BtnWithYBorder";
 
 const Header = () => {
   const navLinks = (
     <>
       <NavLink to="/">
-        <li className="p-2 hover:text-white">Home</li>
+        <UnderlineBtn>
+          <li className="p-2 hover:text-white">Home</li>
+        </UnderlineBtn>
       </NavLink>
       <NavLink to="/spots">
-        <li className="p-2 hover:text-white">All Tourists Spot</li>
+        <UnderlineBtn>
+          <li className="p-2 hover:text-white">All Tourists Spot</li>
+        </UnderlineBtn>
       </NavLink>
       <NavLink to="/bookings">
-        <li className="p-2 hover:text-white">My Bookings</li>
+        <UnderlineBtn>
+          <li className="p-2 hover:text-white">My Bookings</li>
+        </UnderlineBtn>
       </NavLink>
     </>
   );
 
   return (
-    <div className="navbar glass sticky top-0 left-0">
+    <div className="navbar glass z-50 fixed top-0 left-0">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -45,7 +52,8 @@ const Header = () => {
           </ul>
         </div>
         <Link to="/" className="text-xl">
-          <UnderlineBtn>Travel Media</UnderlineBtn>
+          {/* <UnderlineBtn>Travel Media</UnderlineBtn> */}
+          <BtnWithYBorder>Travel Media</BtnWithYBorder>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -53,7 +61,7 @@ const Header = () => {
       </div>
       <div className="navbar-end">
         <Link to="" className="">
-          <BtnWithOutline>Register</BtnWithOutline>
+          <BtnWithborder>Register</BtnWithborder>
         </Link>
       </div>
     </div>
