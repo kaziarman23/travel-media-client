@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "img": "/src/assets/HomePageImages/TeamOne.jpg",
+    "name": "John Doe",
+    "post": "C.E.O",
+    "mail": "john.doe@tm.com"
+  },
+  {
+    "id": 2,
+    "img": "/src/assets/HomePageImages/TeamTwo.jpg",
+    "name": "Jane Smith",
+    "post": "C.O.O.",
+    "mail": "jane.smith@tm.com"
+  },
+  {
+    "id": 3,
+    "img": "/src/assets/HomePageImages/TeamThree.jpg",
+    "name": "Michael Jones",
+    "post": "C.M.O.",
+    "mail": "michael.jones@tm.com"
+  }
+]

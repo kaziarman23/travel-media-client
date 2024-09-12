@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
-import "./PopularSpot.css";
-
-
-
+import "./CssSections/PopularSpot.css";
+import { Link } from "react-router-dom";
 
 const PopularSpot = () => {
   const [cards, setCards] = useState([]);
@@ -20,7 +18,7 @@ const PopularSpot = () => {
         <h1 className="my-5 text-2xl font-bold text-silver text-center">
           Discover the World&#39;s Hidden Treasures with Travel Media
         </h1>
-        <p className="text-light-silver text-left">
+        <p className="mb-3 text-light-silver text-left">
           At Travel Media, we believe that every journey should be an
           unforgettable adventure. Our mission is to connect you with the most
           breathtaking and culturally rich destinations across the globe.
@@ -31,6 +29,9 @@ const PopularSpot = () => {
           rejuvenate, and amaze. With Travel Media, your next adventure is just
           a click away!
         </p>
+        <Link to="/AllTouristsSpots">
+          <span className="text-blue-500 font-bold hover:text-blue-800">View our All Turists Spots</span>
+        </Link>
 
         <div className="my-5 w-full h-full">
           {/* using react fast marquee for auto scroll */}

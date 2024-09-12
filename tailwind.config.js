@@ -4,10 +4,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        silver: '#9ca3b0',
-        "light-silver":"#9ea4b2", 
+        BlackBg: "#1c232b",
+        silver: "#9ca3b0",
+        "light-silver": "#9ea4b2",
       },
     },
   },
-  plugins: [require('daisyui')],
+  plugins: [require("daisyui")],
 };

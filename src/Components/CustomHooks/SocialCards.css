@@ -1,0 +1,39 @@
+.SocialCards {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.SocialCards .SocialCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 10px;
+  text-align: left;
+  height: 50px;
+  width: 250px;
+  border-radius: 10px;
+  color: #707985;
+  cursor: pointer;
+  transition: 400ms;
+}
+
+.SocialCards .SocialCard p.tip {
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.SocialCards .SocialCard p.second-text {
+  font-size: 0.7em;
+}
+
+.SocialCards .SocialCard:hover {
+  color: white;
+  transform: scale(1.1, 1.1);
+}
+
+.SocialCards:hover > .SocialCard:not(:hover) {
+  filter: blur(10px);
+  transform: scale(0.9, 0.9);
+}
