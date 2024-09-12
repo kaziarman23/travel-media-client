@@ -2,7 +2,12 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        silver: '#9ca3b0',
+        "light-silver":"#9ea4b2", 
+      },
+    },
   },
   plugins: [require('daisyui')],
 };
