@@ -1,3 +1,4 @@
+import PopularSpot from "../PopularSpot/PopularSpot";
 import AboutUsSection from "./AboutUsSection";
 import Hero from "./Hero";
 
@@ -6,6 +7,7 @@ const Home = () => {
     <div>
       <Hero />
       <AboutUsSection />
+      <PopularSpot />
     </div>
   );
 };
