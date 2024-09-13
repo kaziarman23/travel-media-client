@@ -13,7 +13,6 @@ const Review = () => {
       );
   }, [setRevirews]);
 
-  
   return (
     <div className="w-full h-auto overflow-hidden bg-gradient-to-r from-[#0f0c29] via-[#302b63] to-[#24243e]">
       <div className="w-4/5 h-full mx-auto">
@@ -32,16 +31,19 @@ const Review = () => {
         <div className="w-[200px] h-[400px] my-10 flex justify-center items-center gap-5 mx-auto">
           {reviews.map((review) => (
             <div key={review.id}>
-              <div className="e-card playing">
-                <div className="image" />
-                <div className="wave" />
-                <div className="wave" />
-                <div className="wave" />
-                <div className="infotop">
-                  <br />
-                  <p className="text-sm mx-5 text-left"> {review.message}</p>
-
-                  <div className="name">{review.name}</div>
+              {/* review cards */}
+              <div className="ReviewCard">
+                <div className="ReviewCard2">
+                  {/* cards container */}
+                  <p className="mx-5 mt-5 text-light-silver">
+                    {review.message}
+                  </p>
+                  <div className="avatar p-5 flex justify-start items-center gap-2">
+                    <div className="w-10 rounded-full">
+                      <img src={review.img} alt={review.name} />
+                    </div>
+                    <p className="text-white">{review.name}</p>
+                  </div>
                 </div>
               </div>
             </div>
