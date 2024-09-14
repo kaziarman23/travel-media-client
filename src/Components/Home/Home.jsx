@@ -7,7 +7,7 @@ import Review from "./Review";
 const Home = () => {
   return (
     <div>
-      <Hero />
+      {/* <Hero /> */}
       <AboutUsSection />
       <PopularSpot />
       <Team />

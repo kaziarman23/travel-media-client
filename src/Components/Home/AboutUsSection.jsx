@@ -84,7 +84,7 @@ const AboutUs = () => {
           </p>
           <Link to="/aboutus">
             <p className="text-blue-400 hover:text-blue-600">
-              View More Details
+              More Details About us.
             </p>
           </Link>
         </div>

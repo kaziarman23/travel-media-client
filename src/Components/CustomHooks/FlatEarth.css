@@ -1,0 +1,127 @@
+.section-banner2 {
+  height: 250px;
+  width: 400px;
+  position: relative;
+  transition: left 0.3s linear;
+  background: url("/src/assets/AllTuristsSpots/earthlights10k.jpg");
+  background-size: cover;
+  background-position: left;
+  bottom: 0px;
+  animation: earthRotate 30s linear 0s infinite;
+  box-shadow: 0px 0 20px RGBA(255, 255, 255, 0.2), -5px 0px 8px #c3f4ff inset,
+    15px 2px 25px #000 inset, -24px -2px 34px #c3f4ff99 inset,
+    250px 0px 44px #00000066 inset, 150px 0px 38px #000000aa inset;
+}
+@keyframes earthRotate {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+
+.curved-corner-star2 {
+  display: flex;
+  position: relative;
+}
+
+#curved-corner-bottomleft2,
+#curved-corner-bottomright2,
+#curved-corner-topleft2,
+#curved-corner-topright2 {
+  width: 4px;
+  height: 5px;
+  overflow: hidden;
+  position: relative;
+}
+
+#curved-corner-bottomleft2:before,
+#curved-corner-bottomright2:before,
+#curved-corner-topleft2:before,
+#curved-corner-topright2:before {
+  content: "";
+  display: block;
+  width: 200%;
+  height: 200%;
+  position: absolute;
+  border-radius: 50%;
+}
+
+#curved-corner-bottomleft2:before {
+  bottom: 0;
+  left: 0;
+  box-shadow: -5px 5px 0 0 white;
+}
+
+#curved-corner-bottomright2:before {
+  bottom: 0;
+  right: 0;
+  box-shadow: 5px 5px 0 0 white;
+}
+
+#curved-corner-topleft2:before {
+  top: 0;
+  left: 0;
+  box-shadow: -5px -5px 0 0 white;
+}
+
+#curved-corner-topright2:before {
+  top: 0;
+  right: 0;
+  box-shadow: 5px -5px 0 0 white;
+}
+
+@keyframes twinkling {
+  0%,
+  100% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+#star2-1 {
+  position: absolute;
+  left: -20px;
+  animation: twinkling 3s infinite;
+}
+
+#star2-2 {
+  position: absolute;
+  left: -40px;
+  top: 30px;
+  animation: twinkling 2s infinite;
+}
+#star2-3 {
+  position: absolute;
+  left: 350px;
+  top: 90px;
+  animation: twinkling 4s infinite;
+}
+#star2-4 {
+  position: absolute;
+  left: 200px;
+  top: 290px;
+  animation: twinkling 3s infinite;
+}
+#star2-5 {
+  position: absolute;
+  left: 50px;
+  top: 270px;
+  animation: twinkling 1.5s infinite;
+}
+
+#star2-6 {
+  position: absolute;
+  left: 250px;
+  top: -50px;
+  animation: twinkling 4s infinite;
+}
+#star2-7 {
+  position: absolute;
+  left: 290px;
+  top: 60px;
+  animation: twinkling 2s infinite;
+}
