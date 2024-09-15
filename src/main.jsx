@@ -6,6 +6,7 @@ import Root from "./Components/Layout/Root.jsx";
 import Home from "./Components/Home/Home.jsx";
 import AboutUs from "./Components/AboutUs/AboutUs.jsx";
 import AllTouristsSpots from "./Components/AllTouristsSpots/AllTouristsSpots.jsx";
+import AllSpots from "./Components/AllTouristsSpots/AllSpots.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -22,6 +23,11 @@ const router = createBrowserRouter([
       {
         path: "/AllTouristsSpots",
         element: <AllTouristsSpots />,
+      },
+      {
+        path: "/AllTouristsSpot/:country",
+        element: <AllSpots />,
+        loader: () => fetch("http://localhost:5000/spots"),
       },
     ],
   },

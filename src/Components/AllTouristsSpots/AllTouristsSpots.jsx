@@ -29,7 +29,7 @@ const AllTouristsSpots = () => {
         </div>
       </div>
 
-      <div className="w-full h-full bg-gradient-to-r from-[#141E30] to-[#243B55] my-10 overflow-hidden">
+      <div className="w-full h-full bg-gradient-to-r from-[#141E30] to-[#243B55] mt-10 overflow-hidden">
         <CountryCards />
       </div>
     </div>
