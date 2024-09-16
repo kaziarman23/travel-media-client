@@ -1,4 +1,4 @@
-import "./SocialCards.css";
+import "./CSS/SocialCards.css";
 import facebook from "../../assets/Icons/facebook.png";
 import github from "../../assets/Icons/linkedin.png";
 import instagram from "../../assets/Icons/instagram.png";

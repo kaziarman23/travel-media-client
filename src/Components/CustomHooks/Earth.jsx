@@ -1,4 +1,4 @@
-import "./Earth.css";
+import "./CSS/Earth.css";
 
 const Earth = () => {
   return (

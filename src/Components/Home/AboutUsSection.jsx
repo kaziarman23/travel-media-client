@@ -8,6 +8,7 @@ import AboutFour from "../../assets/HomePageImages/AboutFour.jpg";
 import AboutFive from "../../assets/HomePageImages/AboutFive.jpg";
 import AboutSix from "../../assets/HomePageImages/AboutSix.jpg";
 import { Link } from "react-router-dom";
+import UseLearnMoreBtn from "../CustomHooks/UseLearnMoreBtn";
 
 const AboutUs = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
@@ -83,9 +84,7 @@ const AboutUs = () => {
             that caters to all types of travelers.
           </p>
           <Link to="/aboutus">
-            <p className="text-blue-400 hover:text-blue-600">
-              More Details About us.
-            </p>
+            <UseLearnMoreBtn>More Details</UseLearnMoreBtn>
           </Link>
         </div>
       </div>

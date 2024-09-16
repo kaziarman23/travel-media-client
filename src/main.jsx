@@ -5,10 +5,11 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./Components/Layout/Root.jsx";
 import Home from "./Components/Home/Home.jsx";
 import AboutUs from "./Components/AboutUs/AboutUs.jsx";
-import AllTouristsSpots from "./Components/AllTouristsSpots/AllTouristsSpots.jsx";
-import AllSpots from "./Components/AllTouristsSpots/AllSpots.jsx";
-import Spot from "./Components/AllTouristsSpots/Spot.jsx";
+import PopularSpots from "./Components/PopularSpots/PopularSpots.jsx";
+import AllPopularSpots from "./Components/PopularSpots/AllPopularSpots.jsx";
+import PopularSpot from "./Components/PopularSpots/PopularSpot.jsx";
 import AuthProvider from "./AuthProvider/AuthProvider.jsx";
+import NotFoundPage from "./Components/NotFoundPage/NotFoundPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -24,17 +25,21 @@ const router = createBrowserRouter([
         element: <AboutUs />,
       },
       {
-        path: "/AllTouristsSpots",
-        element: <AllTouristsSpots />,
+        path: "/PopularSpots",
+        element: <PopularSpots />,
       },
       {
-        path: "/AllTouristsSpot/:country",
-        element: <AllSpots />,
-        loader: () => fetch("http://localhost:5000/spots"),
+        path: "/PopularSpots/:country",
+        element: <AllPopularSpots />,
+        loader: () => fetch("http://localhost:5000/PopularSpots"),
       },
       {
-        path: "/AllTouristsSpot/:country/spot/:spot_id",
-        element: <Spot />,
+        path: "/PopularSpots/:country/PopularSpot/:spot_id",
+        element: <PopularSpot />,
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />,
       },
     ],
   },

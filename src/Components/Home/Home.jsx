@@ -1,4 +1,4 @@
-import PopularSpot from "./PopularSpot";
+import BestSpots from "./BestSpots";
 import AboutUsSection from "./AboutUsSection";
 import Hero from "./Hero";
 import Team from "./Team";
@@ -9,11 +9,10 @@ const Home = () => {
     <div>
       <Hero />
       <AboutUsSection />
-      <PopularSpot />
+      <BestSpots /> 
       <Team />
       <Review />
     </div>
   );
 };
-
 export default Home;

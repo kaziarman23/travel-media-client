@@ -4,11 +4,12 @@ import AboutThree from "../../assets/HomePageImages/AboutThree.jpg";
 import AboutFour from "../../assets/HomePageImages/AboutFour.jpg";
 import AboutFive from "../../assets/HomePageImages/AboutFive.jpg";
 import AboutSix from "../../assets/HomePageImages/AboutSix.jpg";
+import UseBackBtn from "../CustomHooks/UseBackBtn";
 
 const AboutUs = () => {
   return (
     <div className="w-full h-auto flex justify-center items-center">
-      <div className="w-4/5 h-full mx-auto mt-20">
+      <div className="w-4/5 h-full mx-auto my-20">
         <h1 className="text-4xl font-bold text-center my-10 text-silver">
           What We Do ?
         </h1>
@@ -108,9 +109,9 @@ const AboutUs = () => {
               </h1>
               <div className="flex gap-3 flex-col justify-start items-start">
                 <p>
-                  <span className="font-bold">Preplans:</span> We can
-                  design tailor-made travel plans, ensuring that a trip matches
-                  the traveler preferences, budget, and interests.
+                  <span className="font-bold">Preplans:</span> We can design
+                  tailor-made travel plans, ensuring that a trip matches the
+                  traveler preferences, budget, and interests.
                 </p>
               </div>
             </div>
@@ -186,15 +187,15 @@ const AboutUs = () => {
               <div className="flex gap-3 flex-col justify-start items-start">
                 <p>
                   <span className="font-bold">Best Deals:</span>
-                  We often have access to exclusive deals and
-                  discounts that might not be available directly to travelers.
-                  We can negotiate behalf on you for better rates for hotels, tours, or flights.
+                  We often have access to exclusive deals and discounts that
+                  might not be available directly to travelers. We can negotiate
+                  behalf on you for better rates for hotels, tours, or flights.
                 </p>
                 <p>
                   <span className="font-bold">Group Travel:</span>
-                  Overall, we act as a one-stop-shop for travel
-                  planning, offering convenience, time savings, and expert
-                  guidance to travelers.
+                  Overall, we act as a one-stop-shop for travel planning,
+                  offering convenience, time savings, and expert guidance to
+                  travelers.
                 </p>
               </div>
             </div>
@@ -207,6 +208,7 @@ const AboutUs = () => {
             </div>
           </div>
         </div>
+        <UseBackBtn>Go Back</UseBackBtn>
       </div>
     </div>
   );

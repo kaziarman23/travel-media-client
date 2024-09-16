@@ -3,9 +3,9 @@ import { createContext, useState } from "react";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [spotCards, setSpotCards] = useState([]);
+  const [popularSpots, setPopularSpots] = useState([]);
 
-  const authInfo = { spotCards, setSpotCards };
+  const authInfo = { popularSpots, setPopularSpots };
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

@@ -1,4 +1,4 @@
-import "./FlatEarth.css";
+import "./CSS/FlatEarth.css";
 
 const FlatEarth = () => {
   return (

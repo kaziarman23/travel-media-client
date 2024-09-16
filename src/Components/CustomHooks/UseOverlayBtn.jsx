@@ -1,4 +1,4 @@
-import "./UseOverlayBtn.css";
+import "./CSS/UseOverlayBtn.css";
 
 const UseOverlayBtn = ({ children }) => {
   return <button> {children}</button>;

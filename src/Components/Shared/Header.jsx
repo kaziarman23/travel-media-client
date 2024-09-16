@@ -11,9 +11,9 @@ const Header = () => {
           <li className="p-2 hover:text-white">Home</li>
         </UseUnderlineBtn>
       </NavLink>
-      <NavLink to="/AllTouristsSpots">
+      <NavLink to="/PopularSpots">
         <UseUnderlineBtn>
-          <li className="p-2 hover:text-white">All Tourists Spot</li>
+          <li className="p-2 hover:text-white">Popular Spot</li>
         </UseUnderlineBtn>
       </NavLink>
       <NavLink to="/bookings">
