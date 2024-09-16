@@ -1,4 +1,4 @@
-const ExploreBtn = ({ children }) => {
+const UseExploreBtn = ({ children }) => {
   return (
     <button
       type="submit"
@@ -19,4 +19,4 @@ const ExploreBtn = ({ children }) => {
   );
 };
 
-export default ExploreBtn;
+export default UseExploreBtn;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const BtnWithYBorder = ({ children }) => {
+const UseBorderYBtn = ({ children }) => {
   return (
     <StyledWrapper>
       <button>{children}</button>
@@ -39,4 +39,4 @@ const StyledWrapper = styled.div`
   }
 `;
 
-export default BtnWithYBorder;
+export default UseBorderYBtn;

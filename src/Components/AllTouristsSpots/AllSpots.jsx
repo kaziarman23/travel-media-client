@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useLoaderData, useParams } from "react-router-dom";
 import Loader from "../CustomHooks/Loader";
-import BackBtn from "../CustomHooks/BackBtn";
+import UseBackBtn from "../CustomHooks/UseBackBtn";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const AllSpots = () => {
@@ -63,7 +63,7 @@ const AllSpots = () => {
         </div>
       </div>
       <div className="w-4/5 h-20 mx-auto">
-        <BackBtn>Go Back</BackBtn>
+        <UseBackBtn>Go Back</UseBackBtn>
       </div>
     </div>
   );

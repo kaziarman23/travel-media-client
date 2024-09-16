@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import ExploreBtn from "../CustomHooks/ExploreBtn";
+import UseExploreBtn from "../CustomHooks/UseExploreBtn";
 
 const CountryCards = () => {
   const [countrys, setCountrys] = useState([]);
@@ -46,7 +46,7 @@ const CountryCards = () => {
                   <p className="h-32">{country.description}</p>
                   <div className="card-actions mt-2 mb-4 justify-end">
                     <Link to={`/AllTouristsSpot/${country.country}`}>
-                      <ExploreBtn>Explore</ExploreBtn>
+                      <UseExploreBtn>Explore</UseExploreBtn>
                     </Link>
                   </div>
                 </div>

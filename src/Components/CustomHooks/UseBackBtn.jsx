@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const BackBtn = ({ children }) => {
+const UseBackBtn = ({ children }) => {
   const navigate = useNavigate();
 
   const handleGoBack = () => {
@@ -34,4 +34,4 @@ const BackBtn = ({ children }) => {
   );
 };
 
-export default BackBtn;
+export default UseBackBtn;

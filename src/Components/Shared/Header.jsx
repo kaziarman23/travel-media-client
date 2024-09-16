@@ -1,25 +1,25 @@
 import { Link, NavLink } from "react-router-dom";
-import UnderlineBtn from "../CustomHooks/UnderlineBtn";
-import BtnWithborder from "../CustomHooks/BtnWithborder";
-import BtnWithYBorder from "../CustomHooks/BtnWithYBorder";
+import UseUnderlineBtn from "../CustomHooks/UseUnderlineBtn";
+import UseBorderBtn from "../CustomHooks/UseBorderBtn";
+import UseBorderYBtn from "../CustomHooks/UseBorderYBtn";
 
 const Header = () => {
   const navLinks = (
     <>
       <NavLink to="/">
-        <UnderlineBtn>
+        <UseUnderlineBtn>
           <li className="p-2 hover:text-white">Home</li>
-        </UnderlineBtn>
+        </UseUnderlineBtn>
       </NavLink>
       <NavLink to="/AllTouristsSpots">
-        <UnderlineBtn>
+        <UseUnderlineBtn>
           <li className="p-2 hover:text-white">All Tourists Spot</li>
-        </UnderlineBtn>
+        </UseUnderlineBtn>
       </NavLink>
       <NavLink to="/bookings">
-        <UnderlineBtn>
+        <UseUnderlineBtn>
           <li className="p-2 hover:text-white">My Bookings</li>
-        </UnderlineBtn>
+        </UseUnderlineBtn>
       </NavLink>
     </>
   );
@@ -52,8 +52,8 @@ const Header = () => {
           </ul>
         </div>
         <Link to="/" className="text-xl">
-          {/* <UnderlineBtn>Travel Media</UnderlineBtn> */}
-          <BtnWithYBorder>Travel Media</BtnWithYBorder>
+          {/* <UseUnderlineBtn>Travel Media</UseUnderlineBtn> */}
+          <UseBorderYBtn>Travel Media</UseBorderYBtn>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -61,7 +61,7 @@ const Header = () => {
       </div>
       <div className="navbar-end">
         <Link to="" className="">
-          <BtnWithborder>Register</BtnWithborder>
+          <UseBorderBtn>Register</UseBorderBtn>
         </Link>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const BtnWithborder = ({ children }) => {
+const UseBorderBtn = ({ children }) => {
   return (
     <StyledWrapper>
       <button>
@@ -83,4 +83,4 @@ const StyledWrapper = styled.div`
   }
 `;
 
-export default BtnWithborder;
+export default UseBorderBtn;

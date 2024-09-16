@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const UnderlineBtn = ({ children }) => {
+const UseUnderlineBtn = ({ children }) => {
   return (
     <StyledWrapper>
       <button>{children}</button>
@@ -50,4 +50,4 @@ const StyledWrapper = styled.div`
   }
 `;
 
-export default UnderlineBtn;
+export default UseUnderlineBtn;
