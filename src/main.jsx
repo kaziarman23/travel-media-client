@@ -7,6 +7,9 @@ import Home from "./Components/Home/Home.jsx";
 import AboutUs from "./Components/AboutUs/AboutUs.jsx";
 import AllTouristsSpots from "./Components/AllTouristsSpots/AllTouristsSpots.jsx";
 import AllSpots from "./Components/AllTouristsSpots/AllSpots.jsx";
+import Spot from "./Components/AllTouristsSpots/Spot.jsx";
+import AuthProvider from "./AuthProvider/AuthProvider.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -29,12 +32,18 @@ const router = createBrowserRouter([
         element: <AllSpots />,
         loader: () => fetch("http://localhost:5000/spots"),
       },
+      {
+        path: "/AllTouristsSpot/:country/spot",
+        element: <Spot />,
+      },
     ],
   },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>
 );

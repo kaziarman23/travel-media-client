@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useLoaderData, useParams } from "react-router-dom";
 import Loader from "../CustomHooks/Loader";
 import BackBtn from "../CustomHooks/BackBtn";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const AllSpots = () => {
   const { country } = useParams();
   const loadedData = useLoaderData();
   const [spotDatas, setSpotDatas] = useState([]);
-  const [spotCards, setSpotCards] = useState();
   const [loading, setLoading] = useState(true);
+
+  const { spotCards, setSpotCards } = useContext(AuthContext);
 
   useEffect(() => {
     // storing datas in a state
@@ -18,7 +20,7 @@ const AllSpots = () => {
     const CurrentData = spotDatas.filter((spot) => spot.name === country);
     setSpotCards(CurrentData);
     setLoading(false);
-  }, [country, spotDatas, loadedData]);
+  }, [loadedData, country, spotDatas, setSpotCards]);
 
   // setting loaders to load the data properly
   if (loading || !spotCards.length) {
@@ -33,7 +35,7 @@ const AllSpots = () => {
         </h1>
         <p className=" text-left">{spotCards[0]?.description}</p>
         <h2 className=" text-xl my-3 font-bold">
-          Here are some popular tourist spots in {spotCards[0].name} :
+          Here are some popular tourist spots in {spotCards[0]?.name} :
         </h2>
         <div className="w-full h-full grid sm:grid-cols-1 mg:grid-cols-2  lg:grid-cols-3 gap-5 place-items-center my-10">
           {spotCards[0]?.plases.map((plase, index) => (
@@ -50,9 +52,11 @@ const AllSpots = () => {
                   <h2 className="card-title">{plase.spot}</h2>
                   <p>Price: {plase.average_cost}</p>
                   <div className="card-actions">
-                    <button className="btn btn-primary hover:btn-success hover:text-white">
-                      More Informetion
-                    </button>
+                    <Link to={`/AllTouristsSpot/${plase.country}/spot`}>
+                      <button className="btn btn-primary hover:btn-success hover:text-white">
+                        View Details
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>
