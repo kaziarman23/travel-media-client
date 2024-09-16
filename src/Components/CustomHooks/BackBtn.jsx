@@ -1,6 +1,14 @@
+import { useNavigate } from "react-router-dom";
+
 const BackBtn = ({ children }) => {
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    navigate(-1);
+  };
   return (
     <button
+      onClick={handleGoBack}
       className="bg-white text-center w-48 rounded-2xl h-14 relative text-black text-xl font-semibold group"
       type="button"
     >

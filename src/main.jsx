@@ -33,7 +33,7 @@ const router = createBrowserRouter([
         loader: () => fetch("http://localhost:5000/spots"),
       },
       {
-        path: "/AllTouristsSpot/:country/spot",
+        path: "/AllTouristsSpot/:country/spot/:spot_id",
         element: <Spot />,
       },
     ],

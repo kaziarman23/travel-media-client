@@ -7,26 +7,22 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 const AllSpots = () => {
   const { country } = useParams();
   const loadedData = useLoaderData();
-  const [spotDatas, setSpotDatas] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const { spotCards, setSpotCards } = useContext(AuthContext);
 
   useEffect(() => {
-    // storing datas in a state
-    setSpotDatas(loadedData);
-
     // filtering datas for right data
-    const CurrentData = spotDatas.filter((spot) => spot.name === country);
-    setSpotCards(CurrentData);
+    const currentData = loadedData.filter((spot) => spot.name === country);
+    setSpotCards(currentData);
     setLoading(false);
-  }, [loadedData, country, spotDatas, setSpotCards]);
+  }, [loadedData, country, setSpotCards]);
 
   // setting loaders to load the data properly
   if (loading || !spotCards.length) {
     return <Loader />;
   }
-
+  console.log("spot card is now on allspots:", spotCards);
   return (
     <div className="w-full h-auto overflow-hidden bg-BlackBg">
       <div className="w-4/5 h-full text-white mx-auto my-20">
@@ -52,7 +48,9 @@ const AllSpots = () => {
                   <h2 className="card-title">{plase.spot}</h2>
                   <p>Price: {plase.average_cost}</p>
                   <div className="card-actions">
-                    <Link to={`/AllTouristsSpot/${plase.country}/spot`}>
+                    <Link
+                      to={`/AllTouristsSpot/${plase.country}/spot/${plase.spot_id}`}
+                    >
                       <button className="btn btn-primary hover:btn-success hover:text-white">
                         View Details
                       </button>
@@ -65,9 +63,7 @@ const AllSpots = () => {
         </div>
       </div>
       <div className="w-4/5 h-20 mx-auto">
-        <Link to="/AllTouristsSpots">
-          <BackBtn>Go Back</BackBtn>
-        </Link>
+        <BackBtn>Go Back</BackBtn>
       </div>
     </div>
   );
