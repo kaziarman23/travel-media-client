@@ -10,6 +10,7 @@ import AllPopularSpots from "./Components/PopularSpots/AllPopularSpots.jsx";
 import PopularSpot from "./Components/PopularSpots/PopularSpot.jsx";
 import AuthProvider from "./AuthProvider/AuthProvider.jsx";
 import NotFoundPage from "./Components/NotFoundPage/NotFoundPage.jsx";
+import AllTouristSpots from "./Components/AllTouristSpots/AllTouristSpots.jsx";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/PopularSpots/:country/PopularSpot/:spot_id",
         element: <PopularSpot />,
+      },
+      {
+        path: "/AllTouristSpots",
+        element: <AllTouristSpots />,
       },
       {
         path: "*",

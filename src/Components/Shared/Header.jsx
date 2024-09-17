@@ -13,7 +13,12 @@ const Header = () => {
       </NavLink>
       <NavLink to="/PopularSpots">
         <UseUnderlineBtn>
-          <li className="p-2 hover:text-white">Popular Spot</li>
+          <li className="p-2 hover:text-white">Popular Spots</li>
+        </UseUnderlineBtn>
+      </NavLink>
+      <NavLink to="/AllTouristSpots">
+        <UseUnderlineBtn>
+          <li className="p-2 hover:text-white">All Tourist Spots</li>
         </UseUnderlineBtn>
       </NavLink>
       <NavLink to="/bookings">

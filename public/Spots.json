@@ -1,410 +1,434 @@
 [
   {
-    "_id": "66e562baf5171f0f79f2a0e7",
-    "name": "Bangladesh",
-    "title": "Explore the Hidden Wonders of Bangladesh",
-    "description": "Bangladesh is a land of breathtaking beauty, where vibrant culture and natural wonders come together to create a truly unique travel experience. From the world’s largest mangrove forest, the Sundarbans – home to the majestic Bengal tiger – to the serene tea gardens of Sylhet, Bangladesh offers a diverse landscape for every traveler. Explore ancient historical sites like the UNESCO-listed Somapura Mahavihara, cruise along the scenic rivers, or immerse yourself in the lively streets of Dhaka, the capital city rich in heritage and modern flair. Whether you're seeking adventure, serenity, or cultural exploration, Bangladesh has something extraordinary to offer. Discover why more and more tourists are drawn to this unspoiled gem of South Asia – where every corner holds a new story waiting to be told.",
-    "plases": [
-      {
-        "spot_id": 1,
-        "spot": "Sundarbans",
-        "country": "Bangladesh",
-        "image": "https://i.pinimg.com/236x/b7/8d/a9/b78da97ac41e33b1159f9b99fb7a4999.jpg",
-        "average_cost": "$100 - $300 with guided tours and some food",
-        "totalVisitorsPerYear": "150,000",
-        "travel_time": "6-8 hours from Dhaka by road and boat",
-        "seasonality": "October to March (cooler and drier months)"
-      },
-      {
-        "spot_id": 2,
-        "spot": "Cox's Bazar",
-        "country": "Bangladesh",
-        "image": "https://i.pinimg.com/564x/04/0f/2f/040f2f19e904bab446fd9c861157cd98.jpg",
-        "average_cost": "$50 - $150 per day (accommodation, meals, activities)",
-        "totalVisitorsPerYear": "2.5 million",
-        "travel_time": "1 hour flight from Dhaka or 10-12 hours by road",
-        "seasonality": "November to February (cool and dry season)"
-      },
-      {
-        "spot_id": 3,
-        "spot": "Srimangal",
-        "country": "Bangladesh",
-        "image": "https://i.pinimg.com/564x/00/45/98/0045984c8ccfa47ba7d5850c5556de3f.jpg",
-        "average_cost": "$30 - $100 per day (accommodation, meals, local tours)",
-        "totalVisitorsPerYear": "200,000",
-        "travel_time": "4-5 hours by train or road from Dhaka",
-        "seasonality": "October to April (pleasant weather, tea gardens are lush)"
-      },
-      {
-        "spot_id": 4,
-        "spot": "Saint Martin's Island",
-        "country": "Bangladesh",
-        "image": "https://i.pinimg.com/564x/fb/50/7c/fb507c8c2a4a2764feaf0860f108865c.jpg",
-        "average_cost": "$50 - $120 per day (accommodation, meals, boat ride)",
-        "totalVisitorsPerYear": "100,000",
-        "travel_time": "3-4 hours by boat from Teknaf after an 8-10 hour road trip from Dhaka",
-        "seasonality": "November to March (dry season, calm seas)"
-      },
-      {
-        "spot_id": 5,
-        "spot": "Rangamati",
-        "country": "Bangladesh",
-        "image": "https://i.pinimg.com/564x/2e/48/50/2e48503902e4331d05dab07dca089b52.jpg",
-        "average_cost": "$40 - $100 per day (accommodation, meals, boat trips)",
-        "totalVisitorsPerYear": "500,000",
-        "travel_time": "6-8 hours by road from Dhaka",
-        "seasonality": "October to March (cooler weather, scenic beauty at its best)"
-      },
-      {
-        "spot_id": 6,
-        "spot": "Lalbagh Fort",
-        "country": "Bangladesh",
-        "image": "https://i.pinimg.com/564x/bc/c0/41/bcc041c7dee8665c05c52fa16b156c73.jpg",
-        "average_cost": "$1 for local visitors, $5 for foreign visitors",
-        "totalVisitorsPerYear": "1 million",
-        "travel_time": "Located in the heart of Dhaka",
-        "seasonality": "Year-round destination, best visited in winter months"
-      }
-    ]
+    "spot": "Mount Everest",
+    "country": "Nepal",
+    "image": "https://i.pinimg.com/736x/8b/7c/0f/8b7c0f21d5b2358f1f1863e3c36be72a.jpg",
+    "average_cost": "$5000",
+    "totalVisitorsPerYear": 40000,
+    "travel_time": "7-14 days",
+    "seasonality": "April to May, September to November"
   },
   {
-    "_id": "66e562baf5171f0f79f2a0e8",
-    "name": "Thailand",
-    "title": "Uncover the Magic of Thailand",
-    "description": "Thailand, the Land of Smiles, is a paradise for travelers seeking both adventure and tranquility. Known for its pristine beaches, vibrant nightlife, and rich cultural heritage, Thailand offers a diverse experience. Visit the temples of Bangkok, relax on the tropical islands of Phuket and Krabi, or explore the lush mountains of Chiang Mai. Don’t miss the floating markets, delicious street food, and the friendly locals who make every visit unforgettable. Whether you're looking for a spiritual retreat or a lively beach getaway, Thailand has something for everyone.",
-    "plases": [
-      {
-        "spot_id": 1,
-        "spot": "Grand Palace",
-        "country": "Thailand",
-        "image": "https://i.pinimg.com/564x/08/41/75/084175967748cc3a5384ccfc31995b2b.jpg",
-        "average_cost": "$15 with temple entrance fee and some foods",
-        "totalVisitorsPerYear": "8 million",
-        "travel_time": "Located in the heart of Bangkok, 1 hour from Suvarnabhumi Airport",
-        "seasonality": "November to February (cooler and dry season)"
-      },
-      {
-        "spot_id": 2,
-        "spot": "Phi Phi Islands",
-        "country": "Thailand",
-        "image": "https://i.pinimg.com/564x/e4/98/f1/e498f19fef398df8ca277ac78b68ddab.jpg",
-        "average_cost": "$50 - $150 per day (island hopping, accommodation, meals)",
-        "totalVisitorsPerYear": "2 million",
-        "travel_time": "2-hour ferry from Phuket or Krabi",
-        "seasonality": "November to April (calmer seas, sunny weather)"
-      },
-      {
-        "spot_id": 3,
-        "spot": "Chiang Mai Old City",
-        "country": "Thailand",
-        "image": "https://i.pinimg.com/564x/68/99/44/6899445c0d14ca839a26754d01690886.jpg",
-        "average_cost": "$10 - $50 per day (temple entrance fees, local tours)",
-        "totalVisitorsPerYear": "5 million",
-        "travel_time": "1.5-hour flight from Bangkok",
-        "seasonality": "November to February (cooler weather, great for sightseeing)"
-      },
-      {
-        "spot_id": 4,
-        "spot": "Phuket",
-        "country": "Thailand",
-        "image": "https://i.pinimg.com/564x/2d/fb/15/2dfb15f3e6044e15b1796871256e9970.jpg",
-        "average_cost": "$50 - $200 per day (accommodation, beach activities, tours)",
-        "totalVisitorsPerYear": "9 million",
-        "travel_time": "1.5-hour flight from Bangkok",
-        "seasonality": "November to April (high season with clear skies)"
-      },
-      {
-        "spot_id": 5,
-        "spot": "Ayutthaya Historical Park",
-        "country": "Thailand",
-        "image": "https://i.pinimg.com/564x/40/86/a5/4086a56c96201500abfbb08f708148a8.jpg",
-        "average_cost": "$6 - $15 for entrance and guided tours",
-        "totalVisitorsPerYear": "1 million",
-        "travel_time": "1.5 hours by road from Bangkok",
-        "seasonality": "November to February (cooler and more pleasant for exploration)"
-      },
-      {
-        "spot_id": 6,
-        "spot": "Doi Inthanon National Park",
-        "country": "Thailand",
-        "image": "https://i.pinimg.com/564x/9a/e2/ff/9ae2ff0729611974e341ea99287498a4.jpg",
-        "average_cost": "$9 (park entrance fee), additional for guided tours",
-        "totalVisitorsPerYear": "500,000",
-        "travel_time": "2 hours by road from Chiang Mai",
-        "seasonality": "November to February (best time for trekking and sightseeing)"
-      }
-    ]
+    "spot": "Phewa Lake",
+    "country": "Nepal",
+    "image": "https://i.pinimg.com/564x/82/af/37/82af372aa2ad49a4fd3d86f1e478d863.jpg",
+    "average_cost": "$1000",
+    "totalVisitorsPerYear": 200000,
+    "travel_time": "3-5 days",
+    "seasonality": "October to March"
   },
   {
-    "_id": "66e562baf5171f0f79f2a0e9",
-    "name": "Indonesia",
-    "title": "Discover Indonesia’s Island Treasures",
-    "description": "Indonesia, a tropical archipelago of over 17,000 islands, offers an unparalleled blend of natural beauty, rich history, and vibrant culture. From the stunning beaches and lush rice terraces of Bali to the mystical temples of Borobudur and Prambanan, every island holds its own charm. Explore the volcanic landscapes of Java, dive into the vibrant marine life of the Coral Triangle, or immerse yourself in the indigenous cultures of Sumatra. Indonesia is a destination that captivates adventurers, beach lovers, and cultural explorers alike.",
-    "plases": [
-      {
-        "spot_id": 1,
-        "spot": "Bali",
-        "country": "Indonesia",
-        "image": "https://example.com/bali.jpg",
-        "average_cost": "$50 - $150 per day (accommodation, meals, tours)",
-        "totalVisitorsPerYear": "6.3 million",
-        "travel_time": "1 hour flight from Jakarta",
-        "seasonality": "April to October (dry season, ideal for outdoor activities)"
-      },
-      {
-        "spot_id": 2,
-        "spot": "Borobudur Temple",
-        "country": "Indonesia",
-        "image": "https://example.com/borobudur.jpg",
-        "average_cost": "$25 for foreigners, $6 for locals (entrance fee)",
-        "totalVisitorsPerYear": "2.5 million",
-        "travel_time": "1 hour by car from Yogyakarta",
-        "seasonality": "April to October (dry season for a better experience)"
-      },
-      {
-        "spot_id": 3,
-        "spot": "Komodo National Park",
-        "country": "Indonesia",
-        "image": "https://example.com/komodo_national_park.jpg",
-        "average_cost": "$150 - $500 for tours, diving, and park fees",
-        "totalVisitorsPerYear": "200,000",
-        "travel_time": "1-hour flight from Bali to Labuan Bajo, followed by a boat ride",
-        "seasonality": "April to November (dry season, best for wildlife spotting)"
-      },
-      {
-        "spot_id": 4,
-        "spot": "Mount Bromo",
-        "country": "Indonesia",
-        "image": "https://example.com/mount_bromo.jpg",
-        "average_cost": "$30 - $100 (entrance, transportation, tours)",
-        "totalVisitorsPerYear": "500,000",
-        "travel_time": "3-4 hours drive from Surabaya",
-        "seasonality": "May to September (clear skies, great for sunrise views)"
-      },
-      {
-        "spot_id": 5,
-        "spot": "Gili Islands",
-        "country": "Indonesia",
-        "image": "https://example.com/gili_islands.jpg",
-        "average_cost": "$50 - $150 per day (accommodation, meals, snorkeling tours)",
-        "totalVisitorsPerYear": "500,000",
-        "travel_time": "2 hours by boat from Bali or Lombok",
-        "seasonality": "April to November (dry season, ideal for water activities)"
-      },
-      {
-        "spot_id": 6,
-        "spot": "Lake Toba",
-        "country": "Indonesia",
-        "image": "https://example.com/lake_toba.jpg",
-        "average_cost": "$30 - $80 per day (accommodation, meals, boat trips)",
-        "totalVisitorsPerYear": "250,000",
-        "travel_time": "4-5 hours drive from Medan",
-        "seasonality": "May to September (dry season, pleasant for exploring)"
-      }
-    ]
+    "spot": "Chitwan National Park",
+    "country": "Nepal",
+    "image": "https://i.pinimg.com/736x/82/06/21/82062101577df1411291f733415528de.jpg",
+    "average_cost": "$1500",
+    "totalVisitorsPerYear": 180000,
+    "travel_time": "2-3 days",
+    "seasonality": "October to March"
   },
   {
-    "_id": "66e562baf5171f0f79f2a0ea",
-    "name": "Malaysia",
-    "title": "Experience the Diversity of Malaysia",
-    "description": "Malaysia is a melting pot of cultures, where ancient traditions blend seamlessly with modernity. From the towering Petronas Twin Towers in Kuala Lumpur to the tranquil rainforests of Borneo, Malaysia offers diverse landscapes for every type of traveler. Discover the pristine beaches of Langkawi, explore the colonial heritage of Penang, or trek through the Cameron Highlands. With its world-class cuisine, warm hospitality, and unique wildlife, including orangutans and rare tropical birds, Malaysia is a destination that promises unforgettable experiences.",
-    "plases": [
-      {
-        "spot_id": 1,
-        "spot": "Petronas Twin Towers",
-        "country": "Malaysia",
-        "image": "https://example.com/petronas_towers.jpg",
-        "average_cost": "$20 (entrance fee to observation deck)",
-        "totalVisitorsPerYear": "1.6 million",
-        "travel_time": "45 minutes from Kuala Lumpur International Airport (KLIA)",
-        "seasonality": "Year-round destination, but best in November to March (cooler weather)"
-      },
-      {
-        "spot_id": 2,
-        "spot": "Langkawi Island",
-        "country": "Malaysia",
-        "image": "https://example.com/langkawi.jpg",
-        "average_cost": "$50 - $150 per day (accommodation, meals, island tours)",
-        "totalVisitorsPerYear": "3.6 million",
-        "travel_time": "1-hour flight from Kuala Lumpur or Penang",
-        "seasonality": "November to April (dry season, best for beach activities)"
-      },
-      {
-        "spot_id": 3,
-        "spot": "Batu Caves",
-        "country": "Malaysia",
-        "image": "https://example.com/batu_caves.jpg",
-        "average_cost": "Free (entrance), $5 for guided tours",
-        "totalVisitorsPerYear": "1.5 million",
-        "travel_time": "20 minutes by road from Kuala Lumpur",
-        "seasonality": "Year-round destination, best visited during Thaipusam Festival (January/February)"
-      },
-      {
-        "spot_id": 4,
-        "spot": "Mount Kinabalu",
-        "country": "Malaysia",
-        "image": "https://example.com/mount_kinabalu.jpg",
-        "average_cost": "$300 - $400 (climbing permits, accommodation, guide fees)",
-        "totalVisitorsPerYear": "50,000 climbers",
-        "travel_time": "2 hours by road from Kota Kinabalu",
-        "seasonality": "March to September (dry season, ideal for trekking)"
-      },
-      {
-        "spot_id": 5,
-        "spot": "George Town, Penang",
-        "country": "Malaysia",
-        "image": "https://example.com/georgetown.jpg",
-        "average_cost": "$30 - $100 per day (accommodation, meals, tours)",
-        "totalVisitorsPerYear": "1.7 million",
-        "travel_time": "1-hour flight from Kuala Lumpur",
-        "seasonality": "December to February (cooler weather, ideal for sightseeing)"
-      },
-      {
-        "spot_id": 6,
-        "spot": "Cameron Highlands",
-        "country": "Malaysia",
-        "image": "https://example.com/cameron_highlands.jpg",
-        "average_cost": "$50 - $120 per day (accommodation, meals, tours)",
-        "totalVisitorsPerYear": "700,000",
-        "travel_time": "3-4 hours by road from Kuala Lumpur",
-        "seasonality": "April to September (cooler, pleasant weather for exploring tea plantations)"
-      }
-    ]
+    "spot": "Annapurna Base Camp",
+    "country": "Nepal",
+    "image": "https://i.pinimg.com/736x/2d/f4/aa/2df4aaa35a4fb27dcb8d9fbfae342fa7.jpg",
+    "average_cost": "$1500",
+    "totalVisitorsPerYear": 50000,
+    "travel_time": "7-12 days",
+    "seasonality": "April to May, September to November"
   },
   {
-    "_id": "66e562baf5171f0f79f2a0eb",
-    "name": "Philippines",
-    "title": "Find Paradise in the Philippines",
-    "description": "The Philippines, with its 7,000 islands, is a dream destination for beach lovers, adventure seekers, and cultural enthusiasts. Whether you want to relax on the powdery white sands of Boracay, dive into the crystal-clear waters of Palawan, or explore the lush rice terraces of Banaue, the Philippines offers a range of experiences for every traveler. Rich in Spanish colonial history and renowned for its warm, welcoming people, the Philippines invites you to explore its vibrant festivals, delicious cuisine, and unspoiled natural wonders.",
-    "plases": [
-      {
-        "spot_id": 1,
-        "spot": "Boracay Island",
-        "country": "Philippines",
-        "image": "https://example.com/boracay.jpg",
-        "average_cost": "$50 - $120 per day (accommodation, meals, activities)",
-        "totalVisitorsPerYear": "2 million",
-        "travel_time": "1-hour flight from Manila to Caticlan, followed by 30-minute boat ride",
-        "seasonality": "November to May (dry season, best for beach activities)"
-      },
-      {
-        "spot_id": 2,
-        "spot": "Chocolate Hills",
-        "country": "Philippines",
-        "image": "https://example.com/chocolate_hills.jpg",
-        "average_cost": "$5 for entrance and tours",
-        "totalVisitorsPerYear": "500,000",
-        "travel_time": "1.5-hour flight from Manila to Bohol, followed by 1-hour drive",
-        "seasonality": "November to May (dry season, clear views of the landscape)"
-      },
-      {
-        "spot_id": 3,
-        "spot": "Palawan - El Nido",
-        "country": "Philippines",
-        "image": "https://example.com/el_nido.jpg",
-        "average_cost": "$50 - $150 per day (accommodation, island hopping tours)",
-        "totalVisitorsPerYear": "500,000",
-        "travel_time": "1-hour flight from Manila to Puerto Princesa, followed by 5-hour drive",
-        "seasonality": "November to May (calm seas, great for island hopping)"
-      },
-      {
-        "spot_id": 4,
-        "spot": "Mayon Volcano",
-        "country": "Philippines",
-        "image": "https://example.com/mayon_volcano.jpg",
-        "average_cost": "$20 - $50 for guided tours and entrance fees",
-        "totalVisitorsPerYear": "1 million",
-        "travel_time": "1-hour flight from Manila to Legazpi City",
-        "seasonality": "November to May (clear skies and pleasant weather)"
-      },
-      {
-        "spot_id": 5,
-        "spot": "Taal Volcano",
-        "country": "Philippines",
-        "image": "https://example.com/taal_volcano.jpg",
-        "average_cost": "$10 - $50 for boat rides and tours",
-        "totalVisitorsPerYear": "500,000",
-        "travel_time": "2 hours by road from Manila",
-        "seasonality": "November to February (cooler months, ideal for hiking)"
-      },
-      {
-        "spot_id": 6,
-        "spot": "Banaue Rice Terraces",
-        "country": "Philippines",
-        "image": "https://example.com/banaue_terraces.jpg",
-        "average_cost": "$30 - $100 per day (accommodation, meals, guided tours)",
-        "totalVisitorsPerYear": "300,000",
-        "travel_time": "9-10 hours by bus from Manila",
-        "seasonality": "March to May (dry season, perfect for trekking)"
-      }
-    ]
+    "spot": "Lumbini",
+    "country": "Nepal",
+    "image": "https://i.pinimg.com/564x/00/f5/36/00f536019fe4e494e80773d68d95e602.jpg",
+    "average_cost": "$700",
+    "totalVisitorsPerYear": 150000,
+    "travel_time": "1-2 days",
+    "seasonality": "October to April"
   },
   {
-    "_id": "66e562baf5171f0f79f2a0ec",
-    "name": "Singapore",
-    "title": "Discover the Best of Singapore",
-    "description": "Singapore is a vibrant city-state that offers a perfect blend of modernity and tradition. Known for its stunning skyline, lush green spaces, and world-class dining, Singapore is a destination like no other. Visit iconic landmarks like Marina Bay Sands, Gardens by the Bay, and Sentosa Island, or explore the rich cultural heritage in Chinatown and Little India. From high-end shopping on Orchard Road to peaceful strolls in the Botanic Gardens, Singapore provides a unique experience that seamlessly combines urban sophistication with natural beauty.",
-    "plases": [
-      {
-        "spot_id": 1,
-        "spot": "Marina Bay Sands",
-        "country": "Singapore",
-        "image": "https://example.com/marina_bay_sands.jpg",
-        "average_cost": "$300 - $600 per night (hotel stay), $20 (Skypark entrance)",
-        "totalVisitorsPerYear": "20 million",
-        "travel_time": "20 minutes from Changi Airport by taxi or MRT",
-        "seasonality": "Year-round destination"
-      },
-      {
-        "spot_id": 2,
-        "spot": "Gardens by the Bay",
-        "country": "Singapore",
-        "image": "https://example.com/gardens_by_the_bay.jpg",
-        "average_cost": "$10 - $28 for admission to different conservatories and attractions",
-        "totalVisitorsPerYear": "13 million",
-        "travel_time": "10 minutes walk from Marina Bay Sands or Bayfront MRT",
-        "seasonality": "Year-round destination, best visited in the evening for light shows"
-      },
-      {
-        "spot_id": 3,
-        "spot": "Sentosa Island",
-        "country": "Singapore",
-        "image": "https://example.com/sentosa_island.jpg",
-        "average_cost": "$50 - $150 per day (accommodation, activities, attractions)",
-        "totalVisitorsPerYear": "19 million",
-        "travel_time": "15 minutes by cable car, monorail, or taxi from the city center",
-        "seasonality": "Year-round destination"
-      },
-      {
-        "spot_id": 4,
-        "spot": "Singapore Zoo",
-        "country": "Singapore",
-        "image": "https://example.com/singapore_zoo.jpg",
-        "average_cost": "$28 (adult ticket), $18 (child ticket)",
-        "totalVisitorsPerYear": "1.7 million",
-        "travel_time": "30 minutes by taxi from the city center",
-        "seasonality": "Year-round destination, best visited in the morning"
-      },
-      {
-        "spot_id": 5,
-        "spot": "Orchard Road",
-        "country": "Singapore",
-        "image": "https://example.com/orchard_road.jpg",
-        "average_cost": "Varies (shopping, dining, entertainment)",
-        "totalVisitorsPerYear": "7 million",
-        "travel_time": "15 minutes by MRT or taxi from anywhere in the city",
-        "seasonality": "Year-round destination, busiest during holiday shopping seasons"
-      },
-      {
-        "spot_id": 6,
-        "spot": "Merlion Park",
-        "country": "Singapore",
-        "image": "https://example.com/merlion_park.jpg",
-        "average_cost": "Free",
-        "totalVisitorsPerYear": "10 million",
-        "travel_time": "10 minutes by foot from Raffles Place MRT",
-        "seasonality": "Year-round destination, best visited in the evening for skyline views"
-      }
-    ]
+    "spot": "Nagarkot",
+    "country": "Nepal",
+    "image": "https://i.pinimg.com/564x/08/36/36/083636f4f5f0c29a4ec5008f3147da20.jpg",
+    "average_cost": "$400",
+    "totalVisitorsPerYear": 100000,
+    "travel_time": "1-2 days",
+    "seasonality": "October to April"
+  },
+  {
+    "spot": "Ha Long Bay",
+    "country": "Vietnam",
+    "image": "https://i.pinimg.com/564x/c7/0d/25/c70d25666495e44208ba4d856a66d578.jpg",
+    "average_cost": "$400",
+    "totalVisitorsPerYear": 7000000,
+    "travel_time": "1-2 days",
+    "seasonality": "October to April"
+  },
+  {
+    "spot": "Hoi An Ancient Town",
+    "country": "Vietnam",
+    "image": "https://i.pinimg.com/564x/aa/df/d1/aadfd15568cbd1745a20bb87ba131994.jpg",
+    "average_cost": "$300",
+    "totalVisitorsPerYear": 5000000,
+    "travel_time": "1-2 days",
+    "seasonality": "February to April, August to October"
+  },
+  {
+    "spot": "Cu Chi Tunnels",
+    "country": "Vietnam",
+    "image": "https://i.pinimg.com/564x/79/c7/f3/79c7f31a0652aaee1d35a48a79b7644a.jpg",
+    "average_cost": "$200",
+    "totalVisitorsPerYear": 1500000,
+    "travel_time": "Half-day to 1 day",
+    "seasonality": "Year-round"
+  },
+  {
+    "spot": "Mekong Delta",
+    "country": "Vietnam",
+    "image": "https://i.pinimg.com/564x/58/31/86/5831862a1c2e8fed8a07daca68a915bb.jpg",
+    "average_cost": "$250",
+    "totalVisitorsPerYear": 2400000,
+    "travel_time": "1-3 days",
+    "seasonality": "December to April"
+  },
+  {
+    "spot": "Phong Nha-Ke Bang National Park",
+    "country": "Vietnam",
+    "image": "https://i.pinimg.com/564x/11/f7/af/11f7af66933e6ab8c992573c283fd0ba.jpg",
+    "average_cost": "$500",
+    "totalVisitorsPerYear": 850000,
+    "travel_time": "2-3 days",
+    "seasonality": "February to August"
+  },
+  {
+    "spot": "My Son Sanctuary",
+    "country": "Vietnam",
+    "image": "https://i.pinimg.com/564x/54/00/8d/54008d77507d05b39e05053b0a119e11.jpg ",
+    "average_cost": "$200",
+    "totalVisitorsPerYear": 500000,
+    "travel_time": "1 day",
+    "seasonality": "February to April, August to October"
+  },
+  {
+    "spot": "Sundarbans",
+    "country": "Bangladesh",
+    "image": "https://i.pinimg.com/736x/0d/f5/06/0df5063921091786f35d06ffb71314dd.jp…",
+    "average_cost": "$200",
+    "totalVisitorsPerYear": "150,000",
+    "travel_time": "6-8 hours from Dhaka by road and boat",
+    "seasonality": "October to March (cooler and drier months)"
+  },
+  {
+    "spot": "Cox's Bazar",
+    "country": "Bangladesh",
+    "image": "https://i.pinimg.com/564x/04/0f/2f/040f2f19e904bab446fd9c861157cd98.jpg",
+    "average_cost": "$100",
+    "totalVisitorsPerYear": "2.5 million",
+    "travel_time": "1 hour flight from Dhaka or 10-12 hours by road",
+    "seasonality": "November to February (cool and dry season)"
+  },
+  {
+    "spot": "Srimangal",
+    "country": "Bangladesh",
+    "image": "https://i.pinimg.com/236x/b7/8d/a9/b78da97ac41e33b1159f9b99fb7a4999.jpg",
+    "average_cost": "$70",
+    "totalVisitorsPerYear": "200,000",
+    "travel_time": "4-5 hours by train or road from Dhaka",
+    "seasonality": "October to April (pleasant weather, tea gardens are lush)"
+  },
+  {
+    "spot": "Saint Martin's Island",
+    "country": "Bangladesh",
+    "image": "https://i.pinimg.com/564x/fb/50/7c/fb507c8c2a4a2764feaf0860f108865c.jpg",
+    "average_cost": "$70",
+    "totalVisitorsPerYear": "100,000",
+    "travel_time": "3-4 hours by boat from Teknaf after an 8-10 hour road trip from Dhaka",
+    "seasonality": "November to March (dry season, calm seas)"
+  },
+  {
+    "spot": "Rangamati",
+    "country": "Bangladesh",
+    "image": "https://i.pinimg.com/564x/2e/48/50/2e48503902e4331d05dab07dca089b52.jpg",
+    "average_cost": "$60",
+    "totalVisitorsPerYear": "500,000",
+    "travel_time": "6-8 hours by road from Dhaka",
+    "seasonality": "October to March (cooler weather, scenic beauty at its best)"
+  },
+  {
+    "spot": "Lalbagh Fort",
+    "country": "Bangladesh",
+    "image": "https://i.pinimg.com/564x/bc/c0/41/bcc041c7dee8665c05c52fa16b156c73.jpg",
+    "average_cost": "$5",
+    "totalVisitorsPerYear": "1 million",
+    "travel_time": "Located in the heart of Dhaka",
+    "seasonality": "Year-round destination, best visited in winter months"
+  },
+  {
+    "spot": "Grand Palace",
+    "country": "Thailand",
+    "image": "https://i.pinimg.com/564x/08/41/75/084175967748cc3a5384ccfc31995b2b.jpg",
+    "average_cost": "$15",
+    "totalVisitorsPerYear": "8 million",
+    "travel_time": "Located in the heart of Bangkok, 1 hour from Suvarnabhumi Airport",
+    "seasonality": "November to February (cooler and dry season)"
+  },
+  {
+    "spot": "Phi Phi Islands",
+    "country": "Thailand",
+    "image": "https://i.pinimg.com/564x/e4/98/f1/e498f19fef398df8ca277ac78b68ddab.jpg",
+    "average_cost": "$50",
+    "totalVisitorsPerYear": "2 million",
+    "travel_time": "2-hour ferry from Phuket or Krabi",
+    "seasonality": "November to April (calmer seas, sunny weather)"
+  },
+  {
+    "spot": "Chiang Mai Old City",
+    "country": "Thailand",
+    "image": "https://i.pinimg.com/564x/68/99/44/6899445c0d14ca839a26754d01690886.jpg",
+    "average_cost": "$10",
+    "totalVisitorsPerYear": "5 million",
+    "travel_time": "1.5-hour flight from Bangkok",
+    "seasonality": "November to February (cooler weather, great for sightseeing)"
+  },
+  {
+    "spot": "Phuket",
+    "country": "Thailand",
+    "image": "https://i.pinimg.com/564x/2d/fb/15/2dfb15f3e6044e15b1796871256e9970.jpg",
+    "average_cost": "$50",
+    "totalVisitorsPerYear": "9 million",
+    "travel_time": "1.5-hour flight from Bangkok",
+    "seasonality": "November to April (high season with clear skies)"
+  },
+  {
+    "spot": "Ayutthaya Historical Park",
+    "country": "Thailand",
+    "image": "https://i.pinimg.com/564x/40/86/a5/4086a56c96201500abfbb08f708148a8.jpg",
+    "average_cost": "$6",
+    "totalVisitorsPerYear": "1 million",
+    "travel_time": "1.5 hours by road from Bangkok",
+    "seasonality": "November to February (cooler and more pleasant for exploration)"
+  },
+  {
+    "spot": "Doi Inthanon National Park",
+    "country": "Thailand",
+    "image": "https://i.pinimg.com/564x/9a/e2/ff/9ae2ff0729611974e341ea99287498a4.jpg",
+    "average_cost": "$9",
+    "totalVisitorsPerYear": "500,000",
+    "travel_time": "2 hours by road from Chiang Mai",
+    "seasonality": "November to February (best time for trekking and sightseeing)"
+  },
+  {
+    "spot": "Bali",
+    "country": "Indonesia",
+    "image": "https://i.pinimg.com/564x/23/e9/05/23e90527ada4573f22e4c5864c67802c.jpg",
+    "average_cost": "$100",
+    "totalVisitorsPerYear": "6.3 million",
+    "travel_time": "1 hour flight from Jakarta",
+    "seasonality": "April to October (dry season, ideal for outdoor activities)"
+  },
+  {
+    "spot": "Borobudur Temple",
+    "country": "Indonesia",
+    "image": "https://i.pinimg.com/564x/84/a5/ba/84a5bab585d57a90a2b0c260e0905ed0.jpg",
+    "average_cost": "$25",
+    "totalVisitorsPerYear": "2.5 million",
+    "travel_time": "1 hour by car from Yogyakarta",
+    "seasonality": "April to October (dry season for a better experience)"
+  },
+  {
+    "spot": "Komodo National Park",
+    "country": "Indonesia",
+    "image": "https://i.pinimg.com/564x/7f/d0/26/7fd02632f725ac9e743eb232ba1fed31.jpg",
+    "average_cost": "$300",
+    "totalVisitorsPerYear": "200,000",
+    "travel_time": "1-hour flight from Bali to Labuan Bajo, followed by a boat ride",
+    "seasonality": "April to November (dry season, best for wildlife spotting)"
+  },
+  {
+    "spot": "Mount Bromo",
+    "country": "Indonesia",
+    "image": "https://i.pinimg.com/564x/d0/5a/46/d05a462f9fb4b155b3ddd9e2fb192363.jpg",
+    "average_cost": "$60",
+    "totalVisitorsPerYear": "500,000",
+    "travel_time": "3-4 hours drive from Surabaya",
+    "seasonality": "May to September (clear skies, great for sunrise views)"
+  },
+  {
+    "spot": "Gili Islands",
+    "country": "Indonesia",
+    "image": "https://i.pinimg.com/564x/0f/fb/b6/0ffbb6b2e9152ae0ba5f51b89ace4015.jpg",
+    "average_cost": "$100",
+    "totalVisitorsPerYear": "500,000",
+    "travel_time": "2 hours by boat from Bali or Lombok",
+    "seasonality": "April to November (dry season, ideal for water activities)"
+  },
+  {
+    "spot": "Lake Toba",
+    "country": "Indonesia",
+    "image": "https://i.pinimg.com/564x/92/f7/3b/92f73bebf95a92eefda87d07e9491ef7.jpg",
+    "average_cost": "$50",
+    "totalVisitorsPerYear": "250,000",
+    "travel_time": "4-5 hours drive from Medan",
+    "seasonality": "May to September (dry season, pleasant for exploring)"
+  },
+  {
+    "spot": "Petronas Twin Towers",
+    "country": "Malaysia",
+    "image": "https://i.pinimg.com/564x/76/8f/35/768f352622418e44f1c41afe8af7e029.jpg",
+    "average_cost": "$20",
+    "totalVisitorsPerYear": "1.6 million",
+    "travel_time": "45 minutes from Kuala Lumpur International Airport (KLIA)",
+    "seasonality": "Year-round destination, but best in November to March (cooler weather)"
+  },
+  {
+    "spot": "Langkawi Island",
+    "country": "Malaysia",
+    "image": "https://i.pinimg.com/564x/b9/ff/c3/b9ffc368346c70c5211aef40177559b2.jpg",
+    "average_cost": "$100",
+    "totalVisitorsPerYear": "3.6 million",
+    "travel_time": "1-hour flight from Kuala Lumpur or Penang",
+    "seasonality": "November to April (dry season, best for beach activities)"
+  },
+  {
+    "spot": "Batu Caves",
+    "country": "Malaysia",
+    "image": "https://i.pinimg.com/564x/03/a9/8f/03a98fca53929ba129554bedddc5a4fa.jpg",
+    "average_cost": "Free",
+    "totalVisitorsPerYear": "1.5 million",
+    "travel_time": "20 minutes by road from Kuala Lumpur",
+    "seasonality": "Year-round destination, best visited during Thaipusam Festival (January)"
+  },
+  {
+    "spot": "Mount Kinabalu",
+    "country": "Malaysia",
+    "image": "https://i.pinimg.com/564x/55/08/d6/5508d67a72a97737f741946604e49700.jpg",
+    "average_cost": "$350",
+    "totalVisitorsPerYear": "50,000 climbers",
+    "travel_time": "2 hours by road from Kota Kinabalu",
+    "seasonality": "March to September (dry season, ideal for trekking)"
+  },
+  {
+    "spot": "George Town, Penang",
+    "country": "Malaysia",
+    "image": "https://i.pinimg.com/564x/85/1f/31/851f3117ca501ff136cff789a9f046aa.jpg",
+    "average_cost": "$60",
+    "totalVisitorsPerYear": "1.7 million",
+    "travel_time": "1-hour flight from Kuala Lumpur",
+    "seasonality": "December to February (cooler weather, ideal for sightseeing)"
+  },
+  {
+    "spot": "Cameron Highlands",
+    "country": "Malaysia",
+    "image": "https://i.pinimg.com/564x/a6/6b/de/a66bde719a9f136e99f07ef0e76e3d88.jpg",
+    "average_cost": "$70",
+    "totalVisitorsPerYear": "700,000",
+    "travel_time": "3-4 hours by road from Kuala Lumpur",
+    "seasonality": "April to September (cooler, pleasant weather for exploring tea plantations)"
+  },
+  {
+    "spot": "Boracay Island",
+    "country": "Philippines",
+    "image": "https://i.pinimg.com/564x/8e/df/e0/8edfe0ab8b403f5e2c79412ef4487dd5.jpg",
+    "average_cost": "$60",
+    "totalVisitorsPerYear": "2 million",
+    "travel_time": "1-hour flight from Manila to Caticlan, followed by 30-minute boat ride",
+    "seasonality": "November to May (dry season, best for beach activities)"
+  },
+  {
+    "spot": "Chocolate Hills",
+    "country": "Philippines",
+    "image": "https://i.pinimg.com/564x/f0/6d/e4/f06de43d97cdc71274f2608dd570e070.jpg",
+    "average_cost": "$5",
+    "totalVisitorsPerYear": "500,000",
+    "travel_time": "1.5-hour flight from Manila to Bohol, followed by 1-hour drive",
+    "seasonality": "November to May (dry season, clear views of the landscape)"
+  },
+  {
+    "spot": "Palawan - El Nido",
+    "country": "Philippines",
+    "image": "https://i.pinimg.com/564x/93/fa/49/93fa495156127d896b43b72a9db55bea.jpg",
+    "average_cost": "$100",
+    "totalVisitorsPerYear": "500,000",
+    "travel_time": "1-hour flight from Manila to Puerto Princesa, followed by 5-hour drive",
+    "seasonality": "November to May (calm seas, great for island hopping)"
+  },
+  {
+    "spot": "Mayon Volcano",
+    "country": "Philippines",
+    "image": "https://i.pinimg.com/564x/cd/67/01/cd6701bf5ade5d9e8866955a83d9ab22.jpg",
+    "average_cost": "$30",
+    "totalVisitorsPerYear": "1 million",
+    "travel_time": "1-hour flight from Manila to Legazpi City",
+    "seasonality": "November to May (clear skies and pleasant weather)"
+  },
+  {
+    "spot": "Taal Volcano",
+    "country": "Philippines",
+    "image": "https://i.pinimg.com/564x/33/f1/50/33f1503dab6dc8742249fafbdf733c14.jpg",
+    "average_cost": "$30",
+    "totalVisitorsPerYear": "500,000",
+    "travel_time": "2 hours by road from Manila",
+    "seasonality": "November to February (cooler months, ideal for hiking)"
+  },
+  {
+    "spot": "Banaue Rice Terraces",
+    "country": "Philippines",
+    "image": "https://i.pinimg.com/564x/b0/3e/c3/b03ec3723b26e30fd390cacd26bdb334.jpg",
+    "average_cost": "$70",
+    "totalVisitorsPerYear": "300,000",
+    "travel_time": "9-10 hours by bus from Manila",
+    "seasonality": "March to May (dry season, perfect for trekking)"
+  },
+  {
+    "spot": "Marina Bay Sands",
+    "country": "Singapore",
+    "image": "https://i.pinimg.com/564x/28/19/1b/28191b27375819dd56ad7c5a4ccfb416.jpg",
+    "average_cost": "$400",
+    "totalVisitorsPerYear": "20 million",
+    "travel_time": "20 minutes from Changi Airport by taxi or MRT",
+    "seasonality": "Year-round destination"
+  },
+  {
+    "spot": "Gardens by the Bay",
+    "country": "Singapore",
+    "image": "https://i.pinimg.com/564x/9d/49/d6/9d49d6c3945c8b75c8a10f43a14d8111.jpg",
+    "average_cost": "$20",
+    "totalVisitorsPerYear": "13 million",
+    "travel_time": "10 minutes walk from Marina Bay Sands or Bayfront MRT",
+    "seasonality": "Year-round destination, best visited in the evening for light shows"
+  },
+  {
+    "spot": "Sentosa Island",
+    "country": "Singapore",
+    "image": "https://i.pinimg.com/564x/92/23/22/9223228697c221663c98c8e34abef5d1.jpg",
+    "average_cost": "$100",
+    "totalVisitorsPerYear": "19 million",
+    "travel_time": "15 minutes by cable car, monorail, or taxi from the city center",
+    "seasonality": "Year-round destination"
+  },
+  {
+    "spot": "Singapore Zoo",
+    "country": "Singapore",
+    "image": "https://i.pinimg.com/564x/27/2a/b8/272ab822be11e81c3001b312c4ff3e01.jpg",
+    "average_cost": "$28",
+    "totalVisitorsPerYear": "1.7 million",
+    "travel_time": "30 minutes by taxi from the city center",
+    "seasonality": "Year-round destination, best visited in the morning"
+  },
+  {
+    "spot": "Orchard Road",
+    "country": "Singapore",
+    "image": "https://i.pinimg.com/564x/da/a0/cf/daa0cf32e4918d2fc92feda082ae4892.jpg",
+    "average_cost": "Free",
+    "totalVisitorsPerYear": "7 million",
+    "travel_time": "15 minutes by MRT or taxi from anywhere in the city",
+    "seasonality": "Year-round destination, busiest during holiday shopping seasons"
+  },
+  {
+    "spot": "Merlion Park",
+    "country": "Singapore",
+    "image": "https://i.pinimg.com/564x/d7/ed/bf/d7edbfc35677353f2bf48380577b4115.jpg",
+    "average_cost": "Free",
+    "totalVisitorsPerYear": "10 million",
+    "travel_time": "10 minutes by foot from Raffles Place MRT",
+    "seasonality": "Year-round destination, best visited in the evening for skyline views"
   }
 ]
