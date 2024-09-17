@@ -11,6 +11,8 @@ import PopularSpot from "./Components/PopularSpots/PopularSpot.jsx";
 import AuthProvider from "./AuthProvider/AuthProvider.jsx";
 import NotFoundPage from "./Components/NotFoundPage/NotFoundPage.jsx";
 import AllTouristSpots from "./Components/AllTouristSpots/AllTouristSpots.jsx";
+import TouristSpot from "./Components/AllTouristSpots/TouristSpot.jsx";
+import Booking from "./Components/Booking/Booking.jsx";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +43,16 @@ const router = createBrowserRouter([
       {
         path: "/AllTouristSpots",
         element: <AllTouristSpots />,
+        loader: () => fetch("http://localhost:5000/AllSpots"),
+      },
+      {
+        path: "/AllTouristSpots/touristSpot/:_id",
+        element: <TouristSpot />,
+        loader: () => fetch("http://localhost:5000/AllSpots"),
+      },
+      {
+        path: "/booking",
+        element: <Booking />,
       },
       {
         path: "*",

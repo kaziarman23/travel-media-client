@@ -1,40 +1,26 @@
-import { useParams } from "react-router-dom";
+import { Link, useLoaderData, useParams } from "react-router-dom";
 import UseBackBtn from "../CustomHooks/UseBackBtn";
-import Loader from "../CustomHooks/Loader";
-import { useContext, useEffect } from "react";
-import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { useEffect, useState } from "react";
 import UseBookingBtn from "../CustomHooks/UseBookingBtn";
+import Loader from "../CustomHooks/Loader";
 
-const PopularSpot = () => {
-  const { popularSpots } = useContext(AuthContext);
-  const { country, spot_id } = useParams();
-
-  const countryData = popularSpots.find((spot) => spot.name === country);
-
-  // find the country data by matching the country name from the URL
-  const spotData = countryData.plases.find(
-    (plase) => plase.spot_id === Number(spot_id)
-  );
+const TouristSpot = () => {
+  const { _id } = useParams();
+  const loadedData = useLoaderData();
+  const [spotData, setSpotData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // rendering popularSpots and checking popularSpots has data or not
-    if (!popularSpots || !popularSpots.length) {
-      return <Loader>Loading spot data...</Loader>;
-    }
-    //  If no country data is found, going show a loader with a message
-    if (!countryData) {
-      return (
-        <Loader>Wanted country data not found. Try again later....</Loader>
-      );
-    }
-    if (!spotData) {
-      return <Loader>Wanted spot data not found. Try again later....</Loader>;
-    }
-  }, [popularSpots, countryData, spotData]);
+    const spot = loadedData.find((plase) => plase._id === _id);
+    setSpotData(spot);
+    console.log(spot);
+    setLoading(false);
+  }, [loadedData, _id, spotData]);
 
-  const handleBooking = () => {
-    // going to do some thing
-  };
+  // checking spotData has data or not
+  if (loading) {
+    return <Loader>Loading spot data...</Loader>;
+  }
 
   return (
     <div className="w-full h-[800px] gap-10 flex justify-center items-center flex-col bg-slate-900">
@@ -71,9 +57,11 @@ const PopularSpot = () => {
             <h3 className="text-lg font-semibold">
               Seasonality: {spotData.seasonality}
             </h3>
-            <button onClick={handleBooking}>
-              <UseBookingBtn>Book Now</UseBookingBtn>
-            </button>
+            <div>
+              <Link to="/booking" state={{ spotData }}>
+                <UseBookingBtn>Book Now</UseBookingBtn>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -84,4 +72,4 @@ const PopularSpot = () => {
   );
 };
 
-export default PopularSpot;
+export default TouristSpot;

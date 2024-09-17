@@ -3,36 +3,36 @@
     "id": 1,
     "country": "Bangladesh",
     "description": "Cox's Bazar, the longest sea beach in the world, and the Sundarbans, home to the Royal Bengal Tiger, are must-see attractions for nature lovers.",
-    "img": "/src/assets/AllTuristsSpots/BangladeshBg.jpg"
+    "img": "/BangladeshBg.jpg"
   },
   {
     "id": 2,
     "country": "Thailand",
     "description": "Thailand boasts stunning destinations like the Grand Palace in Bangkok, the beautiful beaches of Phuket, and the historic ruins of Ayutthaya.",
-    "img": "/src/assets/AllTuristsSpots/ThailandBg.jpg"
+    "img": "/ThailandBg.jpg"
   },
   {
     "id": 3,
     "country": "Indonesia",
     "description": "Bali, with its volcanic mountains and temples, and the Komodo National Park, home to the Komodo dragon, are iconic Indonesian attractions.",
-    "img": "/src/assets/AllTuristsSpots/IndonisiaBg.jpg"
+    "img": "/IndonisiaBg.jpg"
   },
   {
     "id": 4,
     "country": "Malaysia",
     "description": "The Petronas Twin Towers in Kuala Lumpur, the Batu Caves, and the beautiful islands of Langkawi are top tourist spots in Malaysia.",
-    "img": "/src/assets/AllTuristsSpots/MalaysiaBg.jpg"
+    "img": "/MalaysiaBg.jpg"
   },
   {
     "id": 5,
     "country": "Philippines",
     "description": "The Philippines offers stunning natural beauty with spots like the white sand beaches of Boracay, the underground river in Palawan, and Chocolate Hills in Bohol.",
-    "img": "/src/assets/AllTuristsSpots/PhilippinoBg.jpg"
+    "img": "/PhilippinoBg.jpg"
   },
   {
     "id": 6,
     "country": "Singapore",
     "description": "Singapore’s Marina Bay Sands, Gardens by the Bay, and Sentosa Island are popular attractions that showcase the city’s blend of modernity and nature.",
-    "img": "/src/assets/AllTuristsSpots/SingaporBg.jpg"
+    "img": "/SingaporBg.jpg"
   }
 ]
