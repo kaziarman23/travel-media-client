@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import UseBackBtn from "../CustomHooks/UseBackBtn";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loader from "../CustomHooks/Loader";
+import Swal from "sweetalert2";
 
 const Booking = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const Booking = () => {
   const [travelName, setTravelName] = useState("");
   const [travelEmail, setTravelEmail] = useState("");
   const [travelDate, setTravelDate] = useState("");
-  const [travelTime, setTravelTime] = useState(1);
+  const [travelDuration, setTravelDuration] = useState(1);
 
   useEffect(() => {
     if (spotData) {
@@ -31,7 +32,7 @@ const Booking = () => {
   }
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(
+    const bookingInfo = {
       travelSpot,
       travelCountry,
       travelCost,
@@ -39,10 +40,45 @@ const Booking = () => {
       travelName,
       travelEmail,
       travelDate,
-      travelTime
-    );
+      travelDuration,
+    };
+
+    // sending details in the backend
+    fetch("http://localhost:5000/bookings", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(bookingInfo),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            title: "Success",
+            text: "Booking Added Successfully",
+            icon: "success",
+            background: "black",
+            color: "white",
+            border: "2px solid white",
+            confirmButtonText: "Cool",
+            confirmButtonColor: "green",
+          });
+
+          // clearing inputs and navigating the user
+          clearInputs();
+          navigate(-2);
+        }
+      })
+      .catch((error) => console.log("error in post method", error));
   };
+
   const handleCancel = () => {
+    clearInputs();
+    navigate(-2);
+  };
+
+  const clearInputs = () => {
     setTravelspot("");
     setTravelCountry("");
     setTravelCost("");
@@ -50,8 +86,7 @@ const Booking = () => {
     setTravelName("");
     setTravelEmail("");
     setTravelDate("");
-    setTravelTime(1);
-    navigate(-2);
+    setTravelDuration(1);
   };
   return (
     <div className="w-full h-auto bg-blackBg">
@@ -171,16 +206,16 @@ const Booking = () => {
                     <div className="form-control w-1/2">
                       <label className="label">
                         <span className="label-text text-white">
-                          Travel Time
+                          Travel Duration
                         </span>
                       </label>
                       <input
                         type="number"
                         max={4}
                         min={1}
-                        value={travelTime}
+                        value={travelDuration}
                         placeholder="Travel Time"
-                        onChange={(e) => setTravelTime(e.target.value)}
+                        onChange={(e) => setTravelDuration(e.target.value)}
                         className="input input-bordered text-white"
                         required
                       />

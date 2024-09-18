@@ -23,7 +23,7 @@ const Header = () => {
       </NavLink>
       <NavLink to="/bookings">
         <UseUnderlineBtn>
-          <li className="p-2 hover:text-white">My Bookings</li>
+          <li className="p-2 hover:text-white">Bookings</li>
         </UseUnderlineBtn>
       </NavLink>
     </>

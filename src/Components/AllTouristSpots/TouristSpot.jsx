@@ -13,7 +13,6 @@ const TouristSpot = () => {
   useEffect(() => {
     const spot = loadedData.find((plase) => plase._id === _id);
     setSpotData(spot);
-    console.log(spot);
     setLoading(false);
   }, [loadedData, _id, spotData]);
 
