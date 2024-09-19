@@ -49,7 +49,7 @@ const AllPopularSpots = () => {
                   <p>Price: {plase.average_cost}</p>
                   <div className="card-actions">
                     <Link
-                      to={`/PopularSpots/${plase.country}/PopularSpot/${plase.spot_id}`}
+                      to={`/popularspots/${plase.country}/popularspot/${plase.spot_id}`}
                     >
                       <button className="btn btn-primary hover:btn-success hover:text-white">
                         View Details

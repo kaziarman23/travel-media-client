@@ -210,7 +210,7 @@ const Booking = () => {
                       </label>
                       <input
                         type="number"
-                        max={4}
+                        max={20}
                         min={1}
                         value={travelDuration}
                         placeholder="Travel Time"

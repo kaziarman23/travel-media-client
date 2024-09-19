@@ -30,25 +30,25 @@ const router = createBrowserRouter([
         element: <AboutUs />,
       },
       {
-        path: "/PopularSpots",
+        path: "/popularspots",
         element: <PopularSpots />,
       },
       {
-        path: "/PopularSpots/:country",
+        path: "/popularspots/:country",
         element: <AllPopularSpots />,
-        loader: () => fetch("http://localhost:5000/PopularSpots"),
+        loader: () => fetch("http://localhost:5000/popularspots"),
       },
       {
-        path: "/PopularSpots/:country/PopularSpot/:spot_id",
+        path: "/popularspots/:country/popularspot/:spot_id",
         element: <PopularSpot />,
       },
       {
-        path: "/AllTouristSpots",
+        path: "/alltouristspots",
         element: <AllTouristSpots />,
         loader: () => fetch("http://localhost:5000/AllSpots"),
       },
       {
-        path: "/AllTouristSpots/touristSpot/:_id",
+        path: "/alltouristspots/touristspot/:_id",
         element: <TouristSpot />,
         loader: () => fetch("http://localhost:5000/AllSpots"),
       },

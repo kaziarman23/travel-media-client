@@ -97,10 +97,10 @@ const Bookings = () => {
                       <br />
                       {booking.travelCountry}
                     </td>
-                    <td>{booking.travelCost}</td>
+                    <td>{booking.travelCost.toString().slice(0,3)}</td>
                     <td>{booking.travelDate}</td>
                     <td>{booking.travelDuration} day</td>
-                    <td className="flex items-center justify-between">
+                    <td className="flex items-center justify-center gap-4">
                       <Link to={`/updateBooking/${booking._id}`}>
                         <button className="btn bg-orange-500 text-black hover:bg-orange-900 hover:text-white">
                           Update

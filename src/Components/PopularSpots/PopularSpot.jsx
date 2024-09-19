@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import UseBackBtn from "../CustomHooks/UseBackBtn";
 import Loader from "../CustomHooks/Loader";
 import { useContext, useEffect } from "react";
@@ -71,9 +71,11 @@ const PopularSpot = () => {
             <h3 className="text-lg font-semibold">
               Seasonality: {spotData.seasonality}
             </h3>
-            <button onClick={handleBooking}>
-              <UseBookingBtn>Book Now</UseBookingBtn>
-            </button>
+            <div>
+              <Link to="/booking" state={{ spotData }}>
+                <UseBookingBtn>Book Now</UseBookingBtn>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

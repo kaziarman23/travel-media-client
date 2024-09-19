@@ -1,5 +1,4 @@
 import { Link, useLoaderData } from "react-router-dom";
-import UseExploreBtn from "../CustomHooks/UseExploreBtn";
 import UseBackBtn from "../CustomHooks/UseBackBtn";
 
 const AllTouristSpots = () => {
@@ -38,7 +37,7 @@ const AllTouristSpots = () => {
                     <h2 className="card-title">{data.spot}</h2>
                     <p>Price: {data.average_cost}</p>
                     <div className="card-actions">
-                      <Link to={`/AllTouristSpots/touristSpot/${data._id}`}>
+                      <Link to={`/alltouristspots/touristspot/${data._id}`}>
                         <button className="btn btn-primary hover:btn-success hover:text-white">
                           View Details
                         </button>
