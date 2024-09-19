@@ -3,7 +3,7 @@ import CountryCards from "./CountryCards";
 
 const PopularSpots = () => {
   return (
-    <div className="w-full h-auto">
+    <div className="w-full h-auto bg-black">
       <div className="w-full h-screen">
         <div className="w-4/5 h-full mx-auto my-10 flex justify-center items-center gap-5">
           <div className="w-1/2 flex justify-center items-center">

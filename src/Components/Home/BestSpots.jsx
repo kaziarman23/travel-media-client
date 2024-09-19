@@ -30,7 +30,9 @@ const BestSpots = () => {
           a click away!
         </p>
         <Link to="/PopularSpots">
-          <span className="text-blue-500 font-semibold">View All Tourists Spots</span>
+          <span className="text-blue-500 font-semibold">
+            View All Tourists Spots
+          </span>
         </Link>
 
         <div className="my-5 w-full h-full">
@@ -38,8 +40,8 @@ const BestSpots = () => {
           <Marquee
             speed={50}
             pauseOnHover={true}
-            gradientColor={[255, 255, 255]}
-            gradient={false}
+            // gradientColor={[255, 255, 255]}
+            // gradient={false}
           >
             {cards.map((card) => (
               <div key={card.id} className="mr-5 my-5">
@@ -47,14 +49,18 @@ const BestSpots = () => {
                   <img
                     src={card.img}
                     alt={card.title}
-                    className=" object-cover"
+                    className="w-full h-full object-cover"
                   />
                   <div className="card__content">
                     <p className="card__title">{card.title}</p>
                     <p className="card__description">{card.description}</p>
-                    <button className="btn btn-ghost btn-outline mt-3 text-white">
-                      More Details
-                    </button>
+                    <div>
+                      <Link to={`/alltouristspots/touristspot/${card._id}`}>
+                        <button className="btn btn-ghost btn-outline mt-3 text-black hover:text-white hover:bg-black">
+                          More Details
+                        </button>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
