@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import UseBackBtn from "../CustomHooks/UseBackBtn";
 import Loader from "../CustomHooks/Loader";
 import Swal from "sweetalert2";
@@ -12,18 +12,34 @@ const Bookings = () => {
     return <Loader>Loading Booking Details</Loader>;
   }
 
+  // if the remaingData is empty then it will show a message and navigate the user.
+  if (!remaingData || remaingData.length === 0) {
+    return (
+      <div className="w-full h-screen bg-black flex flex-col justify-center items-center">
+        <h1 className="text-white font-bold text-3xl text-center mb-5 flex gap-2">
+          <span className="loading loading-ring text-red-500 loading-lg"></span>
+          We are waiting for your booking!{" "}
+        </h1>
+
+        <Link to="/AllTouristSpots">
+          <button className="btn bg-orange-500 text-white mt-5 hover:bg-orange-700">
+            Create a Booking
+          </button>
+        </Link>
+      </div>
+    );
+  }
+
   const handleDelete = (_id) => {
-    console.log("delete id: ", _id);
     fetch(`http://localhost:5000/bookings/${_id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount > 0) {
-
           const currentDatas = remaingData.filter((datas) => datas._id !== _id);
           setRemaingData(currentDatas);
-          
+
           const Toast = Swal.mixin({
             toast: true,
             position: "top-end",
@@ -38,8 +54,8 @@ const Bookings = () => {
           Toast.fire({
             icon: "success",
             title: "Booking Deleted",
-            background:"#0f172a",
-            color:"white",
+            background: "#0f172a",
+            color: "white",
           });
         }
       });
@@ -85,9 +101,11 @@ const Bookings = () => {
                     <td>{booking.travelDate}</td>
                     <td>{booking.travelDuration} day</td>
                     <td className="flex items-center justify-between">
-                      <button className="btn bg-orange-500 text-black hover:bg-orange-900 hover:text-white">
-                        Update
-                      </button>
+                      <Link to={`/updateBooking/${booking._id}`}>
+                        <button className="btn bg-orange-500 text-black hover:bg-orange-900 hover:text-white">
+                          Update
+                        </button>
+                      </Link>
                       <button
                         onClick={() => handleDelete(booking._id)}
                         className="btn bg-red-600 text-black hover:bg-red-900 hover:text-white"

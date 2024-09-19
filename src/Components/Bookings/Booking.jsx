@@ -60,7 +60,6 @@ const Booking = () => {
             icon: "success",
             background: "black",
             color: "white",
-            border: "2px solid white",
             confirmButtonText: "Cool",
             confirmButtonColor: "green",
           });
