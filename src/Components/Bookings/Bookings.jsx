@@ -3,6 +3,7 @@ import UseBackBtn from "../CustomHooks/UseBackBtn";
 import Loader from "../CustomHooks/Loader";
 import Swal from "sweetalert2";
 import { useState } from "react";
+import UseDeleteBtn from "../CustomHooks/UseDeleteBtn";
 
 const Bookings = () => {
   const loadedData = useLoaderData();
@@ -22,7 +23,7 @@ const Bookings = () => {
         </h1>
 
         <Link to="/AllTouristSpots">
-          <button className="btn bg-orange-500 text-white mt-5 hover:bg-orange-700">
+          <button className="btn bg-green-700 text-white mt-5 hover:bg-green-500 hover:text-black">
             Create a Booking
           </button>
         </Link>
@@ -97,7 +98,7 @@ const Bookings = () => {
                       <br />
                       {booking.travelCountry}
                     </td>
-                    <td>{booking.travelCost.toString().slice(0,3)}</td>
+                    <td>{booking.travelCost.toString().slice(0, 3)}</td>
                     <td>{booking.travelDate}</td>
                     <td>{booking.travelDuration} day</td>
                     <td className="flex items-center justify-center gap-4">
@@ -106,11 +107,8 @@ const Bookings = () => {
                           Update
                         </button>
                       </Link>
-                      <button
-                        onClick={() => handleDelete(booking._id)}
-                        className="btn bg-red-600 text-black hover:bg-red-900 hover:text-white"
-                      >
-                        Delete
+                      <button onClick={() => handleDelete(booking._id)}>
+                        <UseDeleteBtn>Delete</UseDeleteBtn>
                       </button>
                     </td>
                   </tr>

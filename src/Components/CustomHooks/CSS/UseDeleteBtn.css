@@ -1,0 +1,61 @@
+.deleteBtn {
+  width: 100px;
+  height: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  background: red;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+  background: #e62222;
+}
+
+.deleteBtn,
+.deleteBtn span {
+  transition: 200ms;
+}
+
+.deleteBtn .text {
+  transform: translateX(15px);
+  color: white;
+  font-weight: bold;
+}
+
+.deleteBtn .icon {
+  position: absolute;
+  border-left: 1px solid #c41b1b;
+  transform: translateX(65px);
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.deleteBtn svg {
+  width: 15px;
+  fill: #eee;
+}
+
+.deleteBtn:hover {
+  background: #ff3636;
+}
+
+.deleteBtn:hover .text {
+  color: transparent;
+}
+
+.deleteBtn:hover .icon {
+  width: 100px;
+  border-left: none;
+  transform: translateX(0);
+}
+
+.deleteBtn:focus {
+  outline: none;
+}
+
+.deleteBtn:active .icon svg {
+  transform: scale(0.8);
+}

@@ -15,6 +15,10 @@ import TouristSpot from "./Components/AllTouristSpots/TouristSpot.jsx";
 import Booking from "./Components/Bookings/Booking.jsx";
 import Bookings from "./Components/Bookings/Bookings.jsx";
 import UpdateBooking from "./Components/Bookings/UpdateBooking.jsx";
+import AddTouristSpots from "./Components/MySpots/AddTouristSpots.jsx";
+import MyTouristSpots from "./Components/MySpots/MyTouristSpots.jsx";
+import Register from "./Components/Register/Register.jsx";
+import Login from "./Components/login/Login.jsx";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +70,22 @@ const router = createBrowserRouter([
         element: <UpdateBooking />,
         loader: ({ params }) =>
           fetch(`http://localhost:5000/bookings/${params.id}`),
+      },
+      {
+        path: "/addTouristSpots",
+        element: <AddTouristSpots />,
+      },
+      {
+        path: "/myTouristSpots",
+        element: <MyTouristSpots />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
       },
       {
         path: "*",

@@ -26,6 +26,31 @@ const Header = () => {
           <li className="p-2 hover:text-white">Bookings</li>
         </UseUnderlineBtn>
       </NavLink>
+
+      {/* Parent */}
+      <li className="group relative">
+        <UseUnderlineBtn>
+          <span className="hover:text-white cursor-pointer">My Lists</span>
+        </UseUnderlineBtn>
+
+        {/* It will appear when the parent is hovered */}
+        <ul className="absolute left-0 mt-[28px] hidden w-60 group-hover:block z-50">
+          <li className="hover:text-black hover:glass rounded-xl">
+            <NavLink to="/addTouristSpots">
+              <UseUnderlineBtn>
+                <span>Add Tourist Spots</span>
+              </UseUnderlineBtn>
+            </NavLink>
+          </li>
+          <li className="hover:text-white hover:glass rounded-xl">
+            <NavLink to="/myTouristSpots">
+              <UseUnderlineBtn>
+                <span>My Tourist Spots</span>
+              </UseUnderlineBtn>
+            </NavLink>
+          </li>
+        </ul>
+      </li>
     </>
   );
 
@@ -57,7 +82,6 @@ const Header = () => {
           </ul>
         </div>
         <Link to="/" className="text-xl">
-          {/* <UseUnderlineBtn>Travel Media</UseUnderlineBtn> */}
           <UseBorderYBtn>Travel Media</UseBorderYBtn>
         </Link>
       </div>
@@ -65,7 +89,7 @@ const Header = () => {
         <ul className="menu menu-horizontal px-1">{navLinks}</ul>
       </div>
       <div className="navbar-end">
-        <Link to="" className="">
+        <Link to="/register" className="">
           <UseBorderBtn>Register</UseBorderBtn>
         </Link>
       </div>
@@ -74,3 +98,29 @@ const Header = () => {
 };
 
 export default Header;
+{
+  /*  
+  <li className="group relative">
+  <UseUnderlineBtn>
+    <span className=" hover:text-white cursor-pointer">My Spots</span>
+  </UseUnderlineBtn>
+
+  
+  <ul className="absolute top-7 left-0 mt-2 hidden w-80 group-hover:block space-y-3">
+    <li className="p-2 hover:text-white glass">
+      <NavLink to="/addTouristSpots">
+        <UseUnderlineBtn>
+          <span>Add Tourist spots</span>
+        </UseUnderlineBtn>
+      </NavLink>
+    </li>
+    <li className="p-2 hover:text-white glass">
+      <NavLink to="/myTouristSpots">
+        <UseUnderlineBtn>
+          <span>My Tourist spots</span>
+        </UseUnderlineBtn>
+      </NavLink>
+    </li>
+  </ul>
+</li>*/
+}
