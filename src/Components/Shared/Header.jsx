@@ -1,9 +1,37 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 import UseUnderlineBtn from "../CustomHooks/UseUnderlineBtn";
 import UseBorderBtn from "../CustomHooks/UseBorderBtn";
 import UseBorderYBtn from "../CustomHooks/UseBorderYBtn";
+import UseLogoutBtn from "../CustomHooks/UseLogoutBtn";
+import Swal from "sweetalert2";
 
 const Header = () => {
+  const { user, logoutUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logoutUser().then(() => {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Logout successfull",
+      });
+      navigate("/");
+    });
+  };
+
   const navLinks = (
     <>
       <NavLink to="/">
@@ -89,9 +117,13 @@ const Header = () => {
         <ul className="menu menu-horizontal px-1">{navLinks}</ul>
       </div>
       <div className="navbar-end">
-        <Link to="/register" className="">
-          <UseBorderBtn>Register</UseBorderBtn>
-        </Link>
+        {user ? (
+          <UseLogoutBtn onClick={handleLogout} />
+        ) : (
+          <Link to="/register">
+            <UseBorderBtn>Register</UseBorderBtn>
+          </Link>
+        )}
       </div>
     </div>
   );

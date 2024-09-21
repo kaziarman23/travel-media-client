@@ -1,12 +1,57 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import google from "../../assets/Icons/GoogleColorfullIcons.png";
 import github from "../../assets/Icons/githubColorfullIcons.png";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
+
 const Register = () => {
+  const navigate = useNavigate();
+  const { createUser } = useContext(AuthContext);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+
+    createUser(email, password)
+      .then((data) => {
+        console.log(data);
+        clearingForm();
+        navigate("/");
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+        Toast.fire({
+          icon: "success",
+          title: "Signed in successfully",
+        });
+      })
+      
+  };
+
+  const clearingForm = () => {
+    setName("");
+    setEmail("");
+    setPassword("");
+  };
   return (
     <>
       <div className="w-full h-auto overflow-hidden bg-black">
-        <div className="my-20 w-96 relative py-3 sm:max-w-xl sm:mx-auto">
-          <div className="relative px-4 py-10 bg-gray-900 mx-8 md:mx-0 shadow rounded-3xl sm:p-10">
+        <div className="my-20 w-96  py-3 mx-auto  sm:mx-auto">
+          <form
+            onSubmit={handleRegister}
+            className="px-4 py-10 bg-gray-900 sm:p-10 sm:mx-auto md:mx-0 shadow rounded-3xl "
+          >
             <div className="flex items-center">
               <span className="text-blue-500 loading loading-ring loading-lg"></span>
               <h1 className="text-2xl text-left ml-2 font-bold text-white ">
@@ -27,6 +72,8 @@ const Register = () => {
                   type="text"
                   id="name"
                   required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <div>
@@ -41,6 +88,8 @@ const Register = () => {
                   type="email"
                   id="email"
                   required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div>
@@ -55,6 +104,8 @@ const Register = () => {
                   type="password"
                   id="password"
                   required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
 
@@ -65,7 +116,7 @@ const Register = () => {
                 </button>
                 <button className="flex items-center justify-center rounded-xl p-2 w-full bg-white text-black hover:text-white hover:bg-slate-800">
                   <img src={github} alt="goolge icon" className="w-5 h-5" />
-                  <span className="ml-2">Sign up with Apple</span>
+                  <span className="ml-2">Sign up with Github</span>
                 </button>
               </div>
               <div className="mt-5">
@@ -74,17 +125,17 @@ const Register = () => {
                 </button>
               </div>
               <div className="flex items-center justify-center mt-4">
-                <Link>
-                  <p className="text-gray-500  dark:text-gray-400 ">
-                    Have an Account?{" "}
+                <p className="text-gray-500  dark:text-gray-400 ">
+                  Already Have an Account? Please
+                  <Link to="/login">
                     <span className="ml-2 text-blue-500 hover:underline">
                       Log in
                     </span>
-                  </p>
-                </Link>
+                  </Link>
+                </p>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </>
