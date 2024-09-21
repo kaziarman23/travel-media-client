@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import UseBackBtn from "../CustomHooks/UseBackBtn";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loader from "../CustomHooks/Loader";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const Booking = () => {
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const { spotData } = location.state || {};
@@ -13,8 +15,8 @@ const Booking = () => {
   const [travelCountry, setTravelCountry] = useState("");
   const [travelCost, setTravelCost] = useState("");
   const [travelSeason, setTravelSeason] = useState("");
-  const [travelName, setTravelName] = useState("");
-  const [travelEmail, setTravelEmail] = useState("");
+  const [travelName, setTravelName] = useState(user.displayName);
+  const [travelEmail, setTravelEmail] = useState(user.email);
   const [travelDate, setTravelDate] = useState("");
   const [travelDuration, setTravelDuration] = useState(1);
 
@@ -184,6 +186,7 @@ const Booking = () => {
                         onChange={(e) => setTravelEmail(e.target.value)}
                         className="input input-bordered text-white"
                         required
+                        readOnly
                       />
                     </div>
                   </div>

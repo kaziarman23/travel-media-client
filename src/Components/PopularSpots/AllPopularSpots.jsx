@@ -22,7 +22,7 @@ const AllPopularSpots = () => {
   if (loading || !popularSpots.length) {
     return <Loader />;
   }
-  console.log("spot card is now on AllPopularSpots:", popularSpots);
+
   return (
     <div className="w-full h-auto overflow-hidden bg-BlackBg">
       <div className="w-4/5 h-full text-white mx-auto my-20">
@@ -49,7 +49,7 @@ const AllPopularSpots = () => {
                   <p>Price: {plase.average_cost}</p>
                   <div className="card-actions">
                     <Link
-                      to={`/popularspots/${plase.country}/popularspot/${plase.spot_id}`}
+                      to={`/popularSpots/${plase.country}/popularSpot/${plase.spot_id}`}
                     >
                       <button className="btn btn-primary hover:btn-success hover:text-white">
                         View Details

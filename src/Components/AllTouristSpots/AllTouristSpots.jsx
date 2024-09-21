@@ -37,7 +37,7 @@ const AllTouristSpots = () => {
                     <h2 className="card-title">{data.spot}</h2>
                     <p>Price: {data.average_cost}</p>
                     <div className="card-actions">
-                      <Link to={`/alltouristspots/touristspot/${data._id}`}>
+                      <Link to={`/allTouristSpots/touristSpot/${data._id}`}>
                         <button className="btn btn-primary hover:btn-success hover:text-white">
                           View Details
                         </button>

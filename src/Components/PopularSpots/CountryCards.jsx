@@ -45,7 +45,7 @@ const CountryCards = () => {
                   <h2 className="card-title my-3">{country.country}</h2>
                   <p className="h-32">{country.description}</p>
                   <div className="card-actions mt-2 mb-4 justify-end">
-                    <Link to={`/popularspots/${country.country}`}>
+                    <Link to={`/popularSpots/${country.country}`}>
                       <UseExploreBtn>Explore</UseExploreBtn>
                     </Link>
                   </div>

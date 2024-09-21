@@ -1,8 +1,10 @@
 import "./CSS/UseDeleteBtn.css";
 
-const UseDeleteBtn = ({ children }) => {
+const UseDeleteBtn = ({ children, onClick }) => {
   return (
-    <button className="noselect deleteBtn">
+    <button 
+    onClick={onClick}
+    className="noselect deleteBtn">
       <span className="text">{children}</span>
       <span className="icon">
         <svg

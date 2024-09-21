@@ -2,14 +2,16 @@ import { Link, useLoaderData } from "react-router-dom";
 import UseBackBtn from "../CustomHooks/UseBackBtn";
 import Loader from "../CustomHooks/Loader";
 import Swal from "sweetalert2";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import UseDeleteBtn from "../CustomHooks/UseDeleteBtn";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const Bookings = () => {
+  const { user } = useContext(AuthContext);
   const loadedData = useLoaderData();
   const [remaingData, setRemaingData] = useState(loadedData);
 
-  if (!loadedData) {
+  if (!loadedData || !user) {
     return <Loader>Loading Booking Details</Loader>;
   }
 
@@ -66,7 +68,7 @@ const Bookings = () => {
     <div className="w-full h-auto bg-slate-900">
       <div className="w-4/5 h-full mx-auto mt-16 overflow-hidden">
         <h1 className="text-center font-bold text-2xl my-5">
-          All bookings for Mr.{remaingData[0].travelName}
+          All bookings for Mr.{user.displayName}
         </h1>
         {/* Table div start here */}
         <div className="w-full h-full my-10">
@@ -107,9 +109,10 @@ const Bookings = () => {
                           Update
                         </button>
                       </Link>
-                      <button onClick={() => handleDelete(booking._id)}>
-                        <UseDeleteBtn>Delete</UseDeleteBtn>
-                      </button>
+
+                      <UseDeleteBtn onClick={() => handleDelete(booking._id)}>
+                        Delete
+                      </UseDeleteBtn>
                     </td>
                   </tr>
                 ))}

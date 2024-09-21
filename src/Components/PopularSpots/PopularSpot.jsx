@@ -32,9 +32,7 @@ const PopularSpot = () => {
     }
   }, [popularSpots, countryData, spotData]);
 
-  const handleBooking = () => {
-    // going to do some thing
-  };
+  
 
   return (
     <div className="w-full h-[800px] gap-10 flex justify-center items-center flex-col bg-slate-900">

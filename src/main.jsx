@@ -34,25 +34,25 @@ const router = createBrowserRouter([
         element: <AboutUs />,
       },
       {
-        path: "/popularspots",
+        path: "/popularSpots",
         element: <PopularSpots />,
       },
       {
-        path: "/popularspots/:country",
+        path: "/popularSpots/:country",
         element: <AllPopularSpots />,
         loader: () => fetch("http://localhost:5000/popularspots"),
       },
       {
-        path: "/popularspots/:country/popularspot/:spot_id",
+        path: "/popularSpots/:country/popularSpot/:spot_id",
         element: <PopularSpot />,
       },
       {
-        path: "/alltouristspots",
+        path: "/allTouristSpots",
         element: <AllTouristSpots />,
         loader: () => fetch("http://localhost:5000/AllSpots"),
       },
       {
-        path: "/alltouristspots/touristspot/:_id",
+        path: "/allTouristSpots/touristSpot/:_id",
         element: <TouristSpot />,
         loader: () => fetch("http://localhost:5000/AllSpots"),
       },

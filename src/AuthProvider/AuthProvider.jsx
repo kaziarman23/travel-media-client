@@ -3,6 +3,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../Firebase/firebase.config";
@@ -14,9 +15,20 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const createUser = (email, password) => {
-    setLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password);
+  const createUser = async (email, password, name) => {
+    try {
+      setLoading(true);
+      // Creating a user with email and password
+      await createUserWithEmailAndPassword(auth, email, password);
+      //  storing the user name in  displayName prop
+      await updateProfile(auth.currentUser, { displayName: name });
+      //  updated display name
+      setUser({ ...auth.currentUser, displayName: name });
+    } catch (error) {
+      console.error("Error creating user:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const loginUser = (email, password) => {
@@ -40,6 +52,7 @@ const AuthProvider = ({ children }) => {
       };
     });
   }, []);
+
   const authInfo = {
     popularSpots,
     setPopularSpots,
