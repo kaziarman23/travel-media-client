@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import google from "../../assets/Icons/GoogleColorfullIcons.png";
 import github from "../../assets/Icons/githubColorfullIcons.png";
 import { useContext, useState } from "react";
@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 
 const Register = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { createUser } = useContext(AuthContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -16,8 +17,10 @@ const Register = () => {
     e.preventDefault();
 
     createUser(email, password, name).then(() => {
+      
       clearingForm();
-      navigate("/");
+      navigate(location?.state ? location?.state : "/");
+      
       const Toast = Swal.mixin({
         toast: true,
         position: "top-end",

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import google from "../../assets/Icons/GoogleColorfullIcons.png";
 import github from "../../assets/Icons/githubColorfullIcons.png";
 import { useContext, useState } from "react";
@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { loginUser } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
@@ -14,10 +15,13 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
+
     loginUser(email, password)
       .then(() => {
         clearingForm();
-        navigate("/");
+        const prevPath = location.state?.from || "/allTouristSpots";
+        navigate(prevPath, { replace: true });
+
         const Toast = Swal.mixin({
           toast: true,
           position: "top-end",
@@ -33,7 +37,6 @@ const Login = () => {
           icon: "success",
           title: "Login successfull",
         });
-        navigate("/");
       })
       .catch((error) => console.log(error));
 

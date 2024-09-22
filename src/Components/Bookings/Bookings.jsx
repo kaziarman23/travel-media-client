@@ -1,4 +1,4 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import UseBackBtn from "../CustomHooks/UseBackBtn";
 import Loader from "../CustomHooks/Loader";
 import Swal from "sweetalert2";
@@ -8,11 +8,36 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const Bookings = () => {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
   const loadedData = useLoaderData();
   const [remaingData, setRemaingData] = useState(loadedData);
 
-  if (!loadedData || !user) {
+  if (!loadedData) {
     return <Loader>Loading Booking Details</Loader>;
+  }
+
+  if (!user) {
+    {
+      Swal.fire({
+        title: "Do we know you ?",
+        text: "Please Login",
+        icon: "warning",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Login Page?",
+        showCancelButton: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Going to Login",
+            text: "Thanks for your cooperation",
+            icon: "success",
+          })
+          navigate("/login")
+        }
+      });
+    }
+    return <Loader>Not Authorized !</Loader>;
   }
 
   // if the remaingData is empty then it will show a message and navigate the user.

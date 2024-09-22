@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import UseBackBtn from "../CustomHooks/UseBackBtn";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Loader from "../CustomHooks/Loader";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
@@ -30,7 +30,11 @@ const Booking = () => {
   }, [spotData]);
 
   if (!spotData) {
-    return <Loader />;
+    return (
+      <Loader color={"text-orange-500"}>
+        <Link to="/bookings">View all of your bookings</Link>{" "}
+      </Loader>
+    );
   }
   const handleSubmit = (e) => {
     e.preventDefault();
