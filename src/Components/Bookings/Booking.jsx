@@ -32,7 +32,7 @@ const Booking = () => {
   if (!spotData) {
     return (
       <Loader color={"text-orange-500"}>
-        <Link to="/bookings">Tap here to see your bookings.</Link>{" "}
+        <Link to="/bookings">Tap here to see your bookings.</Link>
       </Loader>
       // <Loader />
     );

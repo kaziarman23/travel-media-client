@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import UseBackBtn from "../CustomHooks/UseBackBtn";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const AddTouristSpots = () => {
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [spot, setSpot] = useState("");
@@ -13,6 +15,7 @@ const AddTouristSpots = () => {
   const [travel_time, setTravel_time] = useState("");
   const [totalVisitorsPerYear, setTotalVisitorsPerYear] = useState("");
   const [image, setImage] = useState("");
+  const [email, setEmail] = useState(user.email);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,6 +27,7 @@ const AddTouristSpots = () => {
       travel_time,
       totalVisitorsPerYear,
       image,
+      email,
     };
 
     // sending details in the backend
@@ -68,6 +72,7 @@ const AddTouristSpots = () => {
     setTravel_time("");
     setTotalVisitorsPerYear("");
     setImage("");
+    setEmail("");
   };
 
   return (
