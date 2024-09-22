@@ -19,8 +19,7 @@ const Login = () => {
     loginUser(email, password)
       .then(() => {
         clearingForm();
-        const prevPath = location.state?.from || "/allTouristSpots";
-        navigate(prevPath, { replace: true });
+        navigate(location?.state ? location?.state : "/");
 
         const Toast = Swal.mixin({
           toast: true,

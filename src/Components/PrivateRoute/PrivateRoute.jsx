@@ -15,15 +15,7 @@ const PrivateRoute = ({ children }) => {
     return children;
   }
 
-  return (
-    <Navigate
-      to="/login"
-      state={{
-        from: location.pathname,
-        message: "Please login to complete your booking!",
-      }}
-    />
-  );
+  return <Navigate to="/login" state={location.pathname} />;
 };
 
 export default PrivateRoute;
