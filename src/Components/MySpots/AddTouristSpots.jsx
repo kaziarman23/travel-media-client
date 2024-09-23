@@ -22,7 +22,7 @@ const AddTouristSpots = () => {
     const addingSpotInfo = {
       spot,
       country,
-      average_cost,
+      average_cost: "$" + average_cost,
       seasonality,
       travel_time,
       totalVisitorsPerYear,
