@@ -1,44 +1,25 @@
-import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import UseBackBtn from "../CustomHooks/UseBackBtn";
-import Loader from "../CustomHooks/Loader";
 import Swal from "sweetalert2";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import UseDeleteBtn from "../CustomHooks/UseDeleteBtn";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const Bookings = () => {
   const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
   const loadedData = useLoaderData();
-  const [remaingData, setRemaingData] = useState(loadedData);
+  const [remaingData, setRemaingData] = useState([]);
 
-  if (!loadedData) {
-    return <Loader>Loading Booking Details</Loader>;
-  }
-
-  if (!user) {
-    {
-      Swal.fire({
-        title: "Do we know you ?",
-        text: "Please Login",
-        icon: "warning",
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Login Page?",
-        showCancelButton: true,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire({
-            title: "Going to Login",
-            text: "Thanks for your cooperation",
-            icon: "success",
-          })
-          navigate("/login")
-        }
-      });
+  useEffect(() => {
+    console.log(loadedData);
+    if (user) {
+      const remain = loadedData.filter(
+        (data) => data.travelEmail === user.email
+      );
+      console.log("Filtered Query:", remain);
+      setRemaingData(remain);
     }
-    return <Loader>Not Authorized !</Loader>;
-  }
+  }, [loadedData, user]);
 
   // if the remaingData is empty then it will show a message and navigate the user.
   if (!remaingData || remaingData.length === 0) {
@@ -92,9 +73,15 @@ const Bookings = () => {
   return (
     <div className="w-full h-auto bg-slate-900">
       <div className="w-4/5 h-full mx-auto mt-16 overflow-hidden">
-        <h1 className="text-center font-bold text-2xl my-5">
-          All bookings for Mr.{user.displayName}
-        </h1>
+        {user.displayName ? (
+          <h1 className="text-center font-bold text-2xl my-5">
+            All bookings for Mr.{user.displayName}
+          </h1>
+        ) : (
+          <h1 className="text-center font-bold text-2xl my-5">
+            Here is your all bookings.
+          </h1>
+        )}
         {/* Table div start here */}
         <div className="w-full h-full my-10">
           <div className="overflow-x-auto">

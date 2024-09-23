@@ -1,6 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import google from "../../assets/Icons/GoogleColorfullIcons.png";
-import github from "../../assets/Icons/githubColorfullIcons.png";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
@@ -8,7 +7,7 @@ import Swal from "sweetalert2";
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { loginUser } = useContext(AuthContext);
+  const { loginUser, createUserWithGoogle } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,13 +37,38 @@ const Login = () => {
         });
       })
       .catch((error) => console.log(error));
-
-    const clearingForm = () => {
-      setEmail("");
-      setPassword("");
-    };
   };
 
+  // Register with Google
+  const handleGoogleLogin = (e) => {
+    e.preventDefault();
+
+    createUserWithGoogle().then(() => {
+      clearingForm();
+      navigate(location?.state ? location?.state : "/");
+
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Signed in successfully",
+      });
+    });
+  };
+
+  const clearingForm = () => {
+    setEmail("");
+    setPassword("");
+  };
   return (
     <>
       <>
@@ -94,13 +118,13 @@ const Login = () => {
                   />
                 </div>
                 <div className="flex flex-col justify-center items-center gap-5">
-                  <button className="flex items-center justify-center rounded-xl p-2 w-full bg-white text-black hover:text-white hover:bg-slate-800">
+                  <button
+                    type="button"
+                    onClick={handleGoogleLogin}
+                    className="flex items-center justify-center rounded-xl p-2 w-full bg-white text-black hover:text-white hover:bg-slate-800"
+                  >
                     <img src={google} alt="goolge icon" className="w-5 h-5" />
                     <span className="ml-2">Login with Google</span>
-                  </button>
-                  <button className="flex items-center justify-center rounded-xl p-2 w-full bg-white text-black hover:text-white hover:bg-slate-800">
-                    <img src={github} alt="goolge icon" className="w-5 h-5" />
-                    <span className="ml-2">Login with Github</span>
                   </button>
                 </div>
                 <div className="mt-5">

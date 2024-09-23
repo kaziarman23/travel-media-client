@@ -67,8 +67,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/bookings",
-        element: <Bookings />,
-        loader: () => fetch("http://localhost:5000/bookings"),
+        element: (
+          <PrivateRoute>
+            <Bookings />
+          </PrivateRoute>
+        ),
+        loader: () => fetch("http://localhost:5000/bookings")
       },
       {
         path: "/updateBooking/:id",
@@ -115,3 +119,6 @@ createRoot(document.getElementById("root")).render(
     </AuthProvider>
   </StrictMode>
 );
+
+// TODO : /booking & /bookings = have to show current user's bookings.
+// TODO : /register = display name is not working in google register method.

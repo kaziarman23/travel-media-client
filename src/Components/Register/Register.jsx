@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 const Register = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { createUser } = useContext(AuthContext);
+  const { createUser, createUserWithGoogle } = useContext(AuthContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,11 +16,37 @@ const Register = () => {
   const handleRegister = (e) => {
     e.preventDefault();
 
+    // Register with Email
     createUser(email, password, name).then(() => {
-      
       clearingForm();
       navigate(location?.state ? location?.state : "/");
-      
+
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Signed in successfully",
+      });
+    });
+  };
+
+  // Register with Google
+  const handleGoogleRegister = (e) => {
+    e.preventDefault();
+
+    createUserWithGoogle(name).then(() => {
+      clearingForm();
+      navigate(location?.state ? location?.state : "/");
+
       const Toast = Swal.mixin({
         toast: true,
         position: "top-end",
@@ -110,13 +136,13 @@ const Register = () => {
               </div>
 
               <div className="flex flex-col justify-center items-center gap-5">
-                <button className="flex items-center justify-center rounded-xl p-2 w-full bg-white text-black hover:text-white hover:bg-slate-800">
+                <button
+                  type="button"
+                  onClick={handleGoogleRegister}
+                  className="flex items-center justify-center rounded-xl p-2 w-full bg-white text-black hover:text-white hover:bg-slate-800"
+                >
                   <img src={google} alt="goolge icon" className="w-5 h-5" />
                   <span className="ml-2">Sign up with Google</span>
-                </button>
-                <button className="flex items-center justify-center rounded-xl p-2 w-full bg-white text-black hover:text-white hover:bg-slate-800">
-                  <img src={github} alt="goolge icon" className="w-5 h-5" />
-                  <span className="ml-2">Sign up with Github</span>
                 </button>
               </div>
               <div className="mt-5">
