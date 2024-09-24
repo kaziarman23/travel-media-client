@@ -83,7 +83,7 @@ const Header = () => {
   );
 
   return (
-    <div className="navbar glass z-50 fixed top-0 left-0">
+    <div className="navbar glass z-50 sticky top-0 left-0">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -109,8 +109,9 @@ const Header = () => {
             {navLinks}
           </ul>
         </div>
-        <Link to="/" className="text-xl">
-          <UseBorderYBtn>Travel Media</UseBorderYBtn>
+        {/* <Link to="/" className="text-xl"> */}
+        <Link to="/" className="text-sm">
+          <UseBorderYBtn size={"md:text-sm lg:text-xl"}>Travel Media</UseBorderYBtn>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">

@@ -2,12 +2,11 @@ import Earth from "../CustomHooks/Earth";
 
 const Hero = () => {
   return (
-    <div className="w-full h-screen bg-black">
-      <div className="w-4/5 h-full mx-auto my-10 flex justify-center items-center gap-5">
-        <div className="w-1/2 space-y-5 text-white">
-          <h1 className="text-xl  font-bold text-left">Travel Media</h1>
-          {/* <p className="text-left">Travel with purpose, live with passion</p> */}
-          <p className="text-left">
+    <div className="w-full h-[680px] bg-black overflow-hidden lg:h-screen">
+      <div className="w-4/5 h-full mx-auto flex justify-center items-center gap-5 my-10 flex-col-reverse lg:flex-row lg:my-0">
+        <div className="w-full space-y-5 text-white">
+          <h1 className="text-xl font-bold text-left mt-10">Travel Media</h1>
+          <p className=" text-sm text-left lg:text-md">
             At Travel Media, we bring the world closer to you. Whether
             you&#39;re seeking breathtaking adventures, serene escapes, or
             cultural discoveries, our expert team curates personalized travel
@@ -18,7 +17,7 @@ const Hero = () => {
             unforgettable adventure.
           </p>
         </div>
-        <div className="w-1/2 flex justify-center items-center">
+        <div className="w-4/5 flex justify-center items-center">
           {/* <Earth /> */}
         </div>
       </div>

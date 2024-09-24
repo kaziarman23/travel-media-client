@@ -13,9 +13,9 @@ const BestSpots = () => {
   }, [cards]);
 
   return (
-    <div className="mt-10 w-full h-auto bg-slate-900">
+    <div className="mt-10 w-full h-[925px] bg-slate-900 sm:h-[700px] lg:h-[600px]">
       <div className="w-4/5 h-full mx-auto overflow-hidden">
-        <h1 className="my-5 text-2xl font-bold text-silver text-center">
+        <h1 className="my-5 text-xl  font-bold text-silver text-left lg:text-center lg:text-2xl">
           Discover the World&#39;s Hidden Treasures with Travel Media
         </h1>
         <p className="mb-3 text-light-silver text-left">
@@ -44,7 +44,7 @@ const BestSpots = () => {
             // gradient={false}
           >
             {cards.map((card) => (
-              <div key={card.id} className="mr-5 my-5">
+              <div key={card.id} className="mr-5 my-5 ">
                 <div className="card">
                   <img
                     src={card.img}
