@@ -15,25 +15,23 @@ const CountryCards = () => {
 
   return (
     <>
-      <div className="w-4/5 h-full mx-auto">
-        <h1 className="text-center text-silver font-bold text-2xl my-4">
-          Discover Your Next Adventure with Travel Media
+      <div className="w-4/5 h-[3800px] mx-auto sm:h-[1900px] lg:h-[1800px] xl:h-[1250px]">
+        <h1 className="text-left text-silver font-bold text-2xl my-4 md:text-center">
+          Explore the World Your Way with Travel Media
         </h1>
         <p className="text-light-silver text-left">
-          At Travel Media, we&#39;re passionate about turning your travel dreams
-          into reality. Whether you&#39;re seeking a tranquil getaway, a
-          thrilling adventure, or a cultural deep dive, our expert team is here
-          to craft unforgettable experiences tailored to your desires. From
-          pristine beaches to bustling city escapes, we connect you with the
-          world&#39;s most iconic destinations and hidden gems. With our
-          personalized service, your perfect vacation is just a click away. Let
-          Travel Media be your gateway to the extraordinary because every
-          journey should be as unique as you are.
+          At Travel Media, we design travel experiences as unique as your
+          dreams. Whether you’re looking for a quiet retreat in nature, a
+          heart-pounding adventure in the mountains, or a cultural journey
+          through ancient cities, we’re here to make it happen. Our personalized
+          approach means every detail is thoughtfully curated to match your
+          travel style. From luxurious escapes to off-the-beaten-path gems,
+          Travel Media is your key to unforgettable journeys.
         </p>
-        <div className="w-full h-full grid sm:grid-cols-1 mg:grid-cols-2  lg:grid-cols-3 gap-5">
+        <div className="w-full grid gap-5 place-items-center sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
           {countrys.map((country) => (
             <div key={country.id} className="my-10 ">
-              <div className="w-80 rounded-xl hover:shadow-2xl hover:shadow-black shadow-xl shadow-black text-white ">
+              <div className="w-64 h-auto rounded-xl hover:shadow-2xl hover:shadow-black shadow-xl shadow-black text-white sm:w-60 md:w-72 lg:w-80">
                 <figure>
                   <img
                     src={country.img}
@@ -43,7 +41,7 @@ const CountryCards = () => {
                 </figure>
                 <div className="rounded-b-xl flex flex-col mx-5">
                   <h2 className="card-title my-3">{country.country}</h2>
-                  <p className="h-32">{country.description}</p>
+                  <p className="h-40 lg:h-32">{country.description}</p>
                   <div className="card-actions mt-2 mb-4 justify-end">
                     <Link to={`/popularSpots/${country.country}`}>
                       <UseExploreBtn>Explore</UseExploreBtn>

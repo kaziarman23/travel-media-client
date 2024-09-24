@@ -8,30 +8,30 @@ import UseBackBtn from "../CustomHooks/UseBackBtn";
 
 const AboutUs = () => {
   return (
-    <div className="w-full h-auto flex justify-center items-center">
-      <div className="w-4/5 h-full mx-auto my-20">
-        <h1 className="text-4xl font-bold text-center my-10 text-silver">
+    <div className="w-full h-auto flex justify-center items-center bg-BlackBg">
+      <div className="w-4/5 h-full mx-auto">
+        <h1 className="text-xl font-bold text-left my-10 text-silver sm:text-center sm:text-2xl lg:text-4xl lg:text-center">
           What We Do ?
         </h1>
-        <p className="text-light-silver">
+        <p className="text-light-silver text-sm sm:text-xl">
           Travel Media provides services to help individuals and groups plan and
           arrange travel experiences. Our main role is to simplify the travel
           planning process and offer expertise on destinations, transportation,
           accommodations, and activities. Here are the key services typically we
           provide:
         </p>
-        <div className="wrapper my-10 gap-10 flex flex-col justify-center items-center">
+        <div className="wrapper my-10 gap-20 flex flex-col justify-center items-center">
           {/* First Row */}
-          <div className="row-Wrapper flex justify-between items-center">
-            <div className="w-1/2">
+          <div className="row-Wrapper flex justify-center items-center flex-col lg:flex-row">
+            <div className="w-full lg:w-1/2">
               <img
                 src={AboutOne}
                 alt="about us pic one"
-                className="w-1/2 h-full object-cover mx-auto rounded-xl"
+                className="w-full h-full object-cover mx-auto rounded-xl lg:w-1/2"
               />
             </div>
-            <div className="w-1/2">
-              <h1 className="text-silver text-xl text-center font-bold my-3">
+            <div className="w-full lg:w-1/2">
+              <h1 className="text-silver text-xl text-left font-bold my-3 lg:text-center">
                 Travel Planning and Booking
               </h1>
               <div className="flex gap-3 flex-col justify-start items-start">
@@ -59,9 +59,9 @@ const AboutUs = () => {
           </div>
 
           {/* Second Row */}
-          <div className="row-Wrapper flex justify-between items-center">
-            <div className="w-1/2">
-              <h1 className="text-silver text-xl text-center font-bold my-3">
+          <div className="row-Wrapper flex justify-between items-center flex-col-reverse lg:flex-row">
+            <div className="w-full lg:w-1/2">
+              <h1 className="text-silver text-xl text-left font-bold my-3 lg:text-center">
                 Travel Advice and Expertise
               </h1>
               <div className="flex gap-3 flex-col justify-start items-start">
@@ -85,26 +85,27 @@ const AboutUs = () => {
                 </p>
               </div>
             </div>
-            <div className="w-1/2">
+            <div className="w-full lg:w-1/2">
               <img
                 src={AboutTwo}
                 alt="about us pic two"
-                className="w-1/2 h-full object-cover mx-auto rounded-xl"
+                // className="w-1/2 h-full object-cover mx-auto rounded-xl"
+                className="w-full h-full object-cover mx-auto rounded-xl lg:w-1/2"
               />
             </div>
           </div>
 
           {/* 3ed Row */}
-          <div className="row-Wrapper flex justify-between items-center">
-            <div className="w-1/2">
+          <div className="row-Wrapper flex justify-between items-center flex-col lg:flex-row">
+            <div className="w-full lg:w-1/2">
               <img
                 src={AboutThree}
                 alt="about us pic three"
-                className="w-1/2 h-full object-cover mx-auto rounded-xl"
+                className="w-full h-full object-cover mx-auto rounded-xl lg:w-1/2"
               />
             </div>
-            <div className="w-1/2">
-              <h1 className="text-silver text-xl text-center font-bold my-3">
+            <div className="w-full lg:w-1/2">
+              <h1 className="text-silver text-xl text-left font-bold my-3 lg:text-center">
                 Custom Itineraries
               </h1>
               <div className="flex gap-3 flex-col justify-start items-start">
@@ -118,9 +119,9 @@ const AboutUs = () => {
           </div>
 
           {/* 4th Row */}
-          <div className="row-Wrapper flex justify-between items-center">
-            <div className="w-1/2">
-              <h1 className="text-silver text-xl text-center font-bold my-3">
+          <div className="row-Wrapper flex justify-between items-center flex-col-reverse lg:flex-row">
+            <div className="w-full lg:w-1/2">
+              <h1 className="text-silver text-xl text-left font-bold my-3 lg:text-center">
                 Specialized Travel Services
               </h1>
               <div className="flex gap-3 flex-col justify-start items-start">
@@ -142,26 +143,26 @@ const AboutUs = () => {
                 </p>
               </div>
             </div>
-            <div className="w-1/2">
+            <div className="w-full lg:w-1/2">
               <img
                 src={AboutFour}
                 alt="about us pic four"
-                className="w-1/2 h-full object-cover mx-auto rounded-xl"
+                className="w-full h-full object-cover mx-auto rounded-xl lg:w-1/2"
               />
             </div>
           </div>
 
           {/* 5th Row */}
-          <div className="row-Wrapper flex justify-between items-center">
-            <div className="w-1/2">
+          <div className="row-Wrapper flex justify-between items-center flex-col lg:flex-row">
+            <div className="w-full lg:w-1/2">
               <img
                 src={AboutFive}
                 alt="about us pic five"
-                className="w-1/2 h-full object-cover mx-auto rounded-xl"
+                className="w-full h-full object-cover mx-auto rounded-xl lg:w-1/2"
               />
             </div>
-            <div className="w-1/2">
-              <h1 className="text-silver text-xl text-center font-bold my-3">
+            <div className="w-full lg:w-1/2">
+              <h1 className="text-silver text-xl text-left font-bold my-3 lg:text-center">
                 Crisis Management
               </h1>
               <div className="flex gap-3 flex-col justify-start items-start">
@@ -179,9 +180,9 @@ const AboutUs = () => {
           </div>
 
           {/* 6th Row */}
-          <div className="row-Wrapper flex justify-between items-center">
-            <div className="w-1/2">
-              <h1 className="text-silver text-xl text-center font-bold my-3">
+          <div className="row-Wrapper flex justify-between items-center flex-col-reverse lg:flex-row">
+            <div className="w-full lg:w-1/2">
+              <h1 className="text-silver text-xl text-left font-bold my-3 lg:text-center">
                 Discounts and Deals
               </h1>
               <div className="flex gap-3 flex-col justify-start items-start">
@@ -199,11 +200,11 @@ const AboutUs = () => {
                 </p>
               </div>
             </div>
-            <div className="w-1/2">
+            <div className="w-full lg:w-1/2">
               <img
                 src={AboutSix}
                 alt="about us pic six"
-                className="w-1/2 h-full object-cover mx-auto rounded-xl"
+                className="w-full h-full object-cover mx-auto rounded-xl lg:w-1/2"
               />
             </div>
           </div>

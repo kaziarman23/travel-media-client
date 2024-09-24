@@ -11,9 +11,30 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
+
+    setLoginError("");
+    // Check if password length is at least 6 characters
+    if (password.length < 6) {
+      return setLoginError("Password must be at least 6 characters long.");
+    }
+
+    // Check if password contains at least one uppercase letter
+    if (!/[A-Z]/.test(password)) {
+      return setLoginError(
+        "Password must contain at least one uppercase letter."
+      );
+    }
+
+    // Check if password contains at least one lowercase letter
+    if (!/[a-z]/.test(password)) {
+      return setLoginError(
+        "Password must contain at least one lowercase letter."
+      );
+    }
 
     loginUser(email, password)
       .then(() => {
@@ -62,6 +83,7 @@ const Login = () => {
         icon: "success",
         title: "Signed in successfully",
       });
+      setLoginError("");
     });
   };
 
@@ -141,6 +163,9 @@ const Login = () => {
                       </span>
                     </Link>
                   </p>
+                  {loginError && (
+                    <p className="text-red-500 text-md">{loginError}</p>
+                  )}
                 </div>
               </div>
             </form>

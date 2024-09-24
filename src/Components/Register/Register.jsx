@@ -1,6 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import google from "../../assets/Icons/GoogleColorfullIcons.png";
-import github from "../../assets/Icons/githubColorfullIcons.png";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
@@ -12,9 +11,30 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [registerError, setRegisterError] = useState("");
 
   const handleRegister = (e) => {
     e.preventDefault();
+
+    setRegisterError("");
+    // Check if password length is at least 6 characters
+    if (password.length < 6) {
+      return setRegisterError("Password must be at least 6 characters long.");
+    }
+
+    // Check if password contains at least one uppercase letter
+    if (!/[A-Z]/.test(password)) {
+      return setRegisterError(
+        "Password must contain at least one uppercase letter."
+      );
+    }
+
+    // Check if password contains at least one lowercase letter
+    if (!/[a-z]/.test(password)) {
+      return setRegisterError(
+        "Password must contain at least one lowercase letter."
+      );
+    }
 
     // Register with Email
     createUser(email, password, name).then(() => {
@@ -62,6 +82,7 @@ const Register = () => {
         icon: "success",
         title: "Signed in successfully",
       });
+      setRegisterError("");
     });
   };
 
@@ -159,6 +180,9 @@ const Register = () => {
                     </span>
                   </Link>
                 </p>
+                {registerError && (
+                  <p className="text-red-500 text-md">{registerError}</p>
+                )}
               </div>
             </div>
           </form>

@@ -2,7 +2,7 @@ import "./CSS/FlatEarth.css";
 
 const FlatEarth = () => {
   return (
-    <div className="section-banner2">
+    <div className="section-banner2 w-full h-[200px] lg:h-[300px]">
       <div id="star2-1">
         <div className="curved-corner-star2">
           <div id="curved-corner-bottomright2" />

@@ -1,6 +1,6 @@
 .section-banner2 {
-  height: 250px;
-  width: 400px;
+  /* height: 250px;
+  width: 400px; */
   position: relative;
   transition: left 0.3s linear;
   background: url("/src/assets/AllPopularSpots/earthlights10k.jpg");
@@ -97,7 +97,7 @@
 #star2-3 {
   position: absolute;
   left: 350px;
-  top: 90px;
+  top: -30px;
   animation: twinkling 4s infinite;
 }
 #star2-4 {
@@ -122,6 +122,6 @@
 #star2-7 {
   position: absolute;
   left: 290px;
-  top: 60px;
+  top: -15px;
   animation: twinkling 2s infinite;
 }

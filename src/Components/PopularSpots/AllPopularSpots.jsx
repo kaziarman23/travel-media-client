@@ -24,19 +24,19 @@ const AllPopularSpots = () => {
   }
 
   return (
-    <div className="w-full h-auto overflow-hidden bg-BlackBg">
-      <div className="w-4/5 h-full text-white mx-auto my-20">
-        <h1 className="text-center font-bold text-2xl my-5">
+    <div className="w-full h-[3400px] overflow-hidden bg-BlackBg sm:h-[3000px] md:h-[1800px] lg:h-[1300px]">
+      <div className="w-4/5 text-white mx-auto">
+        <h1 className="text-left font-bold text-2xl my-5 lg:text-center">
           {popularSpots[0]?.title}
         </h1>
         <p className=" text-left">{popularSpots[0]?.description}</p>
         <h2 className=" text-xl my-3 font-bold">
           Here are some popular tourist spots in {popularSpots[0]?.name} :
         </h2>
-        <div className="w-full h-full grid sm:grid-cols-1 mg:grid-cols-2  lg:grid-cols-3 gap-5 place-items-center my-10">
+        <div className="w-full  grid sm:grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-5 place-items-center my-10">
           {popularSpots[0]?.plases.map((plase, index) => (
             <div key={index}>
-              <div className="w-80 hover:shadow-2xl hover:shadow-white">
+              <div className="w-60 hover:shadow-2xl hover:shadow-white sm:w-80 md:w-60 xl:w-80">
                 <figure className="h-48">
                   <img
                     src={plase.image}
@@ -46,7 +46,7 @@ const AllPopularSpots = () => {
                 </figure>
                 <div className="card-body rounded-b-xl gap-3 bg-[#000411]">
                   <h2 className="card-title">{plase.spot}</h2>
-                  <p>Price: {plase.average_cost}</p>
+                  <p className="h-20">Price: {plase.average_cost}</p>
                   <div className="card-actions">
                     <Link
                       to={`/popularSpots/${plase.country}/popularSpot/${plase.spot_id}`}
@@ -63,6 +63,7 @@ const AllPopularSpots = () => {
         </div>
       </div>
       <div className="w-4/5 h-20 mx-auto">
+        {/* <div className="w-full h-20 mx-auto"> */}
         <UseBackBtn>Go Back</UseBackBtn>
       </div>
     </div>

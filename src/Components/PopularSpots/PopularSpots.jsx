@@ -4,13 +4,13 @@ import CountryCards from "./CountryCards";
 const PopularSpots = () => {
   return (
     <div className="w-full h-auto bg-black">
-      <div className="w-full h-screen">
-        <div className="w-4/5 h-full mx-auto my-10 flex justify-center items-center gap-5">
-          <div className="w-1/2 flex justify-center items-center">
-            {/* <FlatEarth /> */}
+      <div className="w-full h-[900px] sm:h-[600px] lg:h-[550px]">
+        <div className="w-4/5 h-full mb-20 mx-auto flex justify-center items-center gap-5 flex-col sm:mb-0">
+          <div className="w-full h-full flex justify-center items-center">
+            <FlatEarth />
           </div>
-          <div className="w-1/2 space-y-5 text-white">
-            <h1 className="text-xl  font-bold text-center">
+          <div className="w-full space-y-5 text-white sm:mt-10 lg:mt-0">
+            <h1 className="text-xl font-bold text-left lg:text-center lg:text-2xl">
               Discover Your Next Adventure with Travel Media
             </h1>
             <p className="text-left ">
