@@ -72,7 +72,7 @@ const Bookings = () => {
 
   return (
     <div className="w-full h-auto bg-slate-900">
-      <div className="w-4/5 h-full mx-auto mt-16 overflow-hidden">
+      <div className="w-4/5 h-full mx-auto overflow-hidden">
         {user.displayName ? (
           <h1 className="text-center font-bold text-2xl my-5">
             All bookings for Mr.{user.displayName}
@@ -96,7 +96,7 @@ const Bookings = () => {
                   <th>Average Cost</th>
                   <th>Travel Date</th>
                   <th>Travel Duration</th>
-                  <th>Action</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
 

@@ -59,55 +59,53 @@ const UpdateBooking = () => {
     setTravelDuration(1);
   };
   return (
-    <div className="w-full h-auto bg-blackBg">
-      <div className="w-4/5 h-full my-20 mx-auto">
-        <h1 className="text-center text-2xl text-white">
-          Updating Booking Tour
-        </h1>
-        <div className="w-full h-full">
-          <div className="hero ">
-            <div className="hero-content flex-col lg:flex-row ">
-              <div className="w-full shrink-0 shadow-2xl bg-black rounded-xl">
-                <form onSubmit={handleUpdate} className="card-body w-full">
-                  <div className="flex justify-between gap-5">
-                    <div className="form-control w-1/2">
-                      <label className="label">
-                        <span className="label-text text-white">Date</span>
-                      </label>
-                      <input
-                        type="date"
-                        placeholder="Date"
-                        value={travelDate}
-                        onChange={(e) => setTravelDate(e.target.value)}
-                        className="input input-bordered text-white"
-                        required
-                      />
-                    </div>
-                    <div className="form-control w-1/2">
-                      <label className="label">
-                        <span className="label-text text-white">
-                          Travel Duration
-                        </span>
-                      </label>
-                      <input
-                        type="number"
-                        max={20}
-                        min={1}
-                        value={travelDuration}
-                        placeholder="Travel Time"
-                        onChange={(e) => setTravelDuration(e.target.value)}
-                        className="input input-bordered text-white"
-                        required
-                      />
-                    </div>
+    <div className="w-full h-[460px] bg-BlackBg md:h-[420px] lg:h-[400px]">
+      <div className="w-4/5 h-full mx-auto">
+        <div className="hero">
+          <div className="hero-content flex-col lg:flex-row ">
+            <div className="w-full shrink-0 shadow-2xl bg-black rounded-xl">
+              <form onSubmit={handleUpdate} className="card-body w-full">
+                <h1 className="text-center text-2xl text-white font-bold">
+                  Updating Tour
+                </h1>
+                <div className="flex justify-center flex-col gap-5 md:flex-row">
+                  <div className="form-control w-full md:w-1/2">
+                    <label className="label">
+                      <span className="label-text text-white">Date</span>
+                    </label>
+                    <input
+                      type="date"
+                      placeholder="Date"
+                      value={travelDate}
+                      onChange={(e) => setTravelDate(e.target.value)}
+                      className="input input-bordered text-white"
+                      required
+                    />
                   </div>
-                  <div className="form-control mt-6">
-                    <button className="btn bg-green-800 text-black font-bold hover:bg-green-500">
-                      Update
-                    </button>
+                  <div className="form-control w-full md:w-1/2">
+                    <label className="label">
+                      <span className="label-text text-white">
+                        Travel Duration
+                      </span>
+                    </label>
+                    <input
+                      type="number"
+                      max={20}
+                      min={1}
+                      value={travelDuration}
+                      placeholder="Travel Time"
+                      onChange={(e) => setTravelDuration(e.target.value)}
+                      className="input input-bordered text-white"
+                      required
+                    />
                   </div>
-                </form>
-              </div>
+                </div>
+                <div className="form-control mt-6">
+                  <button className="btn bg-green-800 text-black font-bold hover:bg-green-500">
+                    Update
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
