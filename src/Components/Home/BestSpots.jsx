@@ -56,7 +56,7 @@ const BestSpots = () => {
                     <p className="card__description">{card.description}</p>
                     <div>
                       <Link to={`/alltouristspots/touristspot/${card._id}`}>
-                        <button className="btn btn-ghost btn-outline mt-3 text-black hover:text-white hover:bg-black">
+                        <button className="btn mt-3 bg-white text-black hover:text-white hover:bg-black transition">
                           More Details
                         </button>
                       </Link>
