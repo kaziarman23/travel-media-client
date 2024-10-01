@@ -18,7 +18,7 @@ const Hero = () => {
           </p>
         </div>
         <div className="w-4/5 flex justify-center items-center">
-          {/* <Earth /> */}
+          <Earth />
         </div>
       </div>
     </div>
