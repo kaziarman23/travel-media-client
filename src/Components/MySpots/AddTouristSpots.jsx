@@ -31,7 +31,7 @@ const AddTouristSpots = () => {
     };
 
     // sending details in the backend
-    fetch("http://localhost:5000/AllSpots", {
+    fetch("https://travel-media-server.vercel.app/AllSpots", {
       method: "POST",
       headers: {
         "content-type": "application/json",

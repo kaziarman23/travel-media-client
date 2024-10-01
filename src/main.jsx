@@ -41,7 +41,7 @@ const router = createBrowserRouter([
       {
         path: "/popularSpots/:country",
         element: <AllPopularSpots />,
-        loader: () => fetch("http://localhost:5000/popularspots"),
+        loader: () => fetch("https://travel-media-server.vercel.app/popularspots"),
       },
       {
         path: "/popularSpots/:country/popularSpot/:spot_id",
@@ -50,12 +50,12 @@ const router = createBrowserRouter([
       {
         path: "/allTouristSpots",
         element: <AllTouristSpots />,
-        loader: () => fetch("http://localhost:5000/AllSpots"),
+        loader: () => fetch("https://travel-media-server.vercel.app/AllSpots"),
       },
       {
         path: "/allTouristSpots/touristSpot/:_id",
         element: <TouristSpot />,
-        loader: () => fetch("http://localhost:5000/AllSpots"),
+        loader: () => fetch("https://travel-media-server.vercel.app/AllSpots"),
       },
       {
         path: "/booking",
@@ -72,13 +72,13 @@ const router = createBrowserRouter([
             <Bookings />
           </PrivateRoute>
         ),
-        loader: () => fetch("http://localhost:5000/bookings"),
+        loader: () => fetch("https://travel-media-server.vercel.app/bookings"),
       },
       {
         path: "/updateBooking/:id",
         element: <UpdateBooking />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/bookings/${params.id}`),
+          fetch(`https://travel-media-server.vercel.app/bookings/${params.id}`),
       },
       {
         path: "/addTouristSpots",

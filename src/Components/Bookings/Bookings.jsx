@@ -40,7 +40,7 @@ const Bookings = () => {
   }
 
   const handleDelete = (_id) => {
-    fetch(`http://localhost:5000/bookings/${_id}`, {
+    fetch(`https://travel-media-server.vercel.app/bookings/${_id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

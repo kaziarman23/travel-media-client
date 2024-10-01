@@ -9,7 +9,7 @@ const MyTouristSpots = () => {
   const [touristSpots, setTouristSpots] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:5000/allSpotsById?email=${user.email}`)
+    fetch(`https://travel-media-server.vercel.app/allSpotsById?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => setTouristSpots(data));
   }, [user.email]);

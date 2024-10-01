@@ -26,7 +26,7 @@ const UpdateBooking = () => {
     };
 
     // sending details in the backend
-    fetch(`http://localhost:5000/bookings/${loadedData._id}`, {
+    fetch(`https://travel-media-server.vercel.app/bookings/${loadedData._id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
