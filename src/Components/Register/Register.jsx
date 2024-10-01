@@ -93,21 +93,20 @@ const Register = () => {
   };
   return (
     <>
-      <div className="w-full h-auto overflow-hidden bg-black">
-        <div className="my-20 w-96  py-3 mx-auto  sm:mx-auto">
+      <div className="w-full h-[700px] overflow-hidden bg-black">
+        <div className="w-4/5 my-20 py-3 mx-auto lg:w-80 xl:w-96">
           <form
             onSubmit={handleRegister}
             className="px-4 py-10 bg-gray-900 sm:p-10 sm:mx-auto md:mx-0 shadow rounded-3xl "
           >
             <div className="flex items-center">
               <span className="text-blue-500 loading loading-ring loading-lg"></span>
-              <h1 className="text-2xl text-left ml-2 font-bold text-white ">
+              <h1 className="text-2xl text-left ml-2 font-bold text-white">
                 Register Now
               </h1>
             </div>
-            <div className="w-72 mx-auto text-white">
-              <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-5"></div>
-              <div>
+            <div className="w-full mx-auto text-white lg:w-60 xl:w-72">
+              <div className="mt-5">
                 <label
                   className="font-semibold text-sm text-gray-400 pb-1 block"
                   htmlFor="name"

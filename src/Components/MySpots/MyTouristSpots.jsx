@@ -21,8 +21,8 @@ const MyTouristSpots = () => {
   return (
     <>
       <div className="w-full h-auto bg-BlackBg">
-        <div className="w-4/5 h-full mx-auto my-20">
-          <h1 className="text-center text-silver font-bold text-3xl my-4">
+        <div className="w-4/5 h-full mx-auto">
+          <h1 className="text-left text-silver font-bold text-xl my-4 md:text-center md:text-xl lg:text-center lg:text-2xl">
             Your Personalized Travel Bucket List
           </h1>
           <p className="text-light-silver text-left">
@@ -30,14 +30,14 @@ const MyTouristSpots = () => {
             dreams. Get ready to experience the most amazing destinations with
             unique attractions that will leave you in awe.
           </p>
-          <h1 className="text-left text-silver font-bold text-2xl my-4">
+          <h1 className="text-left text-silver font-bold text-xl my-4">
             You have added {touristSpots.length} tourist spots.
           </h1>
-          <div className="w-full h-full my-10 grid sm:grid-cols-1 mg:grid-cols-2  lg:grid-cols-3 gap-8">
+          <div className="w-full h-full my-10 grid sm:grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-8">
             {touristSpots.map((data, index) => (
               <div key={index}>
-                <div className="w-80 hover:shadow-2xl hover:shadow-white">
-                  <figure className="h-48">
+                <div className="w-full hover:shadow-2xl hover:shadow-white sm:w-72 sm:mx-auto md:w-60 md:mx-0 lg:w-60 xl:w-80">
+                  <figure className="h-48 md:h-32 xl:h-48">
                     <img
                       src={data.image}
                       alt={data.spot}
@@ -45,8 +45,8 @@ const MyTouristSpots = () => {
                     />
                   </figure>
                   <div className="card-body rounded-b-xl gap-3 bg-[#000411]">
-                    <h2 className="card-title">{data.spot}</h2>
-                    <p>Price: {data.average_cost}</p>
+                    <h2 className="card-title md:text-sm lg:text-lg xl:text-xl">{data.spot}</h2>
+                    <p className="md:text-sm lg:text-base">Price: {data.average_cost}</p>
                     <div className="card-actions">
                       <Link to={`/allTouristSpots/touristSpot/${data._id}`}>
                         <button className="btn btn-primary hover:btn-success hover:text-white">

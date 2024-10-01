@@ -94,19 +94,19 @@ const Login = () => {
   return (
     <>
       <>
-        <div className="w-full h-auto overflow-hidden bg-black">
-          <div className="my-20 w-96  py-3 mx-auto  sm:mx-auto">
+        <div className="w-full h-[600px] overflow-hidden bg-black">
+          <div className="w-4/5 my-20 py-3 mx-auto lg:w-80 xl:w-96">
             <form
               onSubmit={handleLogin}
               className="relative px-4 py-10 bg-gray-900  mx-auto md:mx-0 shadow rounded-3xl "
             >
-              <div className="flex items-center mb-5">
+              <div className="flex items-center mb-5 ml-5">
                 <span className="text-blue-500 loading loading-ring loading-lg"></span>
                 <h1 className="text-2xl text-left ml-2 font-bold text-white">
                   Please Login
                 </h1>
               </div>
-              <div className="w-72 mx-auto text-white">
+              <div className="w-full mx-auto text-white lg:w-60 xl:w-72">
                 <div>
                   <label
                     className="font-semibold text-sm text-gray-400 pb-1 block"
