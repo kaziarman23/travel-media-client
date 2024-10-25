@@ -7,12 +7,17 @@ import Swal from "sweetalert2";
 const Register = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { createUser, createUserWithGoogle } = useContext(AuthContext);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [registerError, setRegisterError] = useState("");
 
+  // context api
+  const { createUser, updateUser, createUserWithGoogle } =
+    useContext(AuthContext);
+
+  // handle register
   const handleRegister = (e) => {
     e.preventDefault();
 
@@ -37,24 +42,28 @@ const Register = () => {
     }
 
     // Register with Email
-    createUser(email, password, name).then(() => {
-      clearingForm();
-      navigate(location?.state ? location?.state : "/");
+    createUser(email, password).then(() => {
+      updateUser(name).then(() => {
+        // clearing the form and navigating the user
+        clearingForm();
+        navigate(location?.state ? location?.state : "/");
 
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
-        },
-      });
-      Toast.fire({
-        icon: "success",
-        title: "Signed in successfully",
+        // showing alert
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+        Toast.fire({
+          icon: "success",
+          title: "Signed in successfully",
+        });
       });
     });
   };
@@ -179,10 +188,10 @@ const Register = () => {
                     </span>
                   </Link>
                 </p>
-                {registerError && (
-                  <p className="text-red-500 text-md">{registerError}</p>
-                )}
               </div>
+              {registerError && (
+                <p className="text-red-500 text-md">{registerError}</p>
+              )}
             </div>
           </form>
         </div>

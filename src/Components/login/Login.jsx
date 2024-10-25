@@ -163,10 +163,10 @@ const Login = () => {
                       </span>
                     </Link>
                   </p>
-                  {loginError && (
-                    <p className="text-red-500 text-md">{loginError}</p>
-                  )}
                 </div>
+                {loginError && (
+                  <p className="text-red-500 text-md">{loginError}</p>
+                )}
               </div>
             </form>
           </div>

@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateEmail,
   updateProfile,
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
@@ -38,22 +39,26 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // authentication with email
-  const createUser = async (email, password, name) => {
-    try {
-      setLoading(true);
-      // Creating a user with email and password
-      await createUserWithEmailAndPassword(auth, email, password);
-      //  storing the user name in  displayName prop
-      await updateProfile(auth.currentUser, { displayName: name });
-      //  updated display name
-      setUser({ ...auth.currentUser, displayName: name });
-    } catch (error) {
-      console.error("Error creating user:", error);
-    } finally {
-      setLoading(false);
-    }
+   // Email Authintication
+  // create user
+  const createUser = (email, password) => {
+    setLoading(true);
+    return createUserWithEmailAndPassword(auth, email, password);
   };
+
+  // update user
+  const updateUser = (name, photo, email) => {
+    setLoading(true);
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photo,
+    }).then(() => {
+      if (email) {
+        return updateEmail(auth.currentUser, email);
+      }
+    });
+  };
+
 
   const loginUser = (email, password) => {
     setLoading(true);
@@ -82,6 +87,7 @@ const AuthProvider = ({ children }) => {
     setPopularSpots,
     user,
     createUser,
+    updateUser,
     loginUser,
     logoutUser,
     loading,
