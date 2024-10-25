@@ -5,7 +5,7 @@ const Review = () => {
   const [reviews, setRevirews] = useState([]);
 
   useEffect(() => {
-    fetch("/Review.json")
+    fetch("https://travel-media-server.vercel.app/review")
       .then((res) => res.json())
       .then((data) => setRevirews(data))
       .catch((error) =>

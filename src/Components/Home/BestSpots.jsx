@@ -7,9 +7,12 @@ const BestSpots = () => {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    fetch("/BestSpots.json")
+    fetch("https://travel-media-server.vercel.app/bestSpots")
       .then((res) => res.json())
-      .then((datas) => setCards(datas));
+      .then((datas) => {
+        console.log(datas);
+        setCards(datas);
+      });
   }, [cards]);
 
   return (

@@ -109,7 +109,6 @@ const Header = () => {
             {navLinks}
           </ul>
         </div>
-        {/* <Link to="/" className="text-xl"> */}
         <Link to="/" className="text-sm">
           <UseBorderYBtn size={"md:text-sm lg:text-xl"}>Travel Media</UseBorderYBtn>
         </Link>
@@ -131,29 +130,3 @@ const Header = () => {
 };
 
 export default Header;
-{
-  /*  
-  <li className="group relative">
-  <UseUnderlineBtn>
-    <span className=" hover:text-white cursor-pointer">My Spots</span>
-  </UseUnderlineBtn>
-
-  
-  <ul className="absolute top-7 left-0 mt-2 hidden w-80 group-hover:block space-y-3">
-    <li className="p-2 hover:text-white glass">
-      <NavLink to="/addTouristSpots">
-        <UseUnderlineBtn>
-          <span>Add Tourist spots</span>
-        </UseUnderlineBtn>
-      </NavLink>
-    </li>
-    <li className="p-2 hover:text-white glass">
-      <NavLink to="/myTouristSpots">
-        <UseUnderlineBtn>
-          <span>My Tourist spots</span>
-        </UseUnderlineBtn>
-      </NavLink>
-    </li>
-  </ul>
-</li>*/
-}

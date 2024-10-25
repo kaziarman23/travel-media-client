@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./CssSections/Team.css";
+import axios from "axios";
+
 const Team = () => {
   const [team, setTeam] = useState([]);
 
-  useEffect(() => {
-    fetch("/Team.json")
-      .then((res) => res.json())
-      .then((data) => setTeam(data))
-      .catch((error) => console.log("error in the team section", error));
-  }, [team]);
+  axios
+    .get("https://travel-media-server.vercel.app/team")
+    .then((res) => {
+      if (res.data) {
+        setTeam(res.data);
+      }
+    })
+    .catch((error) => console.log(error));
 
   return (
     <div className="w-full h-[1502px] my-10 bg-BlackBg overflow-hidden sm:h-[1200px] md:h-[600px] lg:h-[500px]">
