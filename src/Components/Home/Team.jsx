@@ -32,18 +32,18 @@ const Team = () => {
           memories. Meet the people who turn your wanderlust into reality!
         </p>
         <div className="my-10 flex justify-center iteams-center gap-10 flex-col md:flex-row md:gap-5">
-          {team.map((team) => (
-            <div key={team.id}>
+          {team.map((member) => (
+            <div key={member.id}>
               <div className="Teamcard mx-auto">
                 <br />
-                <img src={team.img} alt={team.title} />
+                <img src={member.img} alt={member.title} />
                 <div className="Teamcontent">
                   <p className="Teamtitle">
-                    {team.name}
+                    {member.name}
                     <br />
-                    <span>{team.post}</span>
+                    <span>{member.post}</span>
                     <br />
-                    <span>{team.mail}</span>
+                    <span>{member.mail}</span>
                   </p>
                 </div>
               </div>
