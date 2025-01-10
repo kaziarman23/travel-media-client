@@ -1,13 +1,13 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import google from "../../assets/Icons/GoogleColorfullIcons.png";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
-import Swal from "sweetalert2";
+import toast from "react-hot-toast";
+import { FaGoogle } from "react-icons/fa";
 
 const Register = () => {
+  // states
   const navigate = useNavigate();
   const location = useLocation();
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -44,26 +44,14 @@ const Register = () => {
     // Register with Email
     createUser(email, password).then(() => {
       updateUser(name).then(() => {
-        // clearing the form and navigating the user
+        // clearing the form
         clearingForm();
+
+        // navigating the user
         navigate(location?.state ? location?.state : "/");
 
         // showing alert
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
-        });
-        Toast.fire({
-          icon: "success",
-          title: "Signed in successfully",
-        });
+        toast.success("Signed in successfully");
       });
     });
   };
@@ -73,25 +61,15 @@ const Register = () => {
     e.preventDefault();
 
     createUserWithGoogle(name).then(() => {
+      // clearing the form
       clearingForm();
+      setRegisterError("");
+
+      // navigating the user
       navigate(location?.state ? location?.state : "/");
 
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
-        },
-      });
-      Toast.fire({
-        icon: "success",
-        title: "Signed in successfully",
-      });
-      setRegisterError("");
+      // showing alert
+      toast.success("Signed in successfully");
     });
   };
 
@@ -100,21 +78,22 @@ const Register = () => {
     setEmail("");
     setPassword("");
   };
+
   return (
     <>
-      <div className="w-full h-[700px] overflow-hidden bg-black">
-        <div className="w-4/5 my-20 py-3 mx-auto lg:w-80 xl:w-96">
+      <div className="w-full h-full overflow-hidden bg-black xl:h-screen">
+        <div className="w-11/12 h-full py-3 mx-auto sm:w-4/5 md:w-1/2">
           <form
             onSubmit={handleRegister}
-            className="px-4 py-10 bg-gray-900 sm:p-10 sm:mx-auto md:mx-0 shadow rounded-3xl "
+            className="p-5 bg-gray-900 shadow rounded-3xl"
           >
-            <div className="flex items-center">
+            <div className="flex items-center justify-center">
               <span className="text-blue-500 loading loading-ring loading-lg"></span>
-              <h1 className="text-2xl text-left ml-2 font-bold text-white">
+              <h1 className="text-2xl ml-2 font-bold text-white">
                 Register Now
               </h1>
             </div>
-            <div className="w-full mx-auto text-white lg:w-60 xl:w-72">
+            <div className="w-full mx-auto text-white">
               <div className="mt-5">
                 <label
                   className="font-semibold text-sm text-gray-400 pb-1 block"
@@ -164,21 +143,17 @@ const Register = () => {
                 />
               </div>
 
-              <div className="flex flex-col justify-center items-center gap-5">
-                <button
-                  type="button"
-                  onClick={handleGoogleRegister}
-                  className="flex items-center justify-center rounded-xl p-2 w-full bg-white text-black hover:text-white hover:bg-slate-800"
-                >
-                  <img src={google} alt="goolge icon" className="w-5 h-5" />
-                  <span className="ml-2">Sign up with Google</span>
-                </button>
-              </div>
-              <div className="mt-5">
-                <button className="w-full p-2 rounded-xl bg-blue-500 hover:text-black hover:bg-blue-800">
-                  Register
-                </button>
-              </div>
+              <button className="w-full flex items-center justify-center gap-2 rounded-2xl p-2 hover:bg-white hover:text-black bg-black text-white">
+                Register
+              </button>
+              <button
+                type="button"
+                onClick={handleGoogleRegister}
+                className="w-full mt-2 flex items-center justify-center gap-2 rounded-2xl p-2 hover:bg-white hover:text-black bg-black text-white"
+              >
+                <FaGoogle />
+                Register with Google
+              </button>
               <div className="flex items-center justify-center mt-4">
                 <p className="text-gray-500  dark:text-gray-400 ">
                   Already Have an Account? Please

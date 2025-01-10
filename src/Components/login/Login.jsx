@@ -1,17 +1,19 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import google from "../../assets/Icons/GoogleColorfullIcons.png";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
+import { FaGoogle } from "react-icons/fa";
 
 const Login = () => {
+  // states
   const navigate = useNavigate();
   const location = useLocation();
-  const { loginUser, createUserWithGoogle } = useContext(AuthContext);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
+
+  // context api
+  const { loginUser, createUserWithGoogle } = useContext(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -94,19 +96,19 @@ const Login = () => {
   return (
     <>
       <>
-        <div className="w-full h-[600px] overflow-hidden bg-black">
-          <div className="w-4/5 my-20 py-3 mx-auto lg:w-80 xl:w-96">
+        <div className="w-full h-full overflow-hidden bg-black xl:h-screen">
+          <div className="w-11/12 h-full py-3 mx-auto sm:w-4/5 md:w-1/2">
             <form
               onSubmit={handleLogin}
-              className="relative px-4 py-10 bg-gray-900  mx-auto md:mx-0 shadow rounded-3xl "
+              className="p-5 bg-gray-900 shadow rounded-3xl"
             >
-              <div className="flex items-center mb-5 ml-5">
+              <div className="flex items-center justify-center">
                 <span className="text-blue-500 loading loading-ring loading-lg"></span>
                 <h1 className="text-2xl text-left ml-2 font-bold text-white">
                   Please Login
                 </h1>
               </div>
-              <div className="w-full mx-auto text-white lg:w-60 xl:w-72">
+              <div className="w-full mx-auto ">
                 <div>
                   <label
                     className="font-semibold text-sm text-gray-400 pb-1 block"
@@ -139,21 +141,18 @@ const Login = () => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <div className="flex flex-col justify-center items-center gap-5">
-                  <button
-                    type="button"
-                    onClick={handleGoogleLogin}
-                    className="flex items-center justify-center rounded-xl p-2 w-full bg-white text-black hover:text-white hover:bg-slate-800"
-                  >
-                    <img src={google} alt="goolge icon" className="w-5 h-5" />
-                    <span className="ml-2">Login with Google</span>
-                  </button>
-                </div>
-                <div className="mt-5">
-                  <button className="w-full p-2 rounded-xl bg-blue-500 hover:text-black hover:bg-blue-800">
-                    Login
-                  </button>
-                </div>
+
+                <button className="w-full flex items-center justify-center gap-2 rounded-2xl p-2 hover:bg-white hover:text-black bg-black text-white">
+                  Login
+                </button>
+                <button
+                  type="button"
+                  onClick={handleGoogleLogin}
+                  className="w-full mt-2 flex items-center justify-center gap-2 rounded-2xl p-2 hover:bg-white hover:text-black bg-black text-white"
+                >
+                  <FaGoogle />
+                  Login with Google
+                </button>
                 <div className="flex items-center justify-center mt-4">
                   <p className="text-gray-500  dark:text-gray-400 ">
                     Did&#39;t Have an Account? Please
