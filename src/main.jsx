@@ -20,6 +20,7 @@ import MyTouristSpots from "./Components/MySpots/MyTouristSpots.jsx";
 import Register from "./Components/Register/Register.jsx";
 import Login from "./Components/login/Login.jsx";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute.jsx";
+import { Toaster } from "react-hot-toast";
 
 const router = createBrowserRouter([
   {
@@ -41,7 +42,8 @@ const router = createBrowserRouter([
       {
         path: "/popularSpots/:country",
         element: <AllPopularSpots />,
-        loader: () => fetch("https://travel-media-server.vercel.app/popularspots"),
+        loader: () =>
+          fetch("https://travel-media-server.vercel.app/popularspots"),
       },
       {
         path: "/popularSpots/:country/popularSpot/:spot_id",
@@ -114,6 +116,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+    <Toaster />
     <AuthProvider>
       <RouterProvider router={router} />
     </AuthProvider>

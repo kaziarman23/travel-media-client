@@ -14,9 +14,9 @@ const Review = () => {
   }, [setRevirews]);
 
   return (
-    <div className="w-full h-[1000px] overflow-hidden bg-gradient-to-r from-[#0f0c29] via-[#302b63] to-[#24243e] sm:h-[800px] md:h-[700px] lg:h-[600px]">
-      <div className="w-4/5 h-full mx-auto">
-        <h1 className="text-white font-bold text-md text-left my-5 sm:text-xl md:text-2xl md:text-center lg:text-2xl">
+    <div className="w-full h-full overflow-hidden bg-gradient-to-r from-[#0f0c29] via-[#302b63] to-[#24243e] xl:h-screen">
+      <div className="w-4/5 h-full mx-auto mb-5">
+        <h1 className="text-white font-bold text-base text-left my-5 sm:text-xl md:text-2xl md:text-center lg:text-2xl">
           What Our Travelers Are Saying
         </h1>
         <p className="text-white text-sm lg:text-xl">
@@ -35,7 +35,7 @@ const Review = () => {
               <div className="ReviewCard w-full text-sm lg:w-[300px] lg:h-[290px] lg:text-xl lg:relative">
                 <div className="ReviewCard2 w-full text-sm lg:w-[300px] lg:text-xl lg:h-[290px] lg:relative">
                   {/* cards container */}
-                  <p className="mx-5 mt-5 text-light-silver">
+                  <p className="mx-5 mt-5 text-light-silver text-lg">
                     {review.message}
                   </p>
                   <div className="avatar p-5 flex justify-start items-center gap-2 lg:absolute lg:bottom-0 lg:left-0">

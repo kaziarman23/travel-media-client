@@ -3,6 +3,9 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        poppins: ["Poppins", "serif"],
+      },
       keyframes: {
         dash: {
           "0%": { strokeDashoffset: "0" },

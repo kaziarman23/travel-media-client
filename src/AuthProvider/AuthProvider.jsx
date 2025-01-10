@@ -39,7 +39,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-   // Email Authintication
+  // Email Authintication
   // create user
   const createUser = (email, password) => {
     setLoading(true);
@@ -58,7 +58,6 @@ const AuthProvider = ({ children }) => {
       }
     });
   };
-
 
   const loginUser = (email, password) => {
     setLoading(true);

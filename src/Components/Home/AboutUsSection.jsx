@@ -33,7 +33,7 @@ const AboutUs = () => {
   ];
 
   return (
-    <div className="w-4/5 h-[770px] mx-auto my-20 bg-BlackBg lg:h-[500px]">
+    <div className="w-4/5 h-full mx-auto my-20 bg-BlackBg xl:h-screen">
       <h1 className="text-2xl text-center font-bold my-10 text-white">
         About us
       </h1>
@@ -71,7 +71,7 @@ const AboutUs = () => {
           </div>
         </div>
         <div className="w-full mx-10 text-left flex flex-col justify-center items-start gap-5 text-[#9ea4b2] lg:w-1/2">
-          <h1 className="text-2xl font-bold text-[#9ca3b0]">
+          <h1 className="text-base font-bold text-[#9ca3b0] md:text-lg xl:text-2xl">
             Travel Media: Your Gateway to Adventure
           </h1>
           <p>

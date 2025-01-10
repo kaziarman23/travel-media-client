@@ -13,12 +13,12 @@ const BestSpots = () => {
   }, [cards]);
 
   return (
-    <div className="mt-10 w-full h-[925px] bg-slate-900 sm:h-[700px] lg:h-[600px]">
-      <div className="w-4/5 h-full mx-auto overflow-hidden">
-        <h1 className="my-5 text-xl  font-bold text-silver text-left lg:text-center lg:text-2xl">
+    <div className="mt-10 w-full h-full bg-slate-900 xl:h-screen">
+      <div className="w-11/12 h-full mx-auto overflow-hidden xl:w-4/5">
+        <h1 className="my-5 text-base font-bold text-silver text-left lg:text-center lg:text-2xl">
           Discover the World&#39;s Hidden Treasures with Travel Media
         </h1>
-        <p className="mb-3 text-light-silver text-left">
+        <p className="mb-3 text-light-silver text-left text-sm">
           At Travel Media, we believe that every journey should be an
           unforgettable adventure. Our mission is to connect you with the most
           breathtaking and culturally rich destinations across the globe.

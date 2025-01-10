@@ -6,6 +6,7 @@ import UseBorderBtn from "../CustomHooks/UseBorderBtn";
 import UseBorderYBtn from "../CustomHooks/UseBorderYBtn";
 import UseLogoutBtn from "../CustomHooks/UseLogoutBtn";
 import Swal from "sweetalert2";
+import { BsAirplaneEnginesFill } from "react-icons/bs";
 
 const Header = () => {
   const { user, logoutUser } = useContext(AuthContext);
@@ -110,7 +111,12 @@ const Header = () => {
           </ul>
         </div>
         <Link to="/" className="text-sm">
-          <UseBorderYBtn size={"md:text-sm lg:text-xl"}>Travel Media</UseBorderYBtn>
+          <UseBorderYBtn size={"text-xs md:text-sm lg:text-base"}>
+            <span className="flex items-center gap-1">
+              <BsAirplaneEnginesFill />
+              Travel Media
+            </span>
+          </UseBorderYBtn>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">

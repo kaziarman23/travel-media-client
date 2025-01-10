@@ -15,12 +15,12 @@ const Team = () => {
     .catch((error) => console.log(error));
 
   return (
-    <div className="w-full h-[1502px] my-10 bg-BlackBg overflow-hidden sm:h-[1200px] md:h-[600px] lg:h-[500px]">
+    <div className="w-full h-full my-10 bg-BlackBg overflow-hidden xl:h-screen">
       <div className="w-4/5 h-full mx-auto">
-        <h1 className="font-bold text-xl text-silver text-left my-5 md:text-center md:text-xl lg:text-2xl">
+        <h1 className="font-bold text-base text-silver text-left my-5 sm:text-base md:text-center md:text-xl lg:text-2xl">
           Meet the Dream Team Behind Your Perfect Getaway
         </h1>
-        <p className="text-light-silver">
+        <p className="text-light-silver text-sm sm:text-base">
           At Travel Media, we believe that every journey begins with a passion
           for exploration and a team of dedicated professionals who make your
           travel dreams a reality. Our team is a diverse group of seasoned
