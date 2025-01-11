@@ -1,8 +1,8 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
-import Swal from "sweetalert2";
 import { FaGoogle } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const Login = () => {
   // states
@@ -40,26 +40,19 @@ const Login = () => {
 
     loginUser(email, password)
       .then(() => {
+        // clearing the form
         clearingForm();
+
+        // navigating the user
         navigate(location?.state ? location?.state : "/");
 
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
-        });
-        Toast.fire({
-          icon: "success",
-          title: "Login successfull",
-        });
+        // showing alert
+        toast.success("Signed in successfully");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        toast.error("Something went wrong");
+      });
   };
 
   // Register with Google
@@ -67,24 +60,14 @@ const Login = () => {
     e.preventDefault();
 
     createUserWithGoogle().then(() => {
+      // clearing the form
       clearingForm();
+
+      // navigating the user
       navigate(location?.state ? location?.state : "/");
 
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
-        },
-      });
-      Toast.fire({
-        icon: "success",
-        title: "Signed in successfully",
-      });
+      // showing alert
+      toast.success("Signed in successfully");
       setLoginError("");
     });
   };
@@ -93,6 +76,7 @@ const Login = () => {
     setEmail("");
     setPassword("");
   };
+
   return (
     <>
       <>
@@ -142,7 +126,10 @@ const Login = () => {
                   />
                 </div>
 
-                <button className="w-full flex items-center justify-center gap-2 rounded-2xl p-2 hover:bg-white hover:text-black bg-black text-white">
+                <button
+                  type="submit"
+                  className="w-full flex items-center justify-center gap-2 rounded-2xl p-2 hover:bg-white hover:text-black bg-black text-white"
+                >
                   Login
                 </button>
                 <button

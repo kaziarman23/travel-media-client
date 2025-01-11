@@ -1,12 +1,12 @@
-import Swal from "sweetalert2";
 import UseBackBtn from "../CustomHooks/UseBackBtn";
 import { useEffect, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const UpdateBooking = () => {
+  // states
   const loadedData = useLoaderData();
   const navigate = useNavigate();
-
   const [travelDate, setTravelDate] = useState("");
   const [travelDuration, setTravelDuration] = useState(1);
 
@@ -36,22 +36,22 @@ const UpdateBooking = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
-          Swal.fire({
-            title: "Success",
-            text: "Booking Updated Successfully",
-            icon: "success",
-            background: "black",
-            color: "white",
-            confirmButtonText: "Cool",
-            confirmButtonColor: "green",
-          });
-
-          // clearing inputs and navigating the user
+          // clearing the form
           clearInputs();
-          navigate(-1);
+
+          // navigating the user
+          navigate(location?.state ? location?.state : "/");
+
+          // showing alert
+          toast.success("Updated successfully");
         }
       })
-      .catch((error) => console.log("error in put method", error));
+      .catch((error) => {
+        console.log("error in put method", error);
+
+        // showing alert
+        toast.error(error);
+      });
   };
 
   const clearInputs = () => {
@@ -59,7 +59,7 @@ const UpdateBooking = () => {
     setTravelDuration(1);
   };
   return (
-    <div className="w-full h-[460px] bg-BlackBg md:h-[420px] lg:h-[400px]">
+    <div className="w-full h-full bg-BlackBg">
       <div className="w-4/5 h-full mx-auto">
         <div className="hero">
           <div className="hero-content flex-col lg:flex-row ">

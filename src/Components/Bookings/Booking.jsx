@@ -2,15 +2,17 @@ import { useContext, useEffect, useState } from "react";
 import UseBackBtn from "../CustomHooks/UseBackBtn";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Loader from "../CustomHooks/Loader";
-import Swal from "sweetalert2";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import toast from "react-hot-toast";
 
 const Booking = () => {
+  // context api
   const { user } = useContext(AuthContext);
+
+  // states
   const navigate = useNavigate();
   const location = useLocation();
   const { spotData } = location.state || {};
-
   const [travelSpot, setTravelspot] = useState("");
   const [travelCountry, setTravelCountry] = useState("");
   const [travelCost, setTravelCost] = useState("");
@@ -60,24 +62,22 @@ const Booking = () => {
       body: JSON.stringify(bookingInfo),
     })
       .then((res) => res.json())
-      .then((data) => {
-        if (data.insertedId) {
-          Swal.fire({
-            title: "Success",
-            text: "Booking Added Successfully",
-            icon: "success",
-            background: "black",
-            color: "white",
-            confirmButtonText: "Cool",
-            confirmButtonColor: "green",
-          });
+      .then(() => {
+        // clearing form
+        clearInputs();
 
-          // clearing inputs and navigating the user
-          clearInputs();
-          navigate(-2);
-        }
+        // navigating the user
+        navigate(-2);
+
+        // showing alert
+        toast.success("Booking Added Successfully");
       })
-      .catch((error) => console.log("error in post method", error));
+      .catch((error) => {
+        console.log("error in post method", error);
+
+        // showing alert
+        toast.error(error);
+      });
   };
 
   const handleCancel = () => {
@@ -96,7 +96,7 @@ const Booking = () => {
     setTravelDuration(1);
   };
   return (
-    <div className="w-full h-[1140px] bg-BlackBg lg:h-[780px]">
+    <div className="w-full h-full bg-BlackBg ">
       <div className="w-full h-full">
         <div className="hero">
           <div className="hero-content w-full flex-col lg:flex-row ">

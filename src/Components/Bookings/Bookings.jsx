@@ -4,19 +4,21 @@ import Swal from "sweetalert2";
 import { useContext, useEffect, useState } from "react";
 import UseDeleteBtn from "../CustomHooks/UseDeleteBtn";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import toast from "react-hot-toast";
 
 const Bookings = () => {
+  // context api
   const { user } = useContext(AuthContext);
+
+  // states
   const loadedData = useLoaderData();
   const [remaingData, setRemaingData] = useState([]);
 
   useEffect(() => {
-    console.log(loadedData);
     if (user) {
       const remain = loadedData.filter(
         (data) => data.travelEmail === user.email
       );
-      console.log("Filtered Query:", remain);
       setRemaingData(remain);
     }
   }, [loadedData, user]);
@@ -49,23 +51,8 @@ const Bookings = () => {
           const currentDatas = remaingData.filter((datas) => datas._id !== _id);
           setRemaingData(currentDatas);
 
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            },
-          });
-          Toast.fire({
-            icon: "success",
-            title: "Booking Deleted",
-            background: "#0f172a",
-            color: "white",
-          });
+          // showing alert
+          toast.success("Deleted successfully");
         }
       });
   };

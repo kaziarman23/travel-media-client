@@ -5,8 +5,8 @@ import UseUnderlineBtn from "../CustomHooks/UseUnderlineBtn";
 import UseBorderBtn from "../CustomHooks/UseBorderBtn";
 import UseBorderYBtn from "../CustomHooks/UseBorderYBtn";
 import UseLogoutBtn from "../CustomHooks/UseLogoutBtn";
-import Swal from "sweetalert2";
 import { BsAirplaneEnginesFill } from "react-icons/bs";
+import toast from "react-hot-toast";
 
 const Header = () => {
   const { user, logoutUser } = useContext(AuthContext);
@@ -14,21 +14,10 @@ const Header = () => {
 
   const handleLogout = () => {
     logoutUser().then(() => {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
-        },
-      });
-      Toast.fire({
-        icon: "success",
-        title: "Logout successfull",
-      });
+      // showing alert
+      toast.success("Logout successfull");
+
+      // navigating the user
       navigate("/");
     });
   };
