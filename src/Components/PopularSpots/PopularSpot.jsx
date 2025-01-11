@@ -32,43 +32,29 @@ const PopularSpot = () => {
     }
   }, [popularSpots, countryData, spotData]);
 
-  
-
   return (
-    <div className="w-full h-[800px] gap-10 flex justify-center items-center flex-col bg-slate-900">
-      <div className="w-4/5 h-[500px] mx-auto text-white bg-black shadow-xl shadow-black rounded-xl">
-        <h1 className="text-2xl text-center font-bold p-5">
+    <div className="w-full h-full gap-10 flex justify-center items-center flex-col bg-slate-900">
+      <div className="w-11/12 h-full mx-auto mt-5 text-white bg-black shadow-xl shadow-black rounded-xl">
+        <h1 className="text-base text-center font-bold p-5 xl:text-xl">
           Details About {spotData.spot}
         </h1>
 
-        <div className="flex justify-center items-center gap-5">
-          <div className="w-1/2 flex justify-center items-center">
+        <div className="flex justify-center items-center gap-5 flex-col xl:flex-row">
+          <div className="w-full h-full flex justify-center items-center">
             <img
               src={spotData.image}
               alt={spotData.spot}
-              className="w-4/5 rounded-xl object-cover"
+              className="w-4/5 h-full rounded-xl object-cover"
             />
           </div>
 
-          <div className="w-1/2 text-white text-left ml-5 my-10 space-y-5">
-            <h2 className="text-lg font-semibold">
-              Spot name: {spotData.spot}
-            </h2>
-            <h3 className="text-lg font-semibold">
-              Country name: {spotData.country}
-            </h3>
-            <h3 className="text-lg font-semibold">
-              Average cost: {spotData.average_cost}
-            </h3>
-            <h3 className="text-lg font-semibold">
-              Visitors per year: {spotData.totalVisitorsPerYear}
-            </h3>
-            <h3 className="text-lg font-semibold">
-              Travel time: {spotData.travel_time}
-            </h3>
-            <h3 className="text-lg font-semibold">
-              Seasonality: {spotData.seasonality}
-            </h3>
+          <div className="w-11/12 text-white text-left text-sm my-10 space-y-5 sm:text-base md:text-lg xl:text-base">
+            <h2>Spot name: {spotData.spot}</h2>
+            <h3>Country name: {spotData.country}</h3>
+            <h3>Average cost: {spotData.average_cost}</h3>
+            <h3>Visitors per year: {spotData.totalVisitorsPerYear}</h3>
+            <h3>Travel time: {spotData.travel_time}</h3>
+            <h3>Seasonality: {spotData.seasonality}</h3>
             <div>
               <Link to="/booking" state={{ spotData }}>
                 <UseBookingBtn>Book Now</UseBookingBtn>

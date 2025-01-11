@@ -15,11 +15,11 @@ const CountryCards = () => {
 
   return (
     <>
-      <div className="w-4/5 h-[3800px] mx-auto sm:h-[1900px] lg:h-[1800px] xl:h-[1250px]">
-        <h1 className="text-left text-silver font-bold text-2xl my-4 md:text-center">
+      <div className="w-11/12 h-full mx-auto xl:w-4/5">
+        <h1 className="text-left text-silver font-bold text-base my-4 sm:text-lg md:text-center md:text-2xl">
           Explore the World Your Way with Travel Media
         </h1>
-        <p className="text-light-silver text-left">
+        <p className="text-light-silver text-left text-sm md:text-base">
           At Travel Media, we design travel experiences as unique as your
           dreams. Whether you’re looking for a quiet retreat in nature, a
           heart-pounding adventure in the mountains, or a cultural journey
@@ -30,8 +30,8 @@ const CountryCards = () => {
         </p>
         <div className="w-full grid gap-5 place-items-center sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
           {countrys.map((country) => (
-            <div key={country.id} className="my-10 ">
-              <div className="w-64 h-auto rounded-xl hover:shadow-2xl hover:shadow-black shadow-xl shadow-black text-white sm:w-60 md:w-72 lg:w-80">
+            <div key={country.id}>
+              <div className="w-full h-auto rounded-xl hover:shadow-2xl hover:shadow-black shadow-xl shadow-black text-white my-5">
                 <figure>
                   <img
                     src={country.img}
