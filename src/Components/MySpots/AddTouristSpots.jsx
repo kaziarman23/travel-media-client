@@ -1,13 +1,15 @@
 import { useContext, useState } from "react";
 import UseBackBtn from "../CustomHooks/UseBackBtn";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import toast from "react-hot-toast";
 
 const AddTouristSpots = () => {
+  // context api
   const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
 
+  // states
+  const navigate = useNavigate();
   const [spot, setSpot] = useState("");
   const [country, setCountry] = useState("");
   const [average_cost, setAverage_cost] = useState("");
@@ -39,24 +41,22 @@ const AddTouristSpots = () => {
       body: JSON.stringify(addingSpotInfo),
     })
       .then((res) => res.json())
-      .then((data) => {
-        if (data.insertedId) {
-          Swal.fire({
-            title: "Success",
-            text: "Tourist Spot Added Successfully",
-            icon: "success",
-            background: "black",
-            color: "white",
-            confirmButtonText: "Cool",
-            confirmButtonColor: "green",
-          });
+      .then(() => {
+        // clearing inputs
+        clearInputs();
 
-          // clearing inputs and navigating the user
-          clearInputs();
-          navigate("/AllTouristSpots");
-        }
+        // navigating the user
+        navigate("/AllTouristSpots");
+
+        // alert
+        toast.success("Tourist Spot Added Successfully");
       })
-      .catch((error) => console.log("error in Add Tourist spots page:", error));
+      .catch((error) => {
+        console.log("error in Add Tourist spots page:", error);
+
+        // alert
+        toast.error(error);
+      });
   };
 
   const handleCancel = () => {
@@ -76,7 +76,7 @@ const AddTouristSpots = () => {
   };
 
   return (
-    <div className="w-full h-[1140px] bg-BlackBg md:h-[750px]">
+    <div className="w-full h-full bg-BlackBg">
       <div className="w-full h-full">
         <div className="hero">
           <div className="w-full hero-content flex-col lg:flex-row ">

@@ -5,11 +5,16 @@ import { useContext, useEffect, useState } from "react";
 import Loader from "../CustomHooks/Loader";
 
 const MyTouristSpots = () => {
+  // context api
   const { user } = useContext(AuthContext);
+
+  // states
   const [touristSpots, setTouristSpots] = useState("");
 
   useEffect(() => {
-    fetch(`https://travel-media-server.vercel.app/allSpotsById?email=${user.email}`)
+    fetch(
+      `https://travel-media-server.vercel.app/allSpotsById?email=${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => setTouristSpots(data));
   }, [user.email]);
@@ -20,9 +25,9 @@ const MyTouristSpots = () => {
 
   return (
     <>
-      <div className="w-full h-auto bg-BlackBg">
+      <div className="w-full h-full bg-BlackBg">
         <div className="w-4/5 h-full mx-auto">
-          <h1 className="text-left text-silver font-bold text-xl my-4 md:text-center md:text-xl lg:text-center lg:text-2xl">
+          <h1 className="text-left text-silver font-bold text-base my-4 md:text-center md:text-xl lg:text-center lg:text-2xl">
             Your Personalized Travel Bucket List
           </h1>
           <p className="text-light-silver text-left">
@@ -45,8 +50,12 @@ const MyTouristSpots = () => {
                     />
                   </figure>
                   <div className="card-body rounded-b-xl gap-3 bg-[#000411]">
-                    <h2 className="card-title md:text-sm lg:text-lg xl:text-xl">{data.spot}</h2>
-                    <p className="md:text-sm lg:text-base">Price: {data.average_cost}</p>
+                    <h2 className="card-title md:text-sm lg:text-lg xl:text-xl">
+                      {data.spot}
+                    </h2>
+                    <p className="md:text-sm lg:text-base">
+                      Price: {data.average_cost}
+                    </p>
                     <div className="card-actions">
                       <Link to={`/allTouristSpots/touristSpot/${data._id}`}>
                         <button className="btn btn-primary hover:btn-success hover:text-white">

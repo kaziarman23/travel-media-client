@@ -1,6 +1,5 @@
 import { Link, useLoaderData } from "react-router-dom";
 import UseBackBtn from "../CustomHooks/UseBackBtn";
-import Swal from "sweetalert2";
 import { useContext, useEffect, useState } from "react";
 import UseDeleteBtn from "../CustomHooks/UseDeleteBtn";
 import { AuthContext } from "../../AuthProvider/AuthProvider";

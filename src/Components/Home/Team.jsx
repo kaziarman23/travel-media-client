@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./CssSections/Team.css";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const Team = () => {
   const [team, setTeam] = useState([]);
@@ -12,7 +13,7 @@ const Team = () => {
         setTeam(res.data);
       }
     })
-    .catch((error) => console.log(error));
+    .catch((error) => toast.error(error));
 
   return (
     <div className="w-full h-full my-10 bg-BlackBg overflow-hidden xl:h-screen">

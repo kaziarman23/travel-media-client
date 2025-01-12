@@ -53,7 +53,7 @@ const BestSpots = () => {
                   />
                   <div className="card__content">
                     <p className="card__title">{card.title}</p>
-                    <p className="card__description">{card.description}</p>
+                    <p className="text-sm">{card.description}</p>
                     <div>
                       <Link to={`/alltouristspots/touristspot/${card._id}`}>
                         <button className="btn mt-3 bg-white text-black hover:text-white hover:bg-black transition">
