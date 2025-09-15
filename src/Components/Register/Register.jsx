@@ -1,241 +1,702 @@
-import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useContext, useState, useEffect, useRef } from "react";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+import toast from "react-hot-toast";
+import { FaGoogle, FaEye, FaEyeSlash, FaCheck, FaTimes } from "react-icons/fa";
+import { gsap } from "gsap";
 
 const Register = () => {
-  // Demo states (your original functionality remains the same)
+  // refs for GSAP animations
+  const containerRef = useRef(null);
+  const formRef = useRef(null);
+  const titleRef = useRef(null);
+  const fieldsRef = useRef([]);
+  const buttonsRef = useRef([]);
+  const dotsRef = useRef([]);
+  const validationRef = useRef([]);
+
+  // states
+  const navigate = useNavigate();
+  const location = useLocation();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [registerError, setRegisterError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [touched, setTouched] = useState({
+    name: false,
+    email: false,
+    password: false,
+    confirmPassword: false
+  });
 
-  // Demo handlers (replace with your original handlers)
-  const handleRegister = (e) => {
-    e.preventDefault();
-    setRegisterError("");
-    setIsLoading(true);
+  // context api
+  const { createUser, updateUser, createUserWithGoogle } =
+    useContext(AuthContext);
 
-    // Your original validation logic
-    if (password.length < 6) {
-      setIsLoading(false);
-      return setRegisterError("Password must be at least 6 characters long.");
-    }
-
-    if (!/[A-Z]/.test(password)) {
-      setIsLoading(false);
-      return setRegisterError(
-        "Password must contain at least one uppercase letter."
-      );
-    }
-
-    if (!/[a-z]/.test(password)) {
-      setIsLoading(false);
-      return setRegisterError(
-        "Password must contain at least one lowercase letter."
-      );
-    }
-
-    // Demo success (replace with your original createUser logic)
-    setTimeout(() => {
-      setIsLoading(false);
-      alert("Demo: Registration successful!");
-    }, 2000);
+  // Validation functions
+  const validateName = (name) => {
+    if (!name.trim()) return { isValid: false, message: "Name is required" };
+    if (name.trim().length < 2) return { isValid: false, message: "Name must be at least 2 characters" };
+    if (!/^[a-zA-Z\s]+$/.test(name)) return { isValid: false, message: "Name can only contain letters and spaces" };
+    return { isValid: true, message: "Valid name" };
   };
 
-  const handleGoogleRegister = (e) => {
-    e.preventDefault();
-    setIsLoading(true);
+  const validateEmail = (email) => {
+    if (!email) return { isValid: false, message: "Email is required" };
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) return { isValid: false, message: "Invalid email format" };
+    return { isValid: true, message: "Valid email" };
+  };
+
+  const validatePassword = (password) => {
+    const validations = [];
+    if (password.length < 6) validations.push("At least 6 characters");
+    if (!/[A-Z]/.test(password)) validations.push("One uppercase letter");
+    if (!/[a-z]/.test(password)) validations.push("One lowercase letter");
+    if (!/[0-9]/.test(password)) validations.push("One number");
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) validations.push("One special character");
     
-    // Demo success (replace with your original createUserWithGoogle logic)
-    setTimeout(() => {
-      setIsLoading(false);
-      alert("Demo: Google registration successful!");
-    }, 2000);
+    return {
+      isValid: validations.length === 0,
+      message: validations.length === 0 ? "Strong password" : validations,
+      strength: Math.max(0, 5 - validations.length) * 20
+    };
   };
 
-  const EyeIcon = ({ show }) => (
-    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-      {show ? (
-        <path fillRule="evenodd" d="M3.707 2.293a1 1 0 00-1.414 1.414l14 14a1 1 0 001.414-1.414l-1.473-1.473A10.014 10.014 0 0019.542 10C18.268 5.943 14.478 3 10 3a9.958 9.958 0 00-4.512 1.074l-1.78-1.781zm4.261 4.26l1.514 1.515a2.003 2.003 0 012.45 2.45l1.514 1.514a4 4 0 00-5.478-5.478z" clipRule="evenodd" />
-      ) : (
-        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-      )}
-      <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
-    </svg>
-  );
+  const validateConfirmPassword = (confirmPassword, password) => {
+    if (!confirmPassword) return { isValid: false, message: "Please confirm your password" };
+    if (confirmPassword !== password) return { isValid: false, message: "Passwords do not match" };
+    return { isValid: true, message: "Passwords match" };
+  };
 
-  const GoogleIcon = () => (
-    <svg className="w-5 h-5" viewBox="0 0 24 24">
-      <path fill="#EA4335" d="M5.26620003,9.76452941 C6.19878754,6.93863203 8.85444915,4.90909091 12,4.90909091 C13.6909091,4.90909091 15.2181818,5.50909091 16.4181818,6.49090909 L19.9090909,3 C17.7818182,1.14545455 15.0545455,0 12,0 C7.27272727,0 3.28636364,2.6909091 1.63636364,6.65454545 L5.26620003,9.76452941 Z"/>
-      <path fill="#34A853" d="M16.0407269,18.0125889 C14.9509167,18.7163016 13.5660892,19.0909091 12,19.0909091 C8.86648613,19.0909091 6.21911939,17.076871 5.27698177,14.2678769 L1.63636364,17.3545455 C3.28636364,21.3181818 7.27272727,24 12,24 C14.9677777,24 17.7447899,22.9424658 19.834192,20.9447899 L16.0407269,18.0125889 Z"/>
-      <path fill="#4A90E2" d="M19.834192,20.9447899 C22.0291667,18.9476744 23.6363636,15.9547899 23.6363636,12 C23.6363636,11.2909091 23.5454545,10.5818182 23.3636364,9.90909091 L12,9.90909091 L12,14.4545455 L18.4090909,14.4545455 C18.05,16.0181818 17.1363636,17.2272727 15.8181818,18.0363636 L19.834192,20.9447899 Z"/>
-      <path fill="#FBBC05" d="M5.27698177,14.2678769 C5.03832634,13.556323 4.90909091,12.7937589 4.90909091,12 C4.90909091,11.2182781 5.03443647,10.4668121 5.26620003,9.76452941 L1.63636364,6.65454545 C0.590909091,8.13636364 0,9.90909091 0,12 C0,14.0909091 0.590909091,15.8636364 1.63636364,17.3454545 L5.27698177,14.2678769 Z"/>
-    </svg>
-  );
+  // Get validation states
+  const nameValidation = validateName(name);
+  const emailValidation = validateEmail(email);
+  const passwordValidation = validatePassword(password);
+  const confirmPasswordValidation = validateConfirmPassword(confirmPassword, password);
 
-  const UserIcon = () => (
-    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-      <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-    </svg>
-  );
+  // GSAP animations
+  useEffect(() => {
+    const tl = gsap.timeline();
+
+    // Set initial states
+    gsap.set([formRef.current, titleRef.current], { opacity: 0, y: 60, scale: 0.9 });
+    gsap.set(fieldsRef.current, { opacity: 0, x: -40, rotation: -2 });
+    gsap.set(buttonsRef.current, { opacity: 0, scale: 0.7, y: 20 });
+    gsap.set(dotsRef.current, { opacity: 0, scale: 0, rotation: 180 });
+
+    // Container entrance with breathing effect
+    tl.fromTo(containerRef.current, 
+      { opacity: 0, scale: 1.05 },
+      { opacity: 1, scale: 1, duration: 0.8, ease: "power2.out" }
+    )
+    // Form container entrance with elastic bounce
+    .to(formRef.current, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 1,
+      ease: "elastic.out(1, 0.6)"
+    }, "-=0.4")
+    // Title animation with rotation
+    .to(titleRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: "back.out(1.7)"
+    }, "-=0.6")
+    // Stagger form fields with rotation
+    .to(fieldsRef.current, {
+      opacity: 1,
+      x: 0,
+      rotation: 0,
+      duration: 0.6,
+      stagger: 0.2,
+      ease: "back.out(1.2)"
+    }, "-=0.4")
+    // Buttons animation with bounce
+    .to(buttonsRef.current, {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      duration: 0.5,
+      stagger: 0.15,
+      ease: "elastic.out(1, 0.4)"
+    }, "-=0.3")
+    // Floating dots with spin
+    .to(dotsRef.current, {
+      opacity: 0.4,
+      scale: 1,
+      rotation: 0,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: "back.out(1.5)"
+    }, "-=0.5");
+
+    // Continuous floating animation for dots
+    dotsRef.current.forEach((dot, index) => {
+      if (dot) {
+        gsap.to(dot, {
+          y: "random(-20, 20)",
+          x: "random(-15, 15)",
+          rotation: "random(-360, 360)",
+          duration: "random(6, 12)",
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          delay: index * 0.4
+        });
+      }
+    });
+
+    return () => {
+      tl.kill();
+    };
+  }, []);
+
+  // Enhanced form field animations
+  const handleFieldFocus = (index, fieldName) => {
+    setTouched(prev => ({ ...prev, [fieldName]: true }));
+    
+    // Scale and glow effect
+    gsap.to(fieldsRef.current[index], {
+      scale: 1.03,
+      duration: 0.3,
+      ease: "power2.out"
+    });
+
+    // Validation indicator animation
+    if (validationRef.current[index]) {
+      gsap.to(validationRef.current[index], {
+        opacity: 1,
+        x: 0,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    }
+  };
+
+  const handleFieldBlur = (index) => {
+    gsap.to(fieldsRef.current[index], {
+      scale: 1,
+      duration: 0.3,
+      ease: "power2.out"
+    });
+  };
+
+  // Enhanced button hover animations
+  const handleButtonHover = (buttonRef, isHover) => {
+    gsap.to(buttonRef, {
+      scale: isHover ? 1.05 : 1,
+      y: isHover ? -2 : 0,
+      duration: 0.3,
+      ease: "power2.out"
+    });
+  };
+
+  // Error animation with shake effect
+  useEffect(() => {
+    if (registerError) {
+      gsap.fromTo(".error-message", 
+        { opacity: 0, x: -30, scale: 0.8 },
+        { 
+          opacity: 1, 
+          x: 0, 
+          scale: 1, 
+          duration: 0.5, 
+          ease: "back.out(1.7)" 
+        }
+      );
+      
+      // Shake animation for form
+      gsap.to(formRef.current, {
+        x: [-10, 10, -8, 8, -5, 5, 0],
+        duration: 0.6,
+        ease: "power2.out"
+      });
+    }
+  }, [registerError]);
+
+  // Success animation
+  const playSuccessAnimation = () => {
+    gsap.to(formRef.current, {
+      scale: 1.05,
+      duration: 0.2,
+      yoyo: true,
+      repeat: 1,
+      ease: "power2.out",
+      onComplete: () => {
+        gsap.to(formRef.current, {
+          y: -20,
+          opacity: 0.8,
+          duration: 0.5,
+          ease: "power2.in"
+        });
+      }
+    });
+  };
+
+  // handle register
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setRegisterError("");
+
+    // Mark all fields as touched
+    setTouched({
+      name: true,
+      email: true,
+      password: true,
+      confirmPassword: true
+    });
+
+    // Validate all fields
+    if (!nameValidation.isValid || !emailValidation.isValid || 
+        !passwordValidation.isValid || !confirmPasswordValidation.isValid) {
+      setIsLoading(false);
+      setRegisterError("Please fix all validation errors before proceeding.");
+      return;
+    }
+
+    // Loading animation
+    gsap.to(buttonsRef.current[0], {
+      scale: 0.95,
+      duration: 0.1,
+      yoyo: true,
+      repeat: 1
+    });
+
+    try {
+      // Register with Email
+      await createUser(email, password);
+      await updateUser(name);
+      
+      // Success animation
+      playSuccessAnimation();
+
+      // clearing the form
+      clearingForm();
+      setIsLoading(false);
+
+      // navigating the user
+      setTimeout(() => {
+        navigate(location?.state ? location?.state : "/");
+      }, 500);
+
+      // showing alert
+      toast.success("Account created successfully!");
+    } catch (error) {
+      setIsLoading(false);
+      setRegisterError(error.message || "Registration failed. Please try again.");
+    }
+  };
+
+  // Register with Google
+  const handleGoogleRegister = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    // Loading animation
+    gsap.to(buttonsRef.current[1], {
+      scale: 0.95,
+      duration: 0.1,
+      yoyo: true,
+      repeat: 1
+    });
+
+    try {
+      await createUserWithGoogle();
+      
+      // Success animation
+      playSuccessAnimation();
+
+      // clearing the form
+      clearingForm();
+      setRegisterError("");
+      setIsLoading(false);
+
+      // navigating the user
+      setTimeout(() => {
+        navigate(location?.state ? location?.state : "/");
+      }, 500);
+
+      // showing alert
+      toast.success("Signed in with Google successfully!");
+    } catch (error) {
+      setIsLoading(false);
+      setRegisterError(error.message || "Google registration failed. Please try again.");
+    }
+  };
+
+  const clearingForm = () => {
+    setName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    setTouched({
+      name: false,
+      email: false,
+      password: false,
+      confirmPassword: false
+    });
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Animated background elements */}
+    <div 
+      ref={containerRef}
+      className="relative w-full min-h-screen bg-black overflow-hidden flex items-center justify-center p-4"
+    >
+      {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-32 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-32 w-80 h-80 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse" style={{animationDelay: '2s'}}></div>
-        <div className="absolute top-40 left-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse" style={{animationDelay: '4s'}}></div>
-        <div className="absolute top-1/2 right-1/4 w-60 h-60 bg-cyan-500 rounded-full mix-blend-multiply filter blur-xl opacity-50 animate-pulse" style={{animationDelay: '6s'}}></div>
+        {/* Floating Dots */}
+        {[...Array(12)].map((_, i) => (
+          <div
+            key={i}
+            ref={el => dotsRef.current[i] = el}
+            className={`absolute w-3 h-3 bg-white rounded-full ${
+              i % 3 === 0 ? 'opacity-40' : i % 3 === 1 ? 'opacity-20' : 'opacity-10'
+            }`}
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+          />
+        ))}
+        
+        {/* Geometric Grid */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="grid grid-cols-8 gap-8 h-full">
+            {[...Array(8)].map((_, i) => (
+              <div key={i} className="border-r border-gray-800 h-full" />
+            ))}
+          </div>
+          <div className="absolute inset-0 grid grid-rows-8 gap-8">
+            {[...Array(8)].map((_, i) => (
+              <div key={i} className="border-b border-gray-800 w-full" />
+            ))}
+          </div>
+        </div>
+        
+        {/* Corner Elements */}
+        <div className="absolute top-8 left-8 w-24 h-24 border-l-2 border-t-2 border-gray-800 rounded-tl-lg" />
+        <div className="absolute top-8 right-8 w-24 h-24 border-r-2 border-t-2 border-gray-800 rounded-tr-lg" />
+        <div className="absolute bottom-8 left-8 w-24 h-24 border-l-2 border-b-2 border-gray-800 rounded-bl-lg" />
+        <div className="absolute bottom-8 right-8 w-24 h-24 border-r-2 border-b-2 border-gray-800 rounded-br-lg" />
       </div>
 
-      {/* Main container */}
-      <div className="relative w-full max-w-md">
-        <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-white/20">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-pink-500 to-purple-600 rounded-2xl mb-4 shadow-lg">
-              <UserIcon />
+      {/* Form Container */}
+      <div className="relative z-10 w-full max-w-md">
+        <form
+          ref={formRef}
+          onSubmit={handleRegister}
+          className="bg-gray-900 border border-gray-800 rounded-3xl p-8 shadow-2xl backdrop-blur-sm"
+        >
+          {/* Title Section */}
+          <div 
+            ref={titleRef}
+            className="flex items-center justify-center mb-8"
+          >
+            <div className="relative">
+              <div className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center border border-gray-700 shadow-lg">
+                <span className="text-white text-xl font-bold">R</span>
+              </div>
+              <div className="absolute -top-1 -right-1 w-4 h-4 bg-blue-500 rounded-full animate-pulse" />
             </div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-pink-200 to-purple-200 bg-clip-text text-transparent mb-2">
+            <h1 className="text-3xl ml-4 font-bold text-white">
               Create Account
             </h1>
-            <p className="text-gray-400 text-sm">Join us today and get started</p>
           </div>
 
-          {/* Form */}
+          {/* Form Fields */}
           <div className="space-y-6">
-            {/* Name field */}
-            <div className="group">
-              <label className="block text-sm font-medium text-gray-300 mb-2 transition-colors group-focus-within:text-pink-400">
+            {/* Name Field */}
+            <div 
+              ref={el => fieldsRef.current[0] = el}
+              className="relative group"
+            >
+              <label className="block text-sm font-semibold text-gray-400 mb-2">
                 Full Name
               </label>
               <div className="relative">
                 <input
+                  className={`w-full px-4 py-3 pr-10 bg-gray-800 border rounded-lg text-white placeholder-gray-500 focus:outline-none transition-all duration-300 ${
+                    touched.name 
+                      ? nameValidation.isValid 
+                        ? 'border-green-500 focus:border-green-400 focus:ring-2 focus:ring-green-500/20' 
+                        : 'border-red-500 focus:border-red-400 focus:ring-2 focus:ring-red-500/20'
+                      : 'border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                  }`}
                   type="text"
+                  placeholder="Enter your full name"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 focus:outline-none transition-all duration-300"
-                  placeholder="Enter your full name"
+                  onFocus={() => handleFieldFocus(0, 'name')}
+                  onBlur={() => handleFieldBlur(0)}
                 />
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-pink-500/20 to-purple-500/20 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                {touched.name && (
+                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                    {nameValidation.isValid ? (
+                      <FaCheck className="text-green-500" />
+                    ) : (
+                      <FaTimes className="text-red-500" />
+                    )}
+                  </div>
+                )}
               </div>
+              {touched.name && !nameValidation.isValid && (
+                <p 
+                  ref={el => validationRef.current[0] = el}
+                  className="text-red-400 text-xs mt-1 opacity-0"
+                >
+                  {nameValidation.message}
+                </p>
+              )}
             </div>
 
-            {/* Email field */}
-            <div className="group">
-              <label className="block text-sm font-medium text-gray-300 mb-2 transition-colors group-focus-within:text-pink-400">
+            {/* Email Field */}
+            <div 
+              ref={el => fieldsRef.current[1] = el}
+              className="relative group"
+            >
+              <label className="block text-sm font-semibold text-gray-400 mb-2">
                 Email Address
               </label>
               <div className="relative">
                 <input
+                  className={`w-full px-4 py-3 pr-10 bg-gray-800 border rounded-lg text-white placeholder-gray-500 focus:outline-none transition-all duration-300 ${
+                    touched.email 
+                      ? emailValidation.isValid 
+                        ? 'border-green-500 focus:border-green-400 focus:ring-2 focus:ring-green-500/20' 
+                        : 'border-red-500 focus:border-red-400 focus:ring-2 focus:ring-red-500/20'
+                      : 'border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                  }`}
                   type="email"
+                  placeholder="Enter your email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 focus:outline-none transition-all duration-300"
-                  placeholder="Enter your email"
+                  onFocus={() => handleFieldFocus(1, 'email')}
+                  onBlur={() => handleFieldBlur(1)}
                 />
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-pink-500/20 to-purple-500/20 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                {touched.email && (
+                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                    {emailValidation.isValid ? (
+                      <FaCheck className="text-green-500" />
+                    ) : (
+                      <FaTimes className="text-red-500" />
+                    )}
+                  </div>
+                )}
               </div>
+              {touched.email && !emailValidation.isValid && (
+                <p 
+                  ref={el => validationRef.current[1] = el}
+                  className="text-red-400 text-xs mt-1 opacity-0"
+                >
+                  {emailValidation.message}
+                </p>
+              )}
             </div>
 
-            {/* Password field */}
-            <div className="group">
-              <label className="block text-sm font-medium text-gray-300 mb-2 transition-colors group-focus-within:text-pink-400">
+            {/* Password Field */}
+            <div 
+              ref={el => fieldsRef.current[2] = el}
+              className="relative group"
+            >
+              <label className="block text-sm font-semibold text-gray-400 mb-2">
                 Password
               </label>
               <div className="relative">
                 <input
+                  className={`w-full px-4 py-3 pr-20 bg-gray-800 border rounded-lg text-white placeholder-gray-500 focus:outline-none transition-all duration-300 ${
+                    touched.password 
+                      ? passwordValidation.isValid 
+                        ? 'border-green-500 focus:border-green-400 focus:ring-2 focus:ring-green-500/20' 
+                        : 'border-red-500 focus:border-red-400 focus:ring-2 focus:ring-red-500/20'
+                      : 'border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                  }`}
                   type={showPassword ? "text" : "password"}
+                  placeholder="Create a strong password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 pr-12 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 focus:outline-none transition-all duration-300"
-                  placeholder="Create a strong password"
+                  onFocus={() => handleFieldFocus(2, 'password')}
+                  onBlur={() => handleFieldBlur(2)}
                 />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  <EyeIcon show={!showPassword} />
-                </button>
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-pink-500/20 to-purple-500/20 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-              </div>
-            </div>
-
-            {/* Password requirements */}
-            <div className="bg-white/5 rounded-lg p-3 border border-white/10">
-              <p className="text-xs text-gray-400 mb-2">Password must contain:</p>
-              <div className="space-y-1">
-                <div className={`text-xs flex items-center gap-2 ${password.length >= 6 ? 'text-green-400' : 'text-gray-400'}`}>
-                  <div className={`w-2 h-2 rounded-full ${password.length >= 6 ? 'bg-green-400' : 'bg-gray-400'}`}></div>
-                  At least 6 characters
-                </div>
-                <div className={`text-xs flex items-center gap-2 ${/[A-Z]/.test(password) ? 'text-green-400' : 'text-gray-400'}`}>
-                  <div className={`w-2 h-2 rounded-full ${/[A-Z]/.test(password) ? 'bg-green-400' : 'bg-gray-400'}`}></div>
-                  One uppercase letter
-                </div>
-                <div className={`text-xs flex items-center gap-2 ${/[a-z]/.test(password) ? 'text-green-400' : 'text-gray-400'}`}>
-                  <div className={`w-2 h-2 rounded-full ${/[a-z]/.test(password) ? 'bg-green-400' : 'bg-gray-400'}`}></div>
-                  One lowercase letter
+                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-2">
+                  {touched.password && (
+                    <div>
+                      {passwordValidation.isValid ? (
+                        <FaCheck className="text-green-500" />
+                      ) : (
+                        <FaTimes className="text-red-500" />
+                      )}
+                    </div>
+                  )}
+                  <button
+                    type="button"
+                    className="text-gray-500 hover:text-gray-300 transition-colors duration-200"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
                 </div>
               </div>
-            </div>
-
-            {/* Error message */}
-            {registerError && (
-              <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3 animate-bounce">
-                <p className="text-red-400 text-sm">{registerError}</p>
-              </div>
-            )}
-
-            {/* Register button */}
-            <button
-              onClick={handleRegister}
-              disabled={isLoading}
-              className="w-full relative bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-            >
-              <span className={isLoading ? "opacity-0" : "opacity-100"}>
-                Create Account
-              </span>
-              {isLoading && (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+              {touched.password && password && (
+                <div className="mt-2">
+                  <div className="flex justify-between text-xs text-gray-400 mb-1">
+                    <span>Password Strength</span>
+                    <span>{passwordValidation.strength}%</span>
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-2">
+                    <div 
+                      className={`h-2 rounded-full transition-all duration-300 ${
+                        passwordValidation.strength < 40 ? 'bg-red-500' :
+                        passwordValidation.strength < 80 ? 'bg-yellow-500' : 'bg-green-500'
+                      }`}
+                      style={{ width: `${passwordValidation.strength}%` }}
+                    />
+                  </div>
+                  {!passwordValidation.isValid && Array.isArray(passwordValidation.message) && (
+                    <div className="mt-2 text-xs text-red-400">
+                      <p>Password must contain:</p>
+                      <ul className="list-disc list-inside mt-1 space-y-1">
+                        {passwordValidation.message.map((req, index) => (
+                          <li key={index}>{req}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               )}
-            </button>
-
-            {/* Divider */}
-            <div className="flex items-center">
-              <div className="flex-1 border-t border-white/20"></div>
-              <span className="px-4 text-gray-400 text-sm">Or register with</span>
-              <div className="flex-1 border-t border-white/20"></div>
             </div>
 
-            {/* Google register button */}
+            {/* Confirm Password Field */}
+            <div 
+              ref={el => fieldsRef.current[3] = el}
+              className="relative group"
+            >
+              <label className="block text-sm font-semibold text-gray-400 mb-2">
+                Confirm Password
+              </label>
+              <div className="relative">
+                <input
+                  className={`w-full px-4 py-3 pr-20 bg-gray-800 border rounded-lg text-white placeholder-gray-500 focus:outline-none transition-all duration-300 ${
+                    touched.confirmPassword 
+                      ? confirmPasswordValidation.isValid 
+                        ? 'border-green-500 focus:border-green-400 focus:ring-2 focus:ring-green-500/20' 
+                        : 'border-red-500 focus:border-red-400 focus:ring-2 focus:ring-red-500/20'
+                      : 'border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                  }`}
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="Confirm your password"
+                  required
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  onFocus={() => handleFieldFocus(3, 'confirmPassword')}
+                  onBlur={() => handleFieldBlur(3)}
+                />
+                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-2">
+                  {touched.confirmPassword && confirmPassword && (
+                    <div>
+                      {confirmPasswordValidation.isValid ? (
+                        <FaCheck className="text-green-500" />
+                      ) : (
+                        <FaTimes className="text-red-500" />
+                      )}
+                    </div>
+                  )}
+                  <button
+                    type="button"
+                    className="text-gray-500 hover:text-gray-300 transition-colors duration-200"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  >
+                    {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
+              </div>
+              {touched.confirmPassword && !confirmPasswordValidation.isValid && (
+                <p 
+                  ref={el => validationRef.current[3] = el}
+                  className="text-red-400 text-xs mt-1 opacity-0"
+                >
+                  {confirmPasswordValidation.message}
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* Error Message */}
+          {registerError && (
+            <div className="error-message mt-6 p-4 bg-red-900/30 border border-red-700/50 rounded-lg">
+              <p className="text-red-300 text-sm flex items-center">
+                <FaTimes className="mr-2" />
+                {registerError}
+              </p>
+            </div>
+          )}
+
+          {/* Buttons */}
+          <div className="mt-8 space-y-4">
+            {/* Register Button */}
             <button
+              ref={el => buttonsRef.current[0] = el}
+              type="submit"
+              disabled={isLoading}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500/50 shadow-lg"
+              onMouseEnter={(e) => handleButtonHover(e.target, true)}
+              onMouseLeave={(e) => handleButtonHover(e.target, false)}
+            >
+              <span className="flex items-center justify-center">
+                {isLoading ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
+                    Creating Account...
+                  </>
+                ) : (
+                  <>
+                    <FaCheck className="mr-2" />
+                    Create Account
+                  </>
+                )}
+              </span>
+            </button>
+
+            {/* Google Register Button */}
+            <button
+              ref={el => buttonsRef.current[1] = el}
+              type="button"
               onClick={handleGoogleRegister}
               disabled={isLoading}
-              className="w-full bg-white/5 hover:bg-white/10 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] border border-white/10 hover:border-white/20 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              className="w-full bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-gray-500/50 shadow-lg"
+              onMouseEnter={(e) => handleButtonHover(e.target, true)}
+              onMouseLeave={(e) => handleButtonHover(e.target, false)}
             >
-              <GoogleIcon />
-              Continue with Google
+              <span className="flex items-center justify-center">
+                <FaGoogle className="mr-2" />
+                Continue with Google
+              </span>
             </button>
           </div>
 
-          {/* Login link */}
-          <div className="text-center mt-8 pt-6 border-t border-white/10">
+          {/* Login Link */}
+          <div className="mt-6 text-center">
             <p className="text-gray-400">
               Already have an account?{" "}
-              <span className="text-pink-400 hover:text-pink-300 font-medium hover:underline transition-colors duration-200 cursor-pointer">
-                Sign in here
-              </span>
+              <Link 
+                to="/login"
+                className="text-blue-500 hover:text-blue-400 font-semibold transition-colors duration-200 hover:underline"
+              >
+                Sign in
+              </Link>
             </p>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
