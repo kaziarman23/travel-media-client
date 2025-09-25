@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { AuthContext } from "../../Providers/old_AuthProvider";
 import { useContext, useEffect, useState } from "react";
 import { 
   FaMapMarkerAlt,

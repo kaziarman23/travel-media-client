@@ -1,7 +1,15 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useContext, useState, useEffect, useRef } from "react";
-import { AuthContext } from "../../AuthProvider/AuthProvider";
-import { FaGoogle, FaEye, FaEyeSlash, FaSignInAlt, FaTimes, FaCheck } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { loginUser, googleSignIn } from "../../Redux/features/userSlice";
+import { useState, useEffect, useRef } from "react";
+import {
+  FaGoogle,
+  FaEye,
+  FaEyeSlash,
+  FaSignInAlt,
+  FaTimes,
+  FaCheck,
+} from "react-icons/fa";
 import toast from "react-hot-toast";
 import { gsap } from "gsap";
 
@@ -25,23 +33,28 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [touched, setTouched] = useState({
     email: false,
-    password: false
+    password: false,
   });
 
-  // context api
-  const { loginUser, createUserWithGoogle } = useContext(AuthContext);
+  // Redux Hook
+  const dispatch = useDispatch();
 
   // Validation functions
   const validateEmail = (email) => {
     if (!email) return { isValid: false, message: "Email is required" };
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) return { isValid: false, message: "Invalid email format" };
+    if (!emailRegex.test(email))
+      return { isValid: false, message: "Invalid email format" };
     return { isValid: true, message: "Valid email" };
   };
 
   const validatePassword = (password) => {
     if (!password) return { isValid: false, message: "Password is required" };
-    if (password.length < 6) return { isValid: false, message: "Password must be at least 6 characters" };
+    if (password.length < 6)
+      return {
+        isValid: false,
+        message: "Password must be at least 6 characters",
+      };
     return { isValid: true, message: "Valid password" };
   };
 
@@ -54,58 +67,83 @@ const Login = () => {
     const tl = gsap.timeline();
 
     // Set initial states
-    gsap.set([formRef.current, titleRef.current], { opacity: 0, y: 60, scale: 0.9 });
+    gsap.set([formRef.current, titleRef.current], {
+      opacity: 0,
+      y: 60,
+      scale: 0.9,
+    });
     gsap.set(fieldsRef.current, { opacity: 0, x: -40, rotation: -3 });
     gsap.set(buttonsRef.current, { opacity: 0, scale: 0.7, y: 20 });
     gsap.set(dotsRef.current, { opacity: 0, scale: 0, rotation: 180 });
 
     // Container entrance with breathing effect
-    tl.fromTo(containerRef.current, 
+    tl.fromTo(
+      containerRef.current,
       { opacity: 0, scale: 1.05 },
       { opacity: 1, scale: 1, duration: 0.8, ease: "power2.out" }
     )
-    // Form container entrance with elastic bounce
-    .to(formRef.current, {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      duration: 1,
-      ease: "elastic.out(1, 0.6)"
-    }, "-=0.4")
-    // Title animation with rotation
-    .to(titleRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: "back.out(1.7)"
-    }, "-=0.6")
-    // Stagger form fields with rotation
-    .to(fieldsRef.current, {
-      opacity: 1,
-      x: 0,
-      rotation: 0,
-      duration: 0.6,
-      stagger: 0.25,
-      ease: "back.out(1.2)"
-    }, "-=0.4")
-    // Buttons animation with bounce
-    .to(buttonsRef.current, {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      duration: 0.5,
-      stagger: 0.15,
-      ease: "elastic.out(1, 0.4)"
-    }, "-=0.3")
-    // Floating dots with spin
-    .to(dotsRef.current, {
-      opacity: 0.4,
-      scale: 1,
-      rotation: 0,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: "back.out(1.5)"
-    }, "-=0.5");
+      // Form container entrance with elastic bounce
+      .to(
+        formRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1,
+          ease: "elastic.out(1, 0.6)",
+        },
+        "-=0.4"
+      )
+      // Title animation with rotation
+      .to(
+        titleRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "back.out(1.7)",
+        },
+        "-=0.6"
+      )
+      // Stagger form fields with rotation
+      .to(
+        fieldsRef.current,
+        {
+          opacity: 1,
+          x: 0,
+          rotation: 0,
+          duration: 0.6,
+          stagger: 0.25,
+          ease: "back.out(1.2)",
+        },
+        "-=0.4"
+      )
+      // Buttons animation with bounce
+      .to(
+        buttonsRef.current,
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.15,
+          ease: "elastic.out(1, 0.4)",
+        },
+        "-=0.3"
+      )
+      // Floating dots with spin
+      .to(
+        dotsRef.current,
+        {
+          opacity: 0.4,
+          scale: 1,
+          rotation: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "back.out(1.5)",
+        },
+        "-=0.5"
+      );
 
     // Continuous floating animation for dots
     dotsRef.current.forEach((dot, index) => {
@@ -118,7 +156,7 @@ const Login = () => {
           repeat: -1,
           yoyo: true,
           ease: "sine.inOut",
-          delay: index * 0.5
+          delay: index * 0.5,
         });
       }
     });
@@ -130,13 +168,13 @@ const Login = () => {
 
   // Enhanced form field animations
   const handleFieldFocus = (index, fieldName) => {
-    setTouched(prev => ({ ...prev, [fieldName]: true }));
-    
+    setTouched((prev) => ({ ...prev, [fieldName]: true }));
+
     // Scale and glow effect
     gsap.to(fieldsRef.current[index], {
       scale: 1.03,
       duration: 0.3,
-      ease: "power2.out"
+      ease: "power2.out",
     });
 
     // Validation indicator animation
@@ -145,7 +183,7 @@ const Login = () => {
         opacity: 1,
         x: 0,
         duration: 0.3,
-        ease: "power2.out"
+        ease: "power2.out",
       });
     }
   };
@@ -154,7 +192,7 @@ const Login = () => {
     gsap.to(fieldsRef.current[index], {
       scale: 1,
       duration: 0.3,
-      ease: "power2.out"
+      ease: "power2.out",
     });
   };
 
@@ -164,29 +202,30 @@ const Login = () => {
       scale: isHover ? 1.05 : 1,
       y: isHover ? -3 : 0,
       duration: 0.3,
-      ease: "power2.out"
+      ease: "power2.out",
     });
   };
 
   // Error animation with shake effect
   useEffect(() => {
     if (loginError) {
-      gsap.fromTo(".error-message", 
+      gsap.fromTo(
+        ".error-message",
         { opacity: 0, x: -30, scale: 0.8 },
-        { 
-          opacity: 1, 
-          x: 0, 
-          scale: 1, 
-          duration: 0.5, 
-          ease: "back.out(1.7)" 
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: 0.5,
+          ease: "back.out(1.7)",
         }
       );
-      
+
       // Shake animation for form
       gsap.to(formRef.current, {
         x: [-15, 15, -12, 12, -8, 8, 0],
         duration: 0.8,
-        ease: "power2.out"
+        ease: "power2.out",
       });
     }
   }, [loginError]);
@@ -204,9 +243,9 @@ const Login = () => {
           y: -30,
           opacity: 0.7,
           duration: 0.6,
-          ease: "power2.in"
+          ease: "power2.in",
         });
-      }
+      },
     });
   };
 
@@ -218,7 +257,7 @@ const Login = () => {
     // Mark all fields as touched
     setTouched({
       email: true,
-      password: true
+      password: true,
     });
 
     // Validate all fields
@@ -233,12 +272,14 @@ const Login = () => {
       scale: 0.95,
       duration: 0.1,
       yoyo: true,
-      repeat: 1
+      repeat: 1,
     });
 
     try {
-      await loginUser(email, password);
-      
+      await dispatch(
+        loginUser({ userEmail: email, userPassword: password })
+      ).unwrap();
+
       // Success animation
       playSuccessAnimation();
 
@@ -256,7 +297,9 @@ const Login = () => {
     } catch (error) {
       setIsLoading(false);
       console.log(error);
-      setLoginError(error.message || "Invalid email or password. Please try again.");
+      setLoginError(
+        error.message || "Invalid email or password. Please try again."
+      );
     }
   };
 
@@ -270,12 +313,12 @@ const Login = () => {
       scale: 0.95,
       duration: 0.1,
       yoyo: true,
-      repeat: 1
+      repeat: 1,
     });
 
     try {
-      await createUserWithGoogle();
-      
+      await dispatch(googleSignIn()).unwrap();
+
       // Success animation
       playSuccessAnimation();
 
@@ -293,7 +336,9 @@ const Login = () => {
       toast.success("Signed in with Google successfully");
     } catch (error) {
       setIsLoading(false);
-      setLoginError(error.message || "Google sign-in failed. Please try again.");
+      setLoginError(
+        error.message || "Google sign-in failed. Please try again."
+      );
     }
   };
 
@@ -302,12 +347,12 @@ const Login = () => {
     setPassword("");
     setTouched({
       email: false,
-      password: false
+      password: false,
     });
   };
 
   return (
-    <div 
+    <div
       ref={containerRef}
       className="relative w-full min-h-screen bg-black overflow-hidden flex items-center justify-center p-4"
     >
@@ -317,9 +362,13 @@ const Login = () => {
         {[...Array(10)].map((_, i) => (
           <div
             key={i}
-            ref={el => dotsRef.current[i] = el}
+            ref={(el) => (dotsRef.current[i] = el)}
             className={`absolute w-3 h-3 bg-white rounded-full ${
-              i % 3 === 0 ? 'opacity-40' : i % 3 === 1 ? 'opacity-25' : 'opacity-15'
+              i % 3 === 0
+                ? "opacity-40"
+                : i % 3 === 1
+                ? "opacity-25"
+                : "opacity-15"
             }`}
             style={{
               left: `${Math.random() * 100}%`,
@@ -327,7 +376,7 @@ const Login = () => {
             }}
           />
         ))}
-        
+
         {/* Geometric Grid */}
         <div className="absolute inset-0 opacity-5">
           <div className="grid grid-cols-6 gap-12 h-full">
@@ -341,7 +390,7 @@ const Login = () => {
             ))}
           </div>
         </div>
-        
+
         {/* Corner Elements */}
         <div className="absolute top-8 left-8 w-24 h-24 border-l-2 border-t-2 border-gray-800 rounded-tl-lg" />
         <div className="absolute top-8 right-8 w-24 h-24 border-r-2 border-t-2 border-gray-800 rounded-tr-lg" />
@@ -357,26 +406,21 @@ const Login = () => {
           className="bg-gray-900 border border-gray-800 rounded-3xl p-8 shadow-2xl backdrop-blur-sm"
         >
           {/* Title Section */}
-          <div 
-            ref={titleRef}
-            className="flex items-center justify-center mb-8"
-          >
+          <div ref={titleRef} className="flex items-center justify-center mb-8">
             <div className="relative">
               <div className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center border border-gray-700 shadow-lg">
                 <FaSignInAlt className="text-white text-lg" />
               </div>
               <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full animate-pulse" />
             </div>
-            <h1 className="text-3xl ml-4 font-bold text-white">
-              Welcome Back
-            </h1>
+            <h1 className="text-3xl ml-4 font-bold text-white">Welcome Back</h1>
           </div>
 
           {/* Form Fields */}
           <div className="space-y-6">
             {/* Email Field */}
-            <div 
-              ref={el => fieldsRef.current[0] = el}
+            <div
+              ref={(el) => (fieldsRef.current[0] = el)}
               className="relative group"
             >
               <label className="block text-sm font-semibold text-gray-400 mb-2">
@@ -385,11 +429,11 @@ const Login = () => {
               <div className="relative">
                 <input
                   className={`w-full px-4 py-3 pr-10 bg-gray-800 border rounded-lg text-white placeholder-gray-500 focus:outline-none transition-all duration-300 ${
-                    touched.email 
-                      ? emailValidation.isValid 
-                        ? 'border-green-500 focus:border-green-400 focus:ring-2 focus:ring-green-500/20' 
-                        : 'border-red-500 focus:border-red-400 focus:ring-2 focus:ring-red-500/20'
-                      : 'border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                    touched.email
+                      ? emailValidation.isValid
+                        ? "border-green-500 focus:border-green-400 focus:ring-2 focus:ring-green-500/20"
+                        : "border-red-500 focus:border-red-400 focus:ring-2 focus:ring-red-500/20"
+                      : "border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                   }`}
                   type="email"
                   id="email"
@@ -397,7 +441,7 @@ const Login = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  onFocus={() => handleFieldFocus(0, 'email')}
+                  onFocus={() => handleFieldFocus(0, "email")}
                   onBlur={() => handleFieldBlur(0)}
                 />
                 {touched.email && (
@@ -411,8 +455,8 @@ const Login = () => {
                 )}
               </div>
               {touched.email && !emailValidation.isValid && (
-                <p 
-                  ref={el => validationRef.current[0] = el}
+                <p
+                  ref={(el) => (validationRef.current[0] = el)}
                   className="text-red-400 text-xs mt-1 opacity-0"
                 >
                   {emailValidation.message}
@@ -421,8 +465,8 @@ const Login = () => {
             </div>
 
             {/* Password Field */}
-            <div 
-              ref={el => fieldsRef.current[1] = el}
+            <div
+              ref={(el) => (fieldsRef.current[1] = el)}
               className="relative group"
             >
               <label className="block text-sm font-semibold text-gray-400 mb-2">
@@ -431,11 +475,11 @@ const Login = () => {
               <div className="relative">
                 <input
                   className={`w-full px-4 py-3 pr-20 bg-gray-800 border rounded-lg text-white placeholder-gray-500 focus:outline-none transition-all duration-300 ${
-                    touched.password 
-                      ? passwordValidation.isValid 
-                        ? 'border-green-500 focus:border-green-400 focus:ring-2 focus:ring-green-500/20' 
-                        : 'border-red-500 focus:border-red-400 focus:ring-2 focus:ring-red-500/20'
-                      : 'border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                    touched.password
+                      ? passwordValidation.isValid
+                        ? "border-green-500 focus:border-green-400 focus:ring-2 focus:ring-green-500/20"
+                        : "border-red-500 focus:border-red-400 focus:ring-2 focus:ring-red-500/20"
+                      : "border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                   }`}
                   type={showPassword ? "text" : "password"}
                   id="password"
@@ -443,7 +487,7 @@ const Login = () => {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  onFocus={() => handleFieldFocus(1, 'password')}
+                  onFocus={() => handleFieldFocus(1, "password")}
                   onBlur={() => handleFieldBlur(1)}
                 />
                 <div className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-2">
@@ -466,8 +510,8 @@ const Login = () => {
                 </div>
               </div>
               {touched.password && !passwordValidation.isValid && (
-                <p 
-                  ref={el => validationRef.current[1] = el}
+                <p
+                  ref={(el) => (validationRef.current[1] = el)}
                   className="text-red-400 text-xs mt-1 opacity-0"
                 >
                   {passwordValidation.message}
@@ -477,7 +521,7 @@ const Login = () => {
 
             {/* Forgot Password Link */}
             <div className="text-right">
-              <Link 
+              <Link
                 to="/forgot-password"
                 className="text-sm text-blue-500 hover:text-blue-400 transition-colors duration-200 hover:underline"
               >
@@ -500,7 +544,7 @@ const Login = () => {
           <div className="mt-8 space-y-4">
             {/* Login Button */}
             <button
-              ref={el => buttonsRef.current[0] = el}
+              ref={(el) => (buttonsRef.current[0] = el)}
               type="submit"
               disabled={isLoading}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500/50 shadow-lg"
@@ -524,7 +568,7 @@ const Login = () => {
 
             {/* Google Login Button */}
             <button
-              ref={el => buttonsRef.current[1] = el}
+              ref={(el) => (buttonsRef.current[1] = el)}
               type="button"
               onClick={handleGoogleLogin}
               disabled={isLoading}
@@ -542,8 +586,8 @@ const Login = () => {
           {/* Register Link */}
           <div className="mt-6 text-center">
             <p className="text-gray-400">
-              Don't have an account?{" "}
-              <Link 
+              Don&#39;t have an account?{" "}
+              <Link
                 to="/register"
                 className="text-blue-500 hover:text-blue-400 font-semibold transition-colors duration-200 hover:underline"
               >

@@ -18,7 +18,7 @@ import {
   FaUsers,
   FaShieldAlt
 } from "react-icons/fa";
-import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { AuthContext } from "../../Providers/old_AuthProvider";
 import Loader from "../CustomHooks/Loader";
 import toast from "react-hot-toast";
 

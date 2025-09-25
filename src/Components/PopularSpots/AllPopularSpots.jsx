@@ -22,7 +22,7 @@ import {
   FaBookmark
 } from "react-icons/fa";
 import Loader from "../CustomHooks/Loader";
-import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { AuthContext } from "../../Providers/old_AuthProvider";
 
 gsap.registerPlugin(ScrollTrigger);
 

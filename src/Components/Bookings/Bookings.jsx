@@ -21,7 +21,7 @@ import {
   FaSearch,
   FaSort
 } from "react-icons/fa";
-import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { AuthContext } from "../../Providers/old_AuthProvider";
 import toast from "react-hot-toast";
 
 const Bookings = () => {

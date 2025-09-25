@@ -1,16 +1,23 @@
-import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useRef, useState } from "react";
-import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { AuthContext } from "../../Providers/old_AuthProvider";
 import { BsAirplaneEnginesFill } from "react-icons/bs";
-import { FaUser, FaChevronDown, FaBars, FaTimes, FaSignOutAlt, FaPlus, FaList } from "react-icons/fa";
+import {
+  FaUser,
+  FaChevronDown,
+  FaBars,
+  FaTimes,
+  FaSignOutAlt,
+  FaPlus,
+  FaList,
+} from "react-icons/fa";
 import toast from "react-hot-toast";
 import { gsap } from "gsap";
 
-const Header = () => {
+const Navbar = () => {
   const { user, logoutUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  const location = useLocation();
-  
+
   // Refs for animations
   const headerRef = useRef(null);
   const logoRef = useRef(null);
@@ -18,7 +25,7 @@ const Header = () => {
   const mobileMenuRef = useRef(null);
   const userMenuRef = useRef(null);
   const dropdownRef = useRef(null);
-  
+
   // States
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -30,32 +37,32 @@ const Header = () => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 20;
       setScrolled(isScrolled);
-      
+
       if (isScrolled) {
         gsap.to(headerRef.current, {
           backdropFilter: "blur(20px)",
           backgroundColor: "rgba(17, 24, 39, 0.95)",
           duration: 0.3,
-          ease: "power2.out"
+          ease: "power2.out",
         });
       } else {
         gsap.to(headerRef.current, {
           backdropFilter: "blur(10px)",
           backgroundColor: "rgba(17, 24, 39, 0.8)",
           duration: 0.3,
-          ease: "power2.out"
+          ease: "power2.out",
         });
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Initial animations
   useEffect(() => {
     const tl = gsap.timeline();
-    
+
     // Set initial states
     gsap.set(headerRef.current, { y: -100, opacity: 0 });
     gsap.set(logoRef.current, { scale: 0, rotation: -180 });
@@ -66,21 +73,29 @@ const Header = () => {
       y: 0,
       opacity: 1,
       duration: 0.8,
-      ease: "back.out(1.7)"
+      ease: "back.out(1.7)",
     })
-    .to(logoRef.current, {
-      scale: 1,
-      rotation: 0,
-      duration: 0.6,
-      ease: "elastic.out(1, 0.5)"
-    }, "-=0.4")
-    .to(navLinksRef.current, {
-      y: 0,
-      opacity: 1,
-      duration: 0.5,
-      stagger: 0.1,
-      ease: "power2.out"
-    }, "-=0.3");
+      .to(
+        logoRef.current,
+        {
+          scale: 1,
+          rotation: 0,
+          duration: 0.6,
+          ease: "elastic.out(1, 0.5)",
+        },
+        "-=0.4"
+      )
+      .to(
+        navLinksRef.current,
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.5,
+          stagger: 0.1,
+          ease: "power2.out",
+        },
+        "-=0.3"
+      );
 
     return () => {
       tl.kill();
@@ -90,7 +105,8 @@ const Header = () => {
   // Mobile menu animations
   useEffect(() => {
     if (isMobileMenuOpen) {
-      gsap.fromTo(mobileMenuRef.current,
+      gsap.fromTo(
+        mobileMenuRef.current,
         { opacity: 0, y: -20, scale: 0.95 },
         { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "back.out(1.7)" }
       );
@@ -100,7 +116,8 @@ const Header = () => {
   // User menu animations
   useEffect(() => {
     if (isUserMenuOpen && userMenuRef.current) {
-      gsap.fromTo(userMenuRef.current,
+      gsap.fromTo(
+        userMenuRef.current,
         { opacity: 0, y: -10, scale: 0.95 },
         { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "back.out(1.7)" }
       );
@@ -110,7 +127,8 @@ const Header = () => {
   // Dropdown animations
   useEffect(() => {
     if (isMyListsOpen && dropdownRef.current) {
-      gsap.fromTo(dropdownRef.current,
+      gsap.fromTo(
+        dropdownRef.current,
         { opacity: 0, y: -10, scale: 0.95 },
         { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "back.out(1.7)" }
       );
@@ -132,7 +150,7 @@ const Header = () => {
           navigate("/");
           setIsUserMenuOpen(false);
         });
-      }
+      },
     });
   };
 
@@ -141,7 +159,7 @@ const Header = () => {
     gsap.to(element, {
       scale: isHover ? 1.05 : 1,
       duration: 0.2,
-      ease: "power2.out"
+      ease: "power2.out",
     });
   };
 
@@ -156,9 +174,9 @@ const Header = () => {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -166,29 +184,29 @@ const Header = () => {
     { to: "/", label: "Home" },
     { to: "/PopularSpots", label: "Popular Spots" },
     { to: "/AllTouristSpots", label: "All Tourist Spots" },
-    { to: "/bookings", label: "Bookings" }
+    { to: "/bookings", label: "Bookings" },
   ];
 
   const myListsItems = [
     { to: "/addTouristSpots", label: "Add Tourist Spots", icon: FaPlus },
-    { to: "/myTouristSpots", label: "My Tourist Spots", icon: FaList }
+    { to: "/myTouristSpots", label: "My Tourist Spots", icon: FaList },
   ];
 
   return (
     <header
       ref={headerRef}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-gray-900/95 backdrop-blur-xl border-b border-gray-800/50' 
-          : 'bg-gray-900/80 backdrop-blur-lg'
+        scrolled
+          ? "bg-gray-900/95 backdrop-blur-xl border-b border-gray-800/50"
+          : "bg-gray-900/80 backdrop-blur-lg"
       }`}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className="flex items-center space-x-2 group"
               ref={logoRef}
             >
@@ -210,12 +228,12 @@ const Header = () => {
               <NavLink
                 key={item.to}
                 to={item.to}
-                ref={el => navLinksRef.current[index] = el}
+                ref={(el) => (navLinksRef.current[index] = el)}
                 className={({ isActive }) =>
                   `relative px-3 py-2 text-sm font-medium transition-all duration-300 ${
-                    isActive 
-                      ? 'text-blue-400' 
-                      : 'text-gray-300 hover:text-white'
+                    isActive
+                      ? "text-blue-400"
+                      : "text-gray-300 hover:text-white"
                   }`
                 }
                 onMouseEnter={(e) => handleNavHover(e.target, true)}
@@ -233,19 +251,23 @@ const Header = () => {
             ))}
 
             {/* My Lists Dropdown */}
-            <div 
+            <div
               className="relative"
               onMouseEnter={() => setIsMyListsOpen(true)}
               onMouseLeave={() => setIsMyListsOpen(false)}
             >
               <button
-                ref={el => navLinksRef.current[4] = el}
+                ref={(el) => (navLinksRef.current[4] = el)}
                 className="flex items-center space-x-1 px-3 py-2 text-sm font-medium text-gray-300 hover:text-white transition-all duration-300"
                 onMouseEnter={(e) => handleNavHover(e.target, true)}
                 onMouseLeave={(e) => handleNavHover(e.target, false)}
               >
                 <span>My Lists</span>
-                <FaChevronDown className={`text-xs transition-transform duration-300 ${isMyListsOpen ? 'rotate-180' : ''}`} />
+                <FaChevronDown
+                  className={`text-xs transition-transform duration-300 ${
+                    isMyListsOpen ? "rotate-180" : ""
+                  }`}
+                />
               </button>
 
               {/* Dropdown Menu */}
@@ -289,9 +311,13 @@ const Header = () => {
                     )}
                   </div>
                   <span className="text-white text-sm hidden sm:block">
-                    {user.displayName || 'User'}
+                    {user.displayName || "User"}
                   </span>
-                  <FaChevronDown className={`text-xs text-gray-400 transition-transform duration-300 ${isUserMenuOpen ? 'rotate-180' : ''}`} />
+                  <FaChevronDown
+                    className={`text-xs text-gray-400 transition-transform duration-300 ${
+                      isUserMenuOpen ? "rotate-180" : ""
+                    }`}
+                  />
                 </button>
 
                 {/* User Dropdown */}
@@ -299,7 +325,7 @@ const Header = () => {
                   <div className="absolute top-full right-0 mt-2 w-48 bg-gray-800 border border-gray-700 rounded-lg shadow-xl overflow-hidden">
                     <div className="px-4 py-3 border-b border-gray-700">
                       <p className="text-sm text-white font-medium">
-                        {user.displayName || 'User'}
+                        {user.displayName || "User"}
                       </p>
                       <p className="text-xs text-gray-400 truncate">
                         {user.email}
@@ -353,8 +379,8 @@ const Header = () => {
                   className={({ isActive }) =>
                     `block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 ${
                       isActive
-                        ? 'text-blue-400 bg-gray-800'
-                        : 'text-gray-300 hover:text-white hover:bg-gray-800'
+                        ? "text-blue-400 bg-gray-800"
+                        : "text-gray-300 hover:text-white hover:bg-gray-800"
                     }`
                   }
                 >
@@ -387,4 +413,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Navbar;
