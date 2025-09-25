@@ -1,26 +1,31 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { 
-  FaStar, 
-  FaQuoteLeft, 
+import {
+  FaStar,
+  FaQuoteLeft,
   FaQuoteRight,
-  FaUserCircle,
   FaMapMarkerAlt,
   FaCalendarAlt,
   FaThumbsUp,
   FaArrowLeft,
-  FaArrowRight
+  FaArrowRight,
 } from "react-icons/fa";
+import { useGetReviewsQuery } from "../../Redux/features/api/reviewsApi";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Review = () => {
-  // State
-  const [reviews, setReviews] = useState([]);
+  // Redux RTK Query
+  const {
+    data: reviews = [],
+    isLoading,
+    isError,
+    error,
+  } = useGetReviewsQuery();
+
+  // State for current featured review
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [hoveredCard, setHoveredCard] = useState(null);
 
   // Refs for animations
   const sectionRef = useRef(null);
@@ -32,136 +37,120 @@ const Review = () => {
   const statsRef = useRef([]);
   const controlsRef = useRef(null);
 
-  // Fetch reviews data
-  useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch("https://travel-media-server.vercel.app/review");
-        const data = await response.json();
-        setReviews(data);
-      } catch (error) {
-        console.error("Error fetching reviews:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchReviews();
-  }, []);
-
   // GSAP Animations
   useEffect(() => {
+    if (reviews.length === 0) return;
+
     const ctx = gsap.context(() => {
-      // Set initial states
-      gsap.set([titleRef.current, descriptionRef.current, controlsRef.current], {
-        opacity: 0,
-        y: 60,
-        scale: 0.9
-      });
+      gsap.set(
+        [titleRef.current, descriptionRef.current, controlsRef.current],
+        {
+          opacity: 0,
+          y: 60,
+          scale: 0.9,
+        }
+      );
 
       gsap.set(cardsRef.current, {
         opacity: 0,
         y: 100,
         scale: 0.8,
-        rotationX: 30
+        rotationX: 30,
       });
 
       gsap.set(statsRef.current, {
         opacity: 0,
         x: -40,
-        scale: 0.9
+        scale: 0.9,
       });
 
       gsap.set(floatingElementsRef.current, {
         opacity: 0,
         scale: 0,
-        rotation: 180
+        rotation: 180,
       });
 
-      // Main timeline with ScrollTrigger
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 80%",
           end: "bottom 20%",
-          toggleActions: "play none none reverse"
-        }
+          toggleActions: "play none none reverse",
+        },
       });
 
-      // Background animation
       tl.to(backgroundRef.current, {
-        background: "linear-gradient(135deg, rgba(15, 12, 41, 0.95) 0%, rgba(48, 43, 99, 0.8) 35%, rgba(36, 36, 62, 0.9) 100%)",
+        background:
+          "linear-gradient(135deg, rgba(15, 12, 41, 0.95) 0%, rgba(48, 43, 99, 0.8) 35%, rgba(36, 36, 62, 0.9) 100%)",
         duration: 2,
-        ease: "power2.out"
+        ease: "power2.out",
       })
-      // Title animation
-      .to(titleRef.current, {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.8,
-        ease: "back.out(1.7)"
-      }, "-=1.5")
-      // Description animation
-      .to(descriptionRef.current, {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.6,
-        ease: "power2.out"
-      }, "-=0.4")
-      // Stats animation
-      .to(statsRef.current, {
-        opacity: 1,
-        x: 0,
-        scale: 1,
-        duration: 0.5,
-        stagger: 0.1,
-        ease: "back.out(1.7)"
-      }, "-=0.3")
-      // Cards animation with 3D effect
-      .to(cardsRef.current, {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        rotationX: 0,
-        duration: 1,
-        stagger: 0.2,
-        ease: "elastic.out(1, 0.6)"
-      }, "-=0.4")
-      // Controls animation
-      .to(controlsRef.current, {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.5,
-        ease: "back.out(1.7)"
-      }, "-=0.3")
-      // Floating elements
-      .to(floatingElementsRef.current, {
-        opacity: 0.6,
-        scale: 1,
-        rotation: 0,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: "back.out(1.5)"
-      }, "-=0.6");
+        .to(
+          titleRef.current,
+          { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "back.out(1.7)" },
+          "-=1.5"
+        )
+        .to(
+          descriptionRef.current,
+          { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "power2.out" },
+          "-=0.4"
+        )
+        .to(
+          statsRef.current,
+          {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: "back.out(1.7)",
+          },
+          "-=0.3"
+        )
+        .to(
+          cardsRef.current,
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            rotationX: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: "elastic.out(1, 0.6)",
+          },
+          "-=0.4"
+        )
+        .to(
+          controlsRef.current,
+          { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.7)" },
+          "-=0.3"
+        )
+        .to(
+          floatingElementsRef.current,
+          {
+            opacity: 0.6,
+            scale: 1,
+            rotation: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "back.out(1.5)",
+          },
+          "-=0.6"
+        );
 
       // Floating elements continuous animation
-      floatingElementsRef.current.forEach((element, index) => {
-        if (element) {
-          gsap.to(element, {
-            y: "random(-35, 35)",
-            x: "random(-30, 30)",
-            rotation: "random(-360, 360)",
-            duration: "random(12, 20)",
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut",
-            delay: index * 0.6
-          });
-        }
+      floatingElementsRef.current.forEach((el, i) => {
+        if (!el) return;
+        gsap.to(el, {
+          y: "random(-35, 35)",
+          x: "random(-30, 30)",
+          rotation: "random(-360, 360)",
+          duration: "random(12, 20)",
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          delay: i * 0.6,
+        });
       });
 
       // Parallax effect
@@ -171,84 +160,87 @@ const Review = () => {
         end: "bottom top",
         scrub: 1,
         onUpdate: (self) => {
-          const progress = self.progress;
           gsap.to(cardsRef.current, {
-            y: progress * -30,
-            rotationX: progress * 5,
+            y: self.progress * -30,
+            rotationX: self.progress * 5,
             duration: 0.3,
-            ease: "none"
+            ease: "none",
           });
-        }
+        },
       });
-
     }, sectionRef);
 
     return () => ctx.revert();
   }, [reviews]);
 
-  // Auto-scroll effect
+  // Auto-scroll featured review
   useEffect(() => {
-    if (reviews.length > 0) {
-      const interval = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % reviews.length);
-      }, 5000);
+    if (reviews.length === 0) return;
 
-      return () => clearInterval(interval);
-    }
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % reviews.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
   }, [reviews.length]);
 
-  // Card hover animations
-  const handleCardHover = (cardElement, isHover, index) => {
-    setHoveredCard(isHover ? index : null);
-    
+  // GSAP hover animations (no state needed)
+  const handleCardHover = (cardElement, isHover) => {
     const tl = gsap.timeline();
-    
+
     if (isHover) {
       tl.to(cardElement, {
         scale: 1.05,
         y: -15,
         rotationY: 3,
-        boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
+        boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)",
         duration: 0.4,
-        ease: "power2.out"
+        ease: "power2.out",
       })
-      .to(cardElement.querySelector('.quote-icon'), {
-        scale: 1.2,
-        rotation: 10,
-        color: "#60A5FA",
-        duration: 0.3,
-        ease: "back.out(1.7)"
-      }, "-=0.4")
-      .to(cardElement.querySelector('.star-rating'), {
-        scale: 1.1,
-        duration: 0.3,
-        ease: "power2.out"
-      }, "-=0.3");
+        .to(
+          cardElement.querySelector(".quote-icon"),
+          {
+            scale: 1.2,
+            rotation: 10,
+            color: "#60A5FA",
+            duration: 0.3,
+            ease: "back.out(1.7)",
+          },
+          "-=0.4"
+        )
+        .to(
+          cardElement.querySelector(".star-rating"),
+          { scale: 1.1, duration: 0.3, ease: "power2.out" },
+          "-=0.3"
+        );
     } else {
       tl.to(cardElement, {
         scale: 1,
         y: 0,
         rotationY: 0,
-        boxShadow: "0 10px 25px -3px rgba(0, 0, 0, 0.3)",
+        boxShadow: "0 10px 25px -3px rgba(0,0,0,0.3)",
         duration: 0.4,
-        ease: "power2.out"
+        ease: "power2.out",
       })
-      .to(cardElement.querySelector('.quote-icon'), {
-        scale: 1,
-        rotation: 0,
-        color: "#9CA3AF",
-        duration: 0.3,
-        ease: "power2.out"
-      }, "-=0.4")
-      .to(cardElement.querySelector('.star-rating'), {
-        scale: 1,
-        duration: 0.3,
-        ease: "power2.out"
-      }, "-=0.3");
+        .to(
+          cardElement.querySelector(".quote-icon"),
+          {
+            scale: 1,
+            rotation: 0,
+            color: "#9CA3AF",
+            duration: 0.3,
+            ease: "power2.out",
+          },
+          "-=0.4"
+        )
+        .to(
+          cardElement.querySelector(".star-rating"),
+          { scale: 1, duration: 0.3, ease: "power2.out" },
+          "-=0.3"
+        );
     }
   };
 
-  // Navigation functions
   const goToPrevious = () => {
     setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
   };
@@ -257,31 +249,47 @@ const Review = () => {
     setCurrentIndex((prev) => (prev + 1) % reviews.length);
   };
 
-  // Generate star rating
   const generateStars = (rating = 5) => {
-    return Array.from({ length: 5 }, (_, index) => (
+    return Array.from({ length: 5 }, (_, i) => (
       <FaStar
-        key={index}
-        className={`${index < rating ? 'text-yellow-400' : 'text-gray-600'} transition-colors duration-200`}
+        key={i}
+        className={`${
+          i < rating ? "text-yellow-400" : "text-gray-600"
+        } transition-colors duration-200`}
       />
     ));
   };
 
-  // Stats data
   const stats = [
     { number: 1500, label: "Happy Travelers", suffix: "+" },
     { number: 4.9, label: "Average Rating", suffix: "", decimal: true },
     { number: 98, label: "Satisfaction Rate", suffix: "%" },
-    { number: 150, label: "Destinations", suffix: "+" }
+    { number: 150, label: "Destinations", suffix: "+" },
   ];
 
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-center space-y-4">
+          <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="text-gray-300">Loading amazing reviews...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (isError) {
+    console.log("error when fetching reviews data: ", error);
+    return <p className="text-red-500 text-center">Failed to load reviews.</p>;
+  }
+
   return (
-    <section 
+    <section
       ref={sectionRef}
       className="relative w-full min-h-screen overflow-hidden py-20"
     >
       {/* Animated Background */}
-      <div 
+      <div
         ref={backgroundRef}
         className="absolute inset-0 bg-gradient-to-r from-[#0f0c29] via-[#302b63] to-[#24243e]"
       />
@@ -300,9 +308,15 @@ const Review = () => {
         {[...Array(15)].map((_, i) => (
           <div
             key={i}
-            ref={el => floatingElementsRef.current[i] = el}
+            ref={(el) => (floatingElementsRef.current[i] = el)}
             className={`absolute w-3 h-3 bg-white rounded-full ${
-              i % 4 === 0 ? 'opacity-40' : i % 4 === 1 ? 'opacity-25' : i % 4 === 2 ? 'opacity-15' : 'opacity-10'
+              i % 4 === 0
+                ? "opacity-40"
+                : i % 4 === 1
+                ? "opacity-25"
+                : i % 4 === 2
+                ? "opacity-15"
+                : "opacity-10"
             }`}
             style={{
               left: `${Math.random() * 100}%`,
@@ -315,22 +329,26 @@ const Review = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="text-center mb-16">
-          <h2 
+          <h2
             ref={titleRef}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
           >
-            What Our <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Travelers</span>
+            What Our{" "}
+            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              Travelers
+            </span>
             <span className="block">Are Saying</span>
           </h2>
-          
+
           <div className="max-w-4xl mx-auto">
-            <p 
+            <p
               ref={descriptionRef}
               className="text-lg md:text-xl text-gray-300 leading-relaxed mb-8"
             >
-              At Travel Media, our greatest reward is the satisfaction of our customers. 
-              We take pride in creating unforgettable travel experiences that leave a lasting impact. 
-              Real adventures. Real memories. Real reviews.
+              At Travel Media, our greatest reward is the satisfaction of our
+              customers. We take pride in creating unforgettable travel
+              experiences that leave a lasting impact. Real adventures. Real
+              memories. Real reviews.
             </p>
           </div>
 
@@ -339,7 +357,7 @@ const Review = () => {
             {stats.map((stat, index) => (
               <div
                 key={index}
-                ref={el => statsRef.current[index] = el}
+                ref={(el) => (statsRef.current[index] = el)}
                 className="text-center p-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg"
               >
                 <div className="text-3xl font-bold text-blue-400 mb-1">
@@ -353,7 +371,7 @@ const Review = () => {
         </div>
 
         {/* Reviews Section */}
-        {loading ? (
+        {isLoading ? (
           <div className="flex items-center justify-center h-64">
             <div className="text-center space-y-4">
               <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto" />
@@ -380,11 +398,11 @@ const Review = () => {
                       <div className="star-rating flex justify-center space-x-1 text-2xl">
                         {generateStars(reviews[currentIndex]?.rating)}
                       </div>
-                      
+
                       <blockquote className="text-xl md:text-2xl text-white leading-relaxed italic">
-                        "{reviews[currentIndex]?.message}"
+                        <q>{reviews[currentIndex]?.message}</q>
                       </blockquote>
-                      
+
                       <div className="flex items-center justify-center space-x-4">
                         <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-white/30">
                           <img
@@ -399,11 +417,16 @@ const Review = () => {
                           </h4>
                           <div className="flex items-center space-x-2 text-gray-300">
                             <FaMapMarkerAlt className="text-sm text-blue-400" />
-                            <span className="text-sm">{reviews[currentIndex]?.location || 'Verified Traveler'}</span>
+                            <span className="text-sm">
+                              {reviews[currentIndex]?.location ||
+                                "Verified Traveler"}
+                            </span>
                           </div>
                           <div className="flex items-center space-x-2 text-gray-400">
                             <FaCalendarAlt className="text-xs" />
-                            <span className="text-xs">{reviews[currentIndex]?.date || 'Recent'}</span>
+                            <span className="text-xs">
+                              {reviews[currentIndex]?.date || "Recent"}
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -418,10 +441,14 @@ const Review = () => {
               {reviews.slice(0, 6).map((review, index) => (
                 <div
                   key={review.id || index}
-                  ref={el => cardsRef.current[index] = el}
+                  ref={(el) => (cardsRef.current[index] = el)}
                   className="group cursor-pointer perspective-1000"
-                  onMouseEnter={(e) => handleCardHover(e.currentTarget, true, index)}
-                  onMouseLeave={(e) => handleCardHover(e.currentTarget, false, index)}
+                  onMouseEnter={(e) =>
+                    handleCardHover(e.currentTarget, true, index)
+                  }
+                  onMouseLeave={(e) =>
+                    handleCardHover(e.currentTarget, false, index)
+                  }
                 >
                   <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 shadow-xl hover:border-white/30 transition-all duration-500 transform-gpu h-full">
                     {/* Quote Icon */}
@@ -436,7 +463,7 @@ const Review = () => {
 
                     {/* Review Text */}
                     <blockquote className="text-white mb-6 leading-relaxed italic">
-                      "{review.message}"
+                      <q>{review.message}</q>
                     </blockquote>
 
                     {/* Author Info */}
@@ -453,7 +480,7 @@ const Review = () => {
                           {review.name}
                         </h4>
                         <p className="text-gray-300 text-sm">
-                          {review.destination || 'Adventure Seeker'}
+                          {review.destination || "Adventure Seeker"}
                         </p>
                       </div>
                     </div>
@@ -462,7 +489,9 @@ const Review = () => {
                     <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <button className="flex items-center space-x-1 text-gray-400 hover:text-blue-400 transition-colors duration-200">
                         <FaThumbsUp className="text-sm" />
-                        <span className="text-xs">{review.likes || Math.floor(Math.random() * 50) + 10}</span>
+                        <span className="text-xs">
+                          {review.likes || Math.floor(Math.random() * 50) + 10}
+                        </span>
                       </button>
                     </div>
 
@@ -476,7 +505,7 @@ const Review = () => {
             </div>
 
             {/* Navigation Controls */}
-            <div 
+            <div
               ref={controlsRef}
               className="flex items-center justify-center space-x-4"
             >
@@ -493,9 +522,9 @@ const Review = () => {
                     key={index}
                     onClick={() => setCurrentIndex(index)}
                     className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                      index === currentIndex 
-                        ? 'bg-blue-400 scale-125' 
-                        : 'bg-white/30 hover:bg-white/50'
+                      index === currentIndex
+                        ? "bg-blue-400 scale-125"
+                        : "bg-white/30 hover:bg-white/50"
                     }`}
                   />
                 ))}

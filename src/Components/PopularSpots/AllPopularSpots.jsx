@@ -7,19 +7,16 @@ import {
   FaStar, 
   FaEye,
   FaHeart,
-  FaFilter,
   FaSearch,
   FaSort,
   FaTh,
   FaList,
   FaArrowLeft,
   FaDollarSign,
-  FaClock,
   FaUsers,
   FaGlobe,
   FaCamera,
   FaShare,
-  FaBookmark
 } from "react-icons/fa";
 import Loader from "../CustomHooks/Loader";
 import { AuthContext } from "../../Providers/old_AuthProvider";
