@@ -19,14 +19,11 @@ createRoot(document.getElementById("root")).render(
   </StrictMode>
 );
 
-
 // NEW TODO:
-// 1. SETUP REDUX & REDUX RTK QUERY
-// 2. REMOVE AXIOS & ACCESS THE RTK API CALL
+// 1. SETUP REDUX & REDUX RTK QUERY = Completed
+// 2. REMOVE AXIOS & ACCESS THE RTK API CALL = On Going
 // 3. FIX THE FORMATE OF THE FILE STUCTURE
-
 
 // OLD TODO:
 // TODO : /booking & /bookings = have to show current user's bookings.
 // TODO : /register = display name is not working in google register method.
-

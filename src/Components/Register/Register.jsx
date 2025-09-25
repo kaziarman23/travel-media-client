@@ -4,10 +4,10 @@ import toast from "react-hot-toast";
 import { FaGoogle, FaEye, FaEyeSlash, FaCheck, FaTimes } from "react-icons/fa";
 import { gsap } from "gsap";
 
-// Import Redux hooks, thunks and RTK Query mutation
+// Import Redux Hooks
 import { useDispatch } from "react-redux";
-import { createUser, googleSignIn } from "../Redux/features/userSlice";
-import { useAddUserMutation } from "../Redux/features/api/usersApi";
+import { createUser, googleSignIn } from "../../Redux/features/userSlice";
+import { useAddUserMutation } from "../../Redux/features/api/usersApi";
 
 const Register = () => {
   // refs for GSAP animations
@@ -40,10 +40,6 @@ const Register = () => {
   // Initialize Redux/RTK Query hooks
   const dispatch = useDispatch();
   const [addUser] = useAddUserMutation();
-
-  // context api
-  // const { createUser, updateUser, createUserWithGoogle } =
-  //   useContext(AuthContext);
 
   // Validation functions
   const validateName = (name) => {
@@ -292,7 +288,6 @@ const Register = () => {
     setIsLoading(true);
     setRegisterError("");
 
-    // Mark all fields as touched
     setTouched({
       name: true,
       email: true,
@@ -300,7 +295,6 @@ const Register = () => {
       confirmPassword: true,
     });
 
-    // Validate all fields
     if (
       !nameValidation.isValid ||
       !emailValidation.isValid ||
@@ -312,7 +306,6 @@ const Register = () => {
       return;
     }
 
-    // Loading animation
     gsap.to(buttonsRef.current[0], {
       scale: 0.95,
       duration: 0.1,
@@ -321,8 +314,8 @@ const Register = () => {
     });
 
     try {
-      // 1. Register with Email (Dispatch Redux Thunk)
-      const resultAction = await dispatch(
+      // creating a new user
+      await dispatch(
         createUser({
           userName: name,
           userEmail: email,
@@ -330,39 +323,23 @@ const Register = () => {
         })
       );
 
-      // Check if the thunk action was successful
-      if (createUser.fulfilled.match(resultAction)) {
-        const userPayload = resultAction.payload;
+      // adding that user in the database
+      await addUser({
+        name: name,
+        email: email,
+      }).unwrap();
 
-        // Add user to your database using RTK Query
-        await addUser({
-          userName: userPayload.userName,
-          userEmail: userPayload.userEmail,
-        }).unwrap();
+      playSuccessAnimation();
+      clearingForm();
+      setIsLoading(false);
 
-        // Success animation
-        playSuccessAnimation();
+      setTimeout(() => {
+        navigate(location?.state ? location?.state : "/");
+      }, 500);
 
-        // clearing the form
-        clearingForm();
-        setIsLoading(false);
-
-        // navigating the user
-        setTimeout(() => {
-          navigate(location?.state ? location?.state : "/");
-        }, 500);
-
-        // showing alert
-        toast.success("Account created successfully!");
-      } else {
-        // Handle thunk rejection (Firebase error)
-        throw new Error(
-          resultAction.error.message || "Firebase registration failed."
-        );
-      }
+      toast.success("Account created successfully!");
     } catch (error) {
       setIsLoading(false);
-      // Display error from the thunk or RTK Query mutation
       setRegisterError(
         error.message || "Registration failed. Please try again."
       );

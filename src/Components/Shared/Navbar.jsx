@@ -1,6 +1,6 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { useContext, useEffect, useRef, useState } from "react";
-import { AuthContext } from "../../Providers/old_AuthProvider";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { BsAirplaneEnginesFill } from "react-icons/bs";
 import {
   FaUser,
@@ -13,10 +13,12 @@ import {
 } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { gsap } from "gsap";
+import { logoutUser } from '../../Redux/features/userSlice';
 
 const Navbar = () => {
-  const { user, logoutUser } = useContext(AuthContext);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { user } = useSelector((state) => state.userSlice);
 
   // Refs for animations
   const headerRef = useRef(null);
@@ -32,43 +34,34 @@ const Navbar = () => {
   const [isMyListsOpen, setIsMyListsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Handle scroll effect
+  // Scroll effect
   useEffect(() => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 20;
       setScrolled(isScrolled);
 
-      if (isScrolled) {
-        gsap.to(headerRef.current, {
-          backdropFilter: "blur(20px)",
-          backgroundColor: "rgba(17, 24, 39, 0.95)",
-          duration: 0.3,
-          ease: "power2.out",
-        });
-      } else {
-        gsap.to(headerRef.current, {
-          backdropFilter: "blur(10px)",
-          backgroundColor: "rgba(17, 24, 39, 0.8)",
-          duration: 0.3,
-          ease: "power2.out",
-        });
-      }
+      gsap.to(headerRef.current, {
+        backdropFilter: isScrolled ? "blur(20px)" : "blur(10px)",
+        backgroundColor: isScrolled
+          ? "rgba(17, 24, 39, 0.95)"
+          : "rgba(17, 24, 39, 0.8)",
+        duration: 0.3,
+        ease: "power2.out",
+      });
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Initial animations
+  // Entrance animations
   useEffect(() => {
     const tl = gsap.timeline();
 
-    // Set initial states
     gsap.set(headerRef.current, { y: -100, opacity: 0 });
     gsap.set(logoRef.current, { scale: 0, rotation: -180 });
     gsap.set(navLinksRef.current, { y: -20, opacity: 0 });
 
-    // Animate header entrance
     tl.to(headerRef.current, {
       y: 0,
       opacity: 1,
@@ -77,12 +70,7 @@ const Navbar = () => {
     })
       .to(
         logoRef.current,
-        {
-          scale: 1,
-          rotation: 0,
-          duration: 0.6,
-          ease: "elastic.out(1, 0.5)",
-        },
+        { scale: 1, rotation: 0, duration: 0.6, ease: "elastic.out(1, 0.5)" },
         "-=0.4"
       )
       .to(
@@ -97,12 +85,10 @@ const Navbar = () => {
         "-=0.3"
       );
 
-    return () => {
-      tl.kill();
-    };
+    return () => tl.kill();
   }, []);
 
-  // Mobile menu animations
+  // Animations for dropdowns
   useEffect(() => {
     if (isMobileMenuOpen) {
       gsap.fromTo(
@@ -113,7 +99,6 @@ const Navbar = () => {
     }
   }, [isMobileMenuOpen]);
 
-  // User menu animations
   useEffect(() => {
     if (isUserMenuOpen && userMenuRef.current) {
       gsap.fromTo(
@@ -124,7 +109,6 @@ const Navbar = () => {
     }
   }, [isUserMenuOpen]);
 
-  // Dropdown animations
   useEffect(() => {
     if (isMyListsOpen && dropdownRef.current) {
       gsap.fromTo(
@@ -135,26 +119,28 @@ const Navbar = () => {
     }
   }, [isMyListsOpen]);
 
-  // Handle logout with animation
-  const handleLogout = () => {
-    // Logout animation
+  // Logout handler
+  const handleLogout = async () => {
     gsap.to(headerRef.current, {
       scale: 1.02,
       duration: 0.1,
       yoyo: true,
       repeat: 1,
       ease: "power2.out",
-      onComplete: () => {
-        logoutUser().then(() => {
+      onComplete: async () => {
+        try {
+          await dispatch(logoutUser()).unwrap();
           toast.success("Logout successful");
           navigate("/");
           setIsUserMenuOpen(false);
-        });
+        } catch (err) {
+          toast.error("Logout failed: ", err);
+        }
       },
     });
   };
 
-  // Handle nav link hover
+  // Hover effect for nav links
   const handleNavHover = (element, isHover) => {
     gsap.to(element, {
       scale: isHover ? 1.05 : 1,
@@ -163,7 +149,7 @@ const Navbar = () => {
     });
   };
 
-  // Close menus when clicking outside
+  // Close menus on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
@@ -175,9 +161,7 @@ const Navbar = () => {
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const navigationItems = [
@@ -251,47 +235,48 @@ const Navbar = () => {
             ))}
 
             {/* My Lists Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => setIsMyListsOpen(true)}
-              onMouseLeave={() => setIsMyListsOpen(false)}
-            >
-              <button
-                ref={(el) => (navLinksRef.current[4] = el)}
-                className="flex items-center space-x-1 px-3 py-2 text-sm font-medium text-gray-300 hover:text-white transition-all duration-300"
-                onMouseEnter={(e) => handleNavHover(e.target, true)}
-                onMouseLeave={(e) => handleNavHover(e.target, false)}
+            {user && (
+              <div
+                className="relative"
+                onMouseEnter={() => setIsMyListsOpen(true)}
+                onMouseLeave={() => setIsMyListsOpen(false)}
               >
-                <span>My Lists</span>
-                <FaChevronDown
-                  className={`text-xs transition-transform duration-300 ${
-                    isMyListsOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-
-              {/* Dropdown Menu */}
-              {isMyListsOpen && (
-                <div
-                  ref={dropdownRef}
-                  className="absolute top-full left-0 mt-2 w-48 bg-gray-800 border border-gray-700 rounded-lg shadow-xl overflow-hidden"
+                <button
+                  ref={(el) => (navLinksRef.current[4] = el)}
+                  className="flex items-center space-x-1 px-3 py-2 text-sm font-medium text-gray-300 hover:text-white transition-all duration-300"
+                  onMouseEnter={(e) => handleNavHover(e.target, true)}
+                  onMouseLeave={(e) => handleNavHover(e.target, false)}
                 >
-                  {myListsItems.map((item) => (
-                    <NavLink
-                      key={item.to}
-                      to={item.to}
-                      className="flex items-center space-x-3 px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-gray-700 transition-all duration-200"
-                    >
-                      <item.icon className="text-blue-400" />
-                      <span>{item.label}</span>
-                    </NavLink>
-                  ))}
-                </div>
-              )}
-            </div>
+                  <span>My Lists</span>
+                  <FaChevronDown
+                    className={`text-xs transition-transform duration-300 ${
+                      isMyListsOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+
+                {isMyListsOpen && (
+                  <div
+                    ref={dropdownRef}
+                    className="absolute top-full left-0 mt-2 w-48 bg-gray-800 border border-gray-700 rounded-lg shadow-xl overflow-hidden"
+                  >
+                    {myListsItems.map((item) => (
+                      <NavLink
+                        key={item.to}
+                        to={item.to}
+                        className="flex items-center space-x-3 px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-gray-700 transition-all duration-200"
+                      >
+                        <item.icon className="text-blue-400" />
+                        <span>{item.label}</span>
+                      </NavLink>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
-          {/* Right side - User menu or Register */}
+          {/* Right side */}
           <div className="flex items-center space-x-4">
             {user ? (
               <div className="relative" ref={userMenuRef}>
@@ -320,7 +305,6 @@ const Navbar = () => {
                   />
                 </button>
 
-                {/* User Dropdown */}
                 {isUserMenuOpen && (
                   <div className="absolute top-full right-0 mt-2 w-48 bg-gray-800 border border-gray-700 rounded-lg shadow-xl overflow-hidden">
                     <div className="px-4 py-3 border-b border-gray-700">
@@ -388,23 +372,24 @@ const Navbar = () => {
                 </NavLink>
               ))}
 
-              {/* Mobile My Lists */}
-              <div className="border-t border-gray-800 pt-2 mt-2">
-                <p className="px-3 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                  My Lists
-                </p>
-                {myListsItems.map((item) => (
-                  <NavLink
-                    key={item.to}
-                    to={item.to}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center space-x-3 px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-all duration-200"
-                  >
-                    <item.icon className="text-blue-400" />
-                    <span>{item.label}</span>
-                  </NavLink>
-                ))}
-              </div>
+              {user && (
+                <div className="border-t border-gray-800 pt-2 mt-2">
+                  <p className="px-3 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                    My Lists
+                  </p>
+                  {myListsItems.map((item) => (
+                    <NavLink
+                      key={item.to}
+                      to={item.to}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="flex items-center space-x-3 px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-all duration-200"
+                    >
+                      <item.icon className="text-blue-400" />
+                      <span>{item.label}</span>
+                    </NavLink>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         )}

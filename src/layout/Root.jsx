@@ -5,9 +5,9 @@ import Navbar from '../Components/Shared/Navbar';
 const Root = () => {
   return (
     <div className="font-poppins">
-      {/* <Navbar /> */}
+      <Navbar />
       <Outlet />
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };
