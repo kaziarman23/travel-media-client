@@ -359,40 +359,31 @@ const Register = () => {
       yoyo: true,
       repeat: 1,
     });
-
     try {
-      // 1. Sign in with Google (Dispatch Redux Thunk)
-      const resultAction = await dispatch(googleSignIn());
+      const data = await dispatch(googleSignIn()).unwrap();
 
-      // Check if the thunk action was successful
-      if (googleSignIn.fulfilled.match(resultAction)) {
-        const userPayload = resultAction.payload; // Contains userName and userEmail
+      const userInfo = {
+        name: data.userName,
+        email: data.userEmail,
+      };
 
-        // 2. Add user to your database using RTK Query
-        await addUser({
-          userName: userPayload.userName,
-          userEmail: userPayload.userEmail,
-        }).unwrap();
+      await addUser(userInfo);
 
-        // Success animation
-        playSuccessAnimation();
+      // Success animation
+      playSuccessAnimation();
 
-        // clearing the form
-        clearingForm();
-        setRegisterError("");
-        setIsLoading(false);
+      // clearing the form
+      clearingForm();
+      setRegisterError("");
+      setIsLoading(false);
 
-        // navigating the user
-        setTimeout(() => {
-          navigate(location?.state ? location?.state : "/");
-        }, 500);
+      // navigating the user
+      setTimeout(() => {
+        navigate(location?.state ? location?.state : "/");
+      }, 500);
 
-        // showing alert
-        toast.success("Signed in with Google successfully!");
-      } else {
-        // Handle thunk rejection (Firebase error)
-        throw new Error(resultAction.error.message || "Google sign-in failed.");
-      }
+      // showing alert
+      toast.success("Signed in with Google successfully!");
     } catch (error) {
       setIsLoading(false);
       setRegisterError(

@@ -17,7 +17,7 @@ const AuthProvider = ({ children }) => {
       // or else it will just update the loading state false because initialy we have been set the isLoading true and clearing the user data
 
       if (currentUser) {
-        console.log("current user:", currentUser);
+        // console.log("current user:", currentUser);
         dispatch(
           setUser({
             userName: currentUser.displayName,

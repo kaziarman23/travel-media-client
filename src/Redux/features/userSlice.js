@@ -30,8 +30,8 @@ export const createUser = createAsyncThunk(
     await updateProfile(auth.currentUser, {
       displayName: userName,
     });
-    
-    console.log("user slice log: ",data);
+
+    // console.log("user slice log: ",data);
 
     return {
       userName: data.user.displayName,
