@@ -18,6 +18,13 @@ const allSpotsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["AllSpots"],
     }),
+    deleteSpot: builder.mutation({
+      query: (spotId) => ({
+        url: `/allSpots/${spotId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["AllSpots"],
+    }),
   }),
 });
 
@@ -25,5 +32,6 @@ export const {
   useGetAllSpotsQuery,
   useGetAllSpotsByEmailQuery,
   useAddSpotMutation,
+  useDeleteSpotMutation,
 } = allSpotsApi;
 export default allSpotsApi;

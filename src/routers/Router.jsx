@@ -74,7 +74,6 @@ const Router = createBrowserRouter([
         path: "/updateBooking/:id",
         element: <UpdateBooking />,
       },
-      // ... working complete till here!!
       {
         path: "/addTouristSpots",
         element: (

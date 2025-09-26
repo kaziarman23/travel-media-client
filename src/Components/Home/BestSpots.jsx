@@ -12,6 +12,7 @@ import {
   FaEye,
 } from "react-icons/fa";
 import { useGetBestSpotsQuery } from "../../Redux/features/api/bestSpotsApi";
+import Loader from "../CustomHooks/Loader";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -223,7 +224,7 @@ const BestSpots = () => {
   };
 
   if (isLoading) {
-    <div>Loading data...</div>;
+    <Loader>Loading data...</Loader>;
   }
 
   if (isError) {
@@ -329,12 +330,16 @@ const BestSpots = () => {
         </div>
 
         {/* Cards Carousel */}
-        <div ref={cardsContainerRef} className="relative">
+        <div ref={cardsContainerRef} className="relative overflow-hidden py-8">
           {cards.length > 0 ? (
-            <div className="flex space-x-6 py-8">
-              {cards.map((card, index) => (
+            <div
+              className="flex flex-nowrap gap-6"
+              style={{ whiteSpace: "nowrap" }}
+            >
+              {/* Duplicate cards for seamless loop */}
+              {[...cards, ...cards].map((card, index) => (
                 <div
-                  key={card._id || index}
+                  key={card._id + "-" + index}
                   ref={(el) => (cardsRef.current[index] = el)}
                   className="flex-shrink-0 w-80 group cursor-pointer"
                   onMouseEnter={(e) =>
@@ -344,9 +349,9 @@ const BestSpots = () => {
                     handleCardHover(e.currentTarget, false, index)
                   }
                 >
-                  <div className="relative bg-gray-900 rounded-2xl overflow-hidden shadow-2xl border border-gray-800 hover:border-gray-600 transition-all duration-500">
-                    {/* Image Container */}
-                    <div className="relative h-64 overflow-hidden">
+                  <div className="flex flex-col h-full relative bg-gray-900 rounded-2xl overflow-hidden shadow-2xl border border-gray-800 hover:border-gray-600 transition-all duration-500">
+                    {/* Image */}
+                    <div className="relative h-64 overflow-hidden flex-shrink-0">
                       <img
                         src={card.img}
                         alt={card.title}
@@ -379,7 +384,7 @@ const BestSpots = () => {
                     </div>
 
                     {/* Content */}
-                    <div className="p-6 space-y-4">
+                    <div className="p-6 flex flex-col justify-between flex-1 space-y-4">
                       <div>
                         <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors duration-300">
                           {card.title}

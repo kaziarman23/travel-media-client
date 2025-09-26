@@ -1,6 +1,6 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { 
+import {
   FaMapMarkerAlt,
   FaGlobe,
   FaDollarSign,
@@ -15,15 +15,13 @@ import {
   FaUpload,
   FaImage,
   FaInfoCircle,
-  FaExclamationTriangle
+  FaExclamationTriangle,
 } from "react-icons/fa";
-import { AuthContext } from "../../Providers/old_AuthProvider";
 import toast from "react-hot-toast";
+import { useAddSpotMutation } from "../../Redux/features/api/allSpotsApi";
+import { useSelector } from "react-redux";
 
 const AddTouristSpots = () => {
-  // Context API
-  const { user } = useContext(AuthContext);
-
   // States
   const navigate = useNavigate();
   const [spot, setSpot] = useState("");
@@ -34,10 +32,13 @@ const AddTouristSpots = () => {
   const [totalVisitorsPerYear, setTotalVisitorsPerYear] = useState("");
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
-  const [email, setEmail] = useState(user?.email || "");
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [imagePreview, setImagePreview] = useState("");
+
+  // Redux
+  const { userName, userEmail } = useSelector((state) => state.userSlice);
+  const [addSpot, { isLoading: isSubmitting, error, isError }] =
+    useAddSpotMutation();
 
   // Animation trigger
   useState(() => {
@@ -74,46 +75,33 @@ const AddTouristSpots = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
-    
-    setIsSubmitting(true);
 
     const addingSpotInfo = {
       spot: spot.trim(),
       country: country.trim(),
-      average_cost: average_cost.startsWith('$') ? average_cost : `$${average_cost}`,
+      average_cost: average_cost.startsWith("$")
+        ? average_cost
+        : `$${average_cost}`,
       seasonality: seasonality.trim(),
       travel_time: travel_time.trim(),
       totalVisitorsPerYear: totalVisitorsPerYear.trim(),
       image: image.trim(),
       description: description.trim(),
-      email: email,
+      email: userEmail,
       createdAt: new Date().toISOString(),
-      createdBy: user?.displayName || "Anonymous"
+      createdBy: userEmail,
     };
 
     try {
-      const response = await fetch("https://travel-media-server.vercel.app/AllSpots", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(addingSpotInfo),
-      });
-
-      if (response.ok) {
-        clearInputs();
-        navigate("/AllTouristSpots");
-        toast.success("Tourist Spot Added Successfully! 🎉");
-      } else {
-        throw new Error("Failed to add tourist spot");
-      }
+      await addSpot(addingSpotInfo).unwrap();
+      clearInputs();
+      navigate("/AllTouristSpots");
+      toast.success("Tourist Spot Added Successfully!");
     } catch (error) {
       console.error("Error adding tourist spot:", error);
       toast.error("Failed to add tourist spot. Please try again.");
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -137,24 +125,54 @@ const AddTouristSpots = () => {
   // Predefined options for better UX
   const seasonalityOptions = [
     "Spring (March - May)",
-    "Summer (June - August)", 
+    "Summer (June - August)",
     "Fall (September - November)",
     "Winter (December - February)",
     "Year Round",
     "Dry Season",
-    "Wet Season"
+    "Wet Season",
   ];
 
   const countryOptions = [
-    "Bangladesh", "India", "Pakistan", "Nepal", "Sri Lanka", "Maldives",
-    "Thailand", "Malaysia", "Singapore", "Indonesia", "Philippines", "Vietnam",
-    "Japan", "South Korea", "China", "Turkey", "UAE", "Egypt", "Morocco",
-    "France", "Italy", "Spain", "Germany", "United Kingdom", "Greece",
-    "United States", "Canada", "Mexico", "Brazil", "Argentina", "Chile",
-    "Australia", "New Zealand", "South Africa", "Kenya", "Tanzania"
+    "Bangladesh",
+    "India",
+    "Pakistan",
+    "Nepal",
+    "Sri Lanka",
+    "Maldives",
+    "Thailand",
+    "Malaysia",
+    "Singapore",
+    "Indonesia",
+    "Philippines",
+    "Vietnam",
+    "Japan",
+    "South Korea",
+    "China",
+    "Turkey",
+    "UAE",
+    "Egypt",
+    "Morocco",
+    "France",
+    "Italy",
+    "Spain",
+    "Germany",
+    "United Kingdom",
+    "Greece",
+    "United States",
+    "Canada",
+    "Mexico",
+    "Brazil",
+    "Argentina",
+    "Chile",
+    "Australia",
+    "New Zealand",
+    "South Africa",
+    "Kenya",
+    "Tanzania",
   ];
 
-  if (!user) {
+  if (!userEmail) {
     return (
       <div className="w-full h-screen flex items-center justify-center bg-black">
         <div className="text-center text-white animate-fade-in">
@@ -162,7 +180,9 @@ const AddTouristSpots = () => {
             <FaExclamationTriangle className="text-3xl text-red-400" />
           </div>
           <h2 className="text-2xl font-bold mb-4">Authentication Required</h2>
-          <p className="text-gray-400 mb-6">Please login to add tourist spots.</p>
+          <p className="text-gray-400 mb-6">
+            Please login to add tourist spots.
+          </p>
           <button
             onClick={() => navigate("/login")}
             className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300 hover:scale-105"
@@ -170,6 +190,15 @@ const AddTouristSpots = () => {
             Go to Login
           </button>
         </div>
+      </div>
+    );
+  }
+
+  if (isError) {
+    console.log("Error when fetching bookings data: ", error);
+    return (
+      <div className="text-center py-20 text-red-500">
+        Failed to load tourist Bookings
       </div>
     );
   }
@@ -191,13 +220,17 @@ const AddTouristSpots = () => {
           <div
             key={i}
             className={`absolute w-2 h-2 bg-white rounded-full animate-float ${
-              i % 3 === 0 ? 'opacity-30' : i % 3 === 1 ? 'opacity-20' : 'opacity-10'
+              i % 3 === 0
+                ? "opacity-30"
+                : i % 3 === 1
+                ? "opacity-20"
+                : "opacity-10"
             }`}
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${8 + Math.random() * 4}s`
+              animationDuration: `${8 + Math.random() * 4}s`,
             }}
           />
         ))}
@@ -205,26 +238,37 @@ const AddTouristSpots = () => {
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         {/* Header */}
-        <div className={`text-center mb-12 transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div
+          className={`text-center mb-12 transition-all duration-1000 ${
+            isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
           <div className="w-16 h-16 bg-blue-600/20 rounded-full flex items-center justify-center mx-auto mb-6">
             <FaPlus className="text-3xl text-blue-400" />
           </div>
-          
+
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Add New
             <span className="block bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent animate-gradient">
               Tourist Destination
             </span>
           </h1>
-          
+
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Share an amazing destination with fellow travelers and help expand our global travel community
+            Share an amazing destination with fellow travelers and help expand
+            our global travel community
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Preview Card */}
-          <div className={`lg:col-span-1 transition-all duration-1000 delay-200 ${isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
+          <div
+            className={`lg:col-span-1 transition-all duration-1000 delay-200 ${
+              isLoaded
+                ? "opacity-100 translate-x-0"
+                : "opacity-0 -translate-x-8"
+            }`}
+          >
             <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-6 backdrop-blur-sm hover:border-gray-700 transition-all duration-300 sticky top-6">
               <h3 className="text-xl font-bold text-white mb-6 flex items-center space-x-2">
                 <FaImage className="text-blue-400" />
@@ -239,15 +283,21 @@ const AddTouristSpots = () => {
                     alt="Preview"
                     className="w-full h-48 object-cover rounded-xl"
                     onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'flex';
+                      e.target.style.display = "none";
+                      e.target.nextSibling.style.display = "flex";
                     }}
                   />
                 ) : null}
-                <div className={`w-full h-48 bg-gray-800/50 border-2 border-dashed border-gray-600 rounded-xl flex items-center justify-center ${imagePreview ? 'hidden' : 'flex'}`}>
+                <div
+                  className={`w-full h-48 bg-gray-800/50 border-2 border-dashed border-gray-600 rounded-xl flex items-center justify-center ${
+                    imagePreview ? "hidden" : "flex"
+                  }`}
+                >
                   <div className="text-center">
                     <FaCamera className="text-3xl text-gray-500 mx-auto mb-2" />
-                    <p className="text-gray-400 text-sm">Image preview will appear here</p>
+                    <p className="text-gray-400 text-sm">
+                      Image preview will appear here
+                    </p>
                   </div>
                 </div>
               </div>
@@ -256,7 +306,9 @@ const AddTouristSpots = () => {
               <div className="space-y-3">
                 <div className="flex items-center space-x-2">
                   <FaMapMarkerAlt className="text-blue-400" />
-                  <span className="text-gray-300">{spot || "Destination Name"}</span>
+                  <span className="text-gray-300">
+                    {spot || "Destination Name"}
+                  </span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <FaGlobe className="text-green-400" />
@@ -264,7 +316,9 @@ const AddTouristSpots = () => {
                 </div>
                 <div className="flex items-center space-x-2">
                   <FaDollarSign className="text-yellow-400" />
-                  <span className="text-gray-300">{average_cost ? `$${average_cost}` : "Cost"}</span>
+                  <span className="text-gray-300">
+                    {average_cost ? `$${average_cost}` : "Cost"}
+                  </span>
                 </div>
                 {seasonality && (
                   <div className="flex items-center space-x-2">
@@ -279,7 +333,9 @@ const AddTouristSpots = () => {
                 <div className="flex items-start space-x-2">
                   <FaInfoCircle className="text-blue-400 mt-1" />
                   <div className="text-sm">
-                    <p className="font-semibold text-white mb-1">Tips for better listings:</p>
+                    <p className="font-semibold text-white mb-1">
+                      Tips for better listings:
+                    </p>
                     <ul className="text-gray-300 space-y-1">
                       <li>• Use high-quality images</li>
                       <li>• Provide accurate cost estimates</li>
@@ -293,15 +349,23 @@ const AddTouristSpots = () => {
           </div>
 
           {/* Form */}
-          <div className={`lg:col-span-2 transition-all duration-1000 delay-400 ${isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
+          <div
+            className={`lg:col-span-2 transition-all duration-1000 delay-400 ${
+              isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
+            }`}
+          >
             <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-8 backdrop-blur-sm">
               <div className="flex items-center space-x-3 mb-8">
                 <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
                   <FaUpload className="text-white" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">Destination Details</h2>
-                  <p className="text-gray-400">Fill in the information about your tourist spot</p>
+                  <h2 className="text-2xl font-bold text-white">
+                    Destination Details
+                  </h2>
+                  <p className="text-gray-400">
+                    Fill in the information about your tourist spot
+                  </p>
                 </div>
               </div>
 
@@ -335,8 +399,10 @@ const AddTouristSpots = () => {
                       required
                     >
                       <option value="">Select a country</option>
-                      {countryOptions.map(countryOption => (
-                        <option key={countryOption} value={countryOption}>{countryOption}</option>
+                      {countryOptions.map((countryOption) => (
+                        <option key={countryOption} value={countryOption}>
+                          {countryOption}
+                        </option>
                       ))}
                     </select>
                   </div>
@@ -353,11 +419,16 @@ const AddTouristSpots = () => {
                       type="text"
                       placeholder="e.g., 500, 1200"
                       value={average_cost}
-                      onChange={(e) => setAverage_cost(e.target.value.replace(/[^0-9]/g, ''))}
+                      onChange={(e) =>
+                        setAverage_cost(e.target.value.replace(/[^0-9]/g, ""))
+                      }
                       className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300"
                       required
                     />
-                    <p className="text-gray-400 text-sm">Enter numbers only (currency symbol will be added automatically)</p>
+                    <p className="text-gray-400 text-sm">
+                      Enter numbers only (currency symbol will be added
+                      automatically)
+                    </p>
                   </div>
 
                   <div className="space-y-2">
@@ -371,8 +442,10 @@ const AddTouristSpots = () => {
                       className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300"
                     >
                       <option value="">Select best season</option>
-                      {seasonalityOptions.map(season => (
-                        <option key={season} value={season}>{season}</option>
+                      {seasonalityOptions.map((season) => (
+                        <option key={season} value={season}>
+                          {season}
+                        </option>
                       ))}
                     </select>
                   </div>
@@ -423,7 +496,9 @@ const AddTouristSpots = () => {
                     className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300"
                     required
                   />
-                  <p className="text-gray-400 text-sm">Provide a high-quality image URL for your destination</p>
+                  <p className="text-gray-400 text-sm">
+                    Provide a high-quality image URL for your destination
+                  </p>
                 </div>
 
                 {/* Description */}
@@ -443,10 +518,17 @@ const AddTouristSpots = () => {
 
                 {/* Contributor Info */}
                 <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4">
-                  <h4 className="text-white font-semibold mb-2">Contributor Information</h4>
+                  <h4 className="text-white font-semibold mb-2">
+                    Contributor Information
+                  </h4>
                   <div className="text-sm text-gray-300">
-                    <p>Added by: <span className="text-blue-400">{user.displayName || "Anonymous"}</span></p>
-                    <p>Email: <span className="text-blue-400">{user.email}</span></p>
+                    <p>
+                      Added by:{" "}
+                      <span className="text-blue-400">{userName}</span>
+                    </p>
+                    <p>
+                      Email: <span className="text-blue-400">{userEmail}</span>
+                    </p>
                   </div>
                 </div>
 
@@ -456,7 +538,7 @@ const AddTouristSpots = () => {
                     type="submit"
                     disabled={isSubmitting}
                     className={`flex-1 flex items-center justify-center space-x-3 px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-green-500/30 ${
-                      isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                      isSubmitting ? "opacity-50 cursor-not-allowed" : ""
                     }`}
                   >
                     {isSubmitting ? (
@@ -487,7 +569,11 @@ const AddTouristSpots = () => {
         </div>
 
         {/* Back Button */}
-        <div className={`text-center mt-12 transition-all duration-1000 delay-600 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div
+          className={`text-center mt-12 transition-all duration-1000 delay-600 ${
+            isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
           <button
             onClick={() => navigate("/AllTouristSpots")}
             className="inline-flex items-center space-x-3 px-8 py-4 bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 group"
@@ -497,37 +583,6 @@ const AddTouristSpots = () => {
           </button>
         </div>
       </div>
-
-      {/* CSS Animations */}
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(180deg); }
-        }
-        
-        @keyframes gradient {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        
-        @keyframes fade-in {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .animate-float {
-          animation: float 8s ease-in-out infinite;
-        }
-        
-        .animate-gradient {
-          background-size: 200% 200%;
-          animation: gradient 3s ease infinite;
-        }
-        
-        .animate-fade-in {
-          animation: fade-in 0.8s ease-out;
-        }
-      `}</style>
     </section>
   );
 };
