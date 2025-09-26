@@ -3,8 +3,6 @@ import Root from "../layout/Root";
 import Home from "../Components/Home/Home";
 import AboutUs from "../Components/Home/AboutUsSection";
 import PopularSpots from "../Components/PopularSpots/PopularSpots";
-import AllPopularSpots from "../Components/PopularSpots/AllPopularSpots";
-import PopularSpot from "../Components/PopularSpots/PopularSpot";
 import AllTouristSpots from "../Components/AllTouristSpots/AllTouristSpots";
 import TouristSpot from "../Components/AllTouristSpots/TouristSpot";
 import PrivateRoute from "./PrivateRoute";
@@ -34,7 +32,6 @@ const Router = createBrowserRouter([
         path: "/popularSpots",
         element: <PopularSpots />,
       },
-      
       {
         path: "/allTouristSpots",
         element: <AllTouristSpots />,
