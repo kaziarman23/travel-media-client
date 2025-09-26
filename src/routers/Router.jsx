@@ -49,11 +49,18 @@ const Router = createBrowserRouter([
         path: "/allTouristSpots",
         element: <AllTouristSpots />,
       },
-      // complete till here
+
       {
         path: "/allTouristSpots/touristSpot/:_id",
         element: <TouristSpot />,
-        loader: () => fetch("https://travel-media-server.vercel.app/AllSpots"),
+      },
+      {
+        path: "/bookings",
+        element: (
+          <PrivateRoute>
+            <Bookings />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/booking",
@@ -64,20 +71,10 @@ const Router = createBrowserRouter([
         ),
       },
       {
-        path: "/bookings",
-        element: (
-          <PrivateRoute>
-            <Bookings />
-          </PrivateRoute>
-        ),
-        loader: () => fetch("https://travel-media-server.vercel.app/bookings"),
-      },
-      {
         path: "/updateBooking/:id",
         element: <UpdateBooking />,
-        loader: ({ params }) =>
-          fetch(`https://travel-media-server.vercel.app/bookings/${params.id}`),
       },
+      // ... working complete till here!!
       {
         path: "/addTouristSpots",
         element: (

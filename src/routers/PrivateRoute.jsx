@@ -1,17 +1,17 @@
-import { useContext } from "react";
-import { AuthContext } from "../Providers/old_AuthProvider";
 import Loader from "../Components/CustomHooks/Loader";
 import { Navigate, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const PrivateRoute = ({ children }) => {
-  const { user, loading } = useContext(AuthContext);
+  const { userEmail, isLoading } = useSelector((state) => state.userSlice);
+
   const location = useLocation();
 
-  if (loading) {
+  if (isLoading) {
     return <Loader></Loader>;
   }
 
-  if (user) {
+  if (userEmail) {
     return children;
   }
 
