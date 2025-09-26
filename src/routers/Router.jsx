@@ -35,16 +35,16 @@ const Router = createBrowserRouter([
         element: <PopularSpots />,
       },
       // didn't found the page ?
-      {
-        path: "/popularSpots/:country",
-        element: <AllPopularSpots />,
-        loader: () =>
-          fetch("https://travel-media-server.vercel.app/popularspots"),
-      },
-      {
-        path: "/popularSpots/:country/popularSpot/:spot_id",
-        element: <PopularSpot />,
-      },
+      // {
+      //   path: "/popularSpots/:country",
+      //   element: <AllPopularSpots />,
+      //   loader: () =>
+      //     fetch("https://travel-media-server.vercel.app/popularspots"),
+      // },
+      // {
+      //   path: "/popularSpots/:country/popularSpot/:spot_id",
+      //   element: <PopularSpot />,
+      // },
       {
         path: "/allTouristSpots",
         element: <AllTouristSpots />,
