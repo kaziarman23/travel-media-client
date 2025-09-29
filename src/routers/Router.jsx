@@ -14,6 +14,8 @@ import MyTouristSpots from "../Components/MySpots/MyTouristSpots";
 import NotFoundPage from "../Components/NotFoundPage/NotFoundPage";
 import Login from "../Components/login/Login";
 import Register from "../Components/Register/Register";
+import Payment from '../Components/Payment/Payment';
+import PaymentHistory from '../Components/Payment/PaymentHistory';
 
 const Router = createBrowserRouter([
   {
@@ -74,6 +76,22 @@ const Router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyTouristSpots />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/payment/:id",
+        element: (
+          <PrivateRoute>
+            <Payment />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/paymentHistory",
+        element: (
+          <PrivateRoute>
+            <PaymentHistory />
           </PrivateRoute>
         ),
       },

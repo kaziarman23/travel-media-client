@@ -14,6 +14,7 @@ import {
   FaTicketAlt,
   FaSearch,
   FaSort,
+  FaMoneyBill,
 } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
@@ -532,7 +533,9 @@ const Bookings = () => {
                       }`}
                       style={{ animationDelay: `${index * 0.05}s` }}
                     >
+                      {/* index */}
                       <td className="px-6 py-4 text-gray-300">{index + 1}</td>
+                      {/* traveler */}
                       <td className="px-6 py-4">
                         <div className="flex items-center space-x-3">
                           <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
@@ -548,6 +551,7 @@ const Bookings = () => {
                           </div>
                         </div>
                       </td>
+                      {/* destination */}
                       <td className="px-6 py-4">
                         <div className="flex items-center space-x-2">
                           <FaMapMarkerAlt className="text-blue-400" />
@@ -561,6 +565,7 @@ const Bookings = () => {
                           </div>
                         </div>
                       </td>
+                      {/* cost */}
                       <td className="px-6 py-4">
                         <div className="flex items-center space-x-1">
                           <FaDollarSign className="text-yellow-400" />
@@ -569,6 +574,7 @@ const Bookings = () => {
                           </span>
                         </div>
                       </td>
+                      {/* travele date */}
                       <td className="px-6 py-4">
                         <div className="flex items-center space-x-2">
                           <FaCalendarAlt className="text-green-400" />
@@ -577,15 +583,17 @@ const Bookings = () => {
                           </span>
                         </div>
                       </td>
+                      {/* duration */}
                       <td className="px-6 py-4">
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center space-x-1">
                           <FaClock className="text-purple-400" />
-                          <span className="text-gray-300">
+                          <span className="text-gray-300 text-xs">
                             {booking.travelDuration} day
                             {booking.travelDuration > 1 ? "s" : ""}
                           </span>
                         </div>
                       </td>
+                      {/* status */}
                       <td className="px-6 py-4">
                         {isUpcoming(booking.travelDate) ? (
                           <span className="px-3 py-1 bg-green-500/20 text-green-400 text-xs rounded-full font-medium">
@@ -597,8 +605,16 @@ const Bookings = () => {
                           </span>
                         )}
                       </td>
+                      {/* actions */}
                       <td className="px-6 py-4">
                         <div className="flex items-center justify-center space-x-2">
+                          <Link
+                           to={`/payment/${booking._id}`} 
+                            className="flex items-center space-x-1 px-3 py-2 bg-yellow-600 hover:bg-yellow-500 text-white font-medium rounded-lg transition-all duration-300 hover:scale-105"
+                          >
+                            <FaMoneyBill className="text-sm" />
+                            <span>Payment</span>
+                          </Link>
                           <Link
                             to={`/updateBooking/${booking._id}`}
                             className="flex items-center space-x-1 px-3 py-2 bg-orange-600 hover:bg-orange-700 text-white font-medium rounded-lg transition-all duration-300 hover:scale-105"
