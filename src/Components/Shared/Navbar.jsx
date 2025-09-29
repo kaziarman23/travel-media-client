@@ -38,14 +38,16 @@ const Navbar = () => {
       const isScrolled = window.scrollY > 20;
       setScrolled(isScrolled);
 
-      gsap.to(headerRef.current, {
-        backdropFilter: isScrolled ? "blur(20px)" : "blur(10px)",
-        backgroundColor: isScrolled
-          ? "rgba(17, 24, 39, 0.95)"
-          : "rgba(17, 24, 39, 0.8)",
-        duration: 0.3,
-        ease: "power2.out",
-      });
+      if (headerRef.current) {
+        gsap.to(headerRef.current, {
+          backdropFilter: isScrolled ? "blur(20px)" : "blur(10px)",
+          backgroundColor: isScrolled
+            ? "rgba(17, 24, 39, 0.95)"
+            : "rgba(17, 24, 39, 0.8)",
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -54,10 +56,16 @@ const Navbar = () => {
 
   // Entrance animation
   useEffect(() => {
+    if (!headerRef.current || !logoRef.current) return;
+
     const tl = gsap.timeline();
     gsap.set(headerRef.current, { y: -100, opacity: 0 });
     gsap.set(logoRef.current, { scale: 0, rotation: -180 });
-    gsap.set(navLinksRef.current, { y: -20, opacity: 0 });
+    
+    const validNavLinks = navLinksRef.current.filter(el => el !== null);
+    if (validNavLinks.length > 0) {
+      gsap.set(validNavLinks, { y: -20, opacity: 0 });
+    }
 
     tl.to(headerRef.current, {
       y: 0,
@@ -69,30 +77,44 @@ const Navbar = () => {
         logoRef.current,
         { scale: 1, rotation: 0, duration: 0.6, ease: "elastic.out(1, 0.5)" },
         "-=0.4"
-      )
-      .to(
-        navLinksRef.current,
+      );
+      
+    if (validNavLinks.length > 0) {
+      tl.to(
+        validNavLinks,
         { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power2.out" },
         "-=0.3"
       );
+    }
 
     return () => tl.kill();
   }, []);
 
+  // Mobile menu animation
+  useEffect(() => {
+    if (mobileMenuRef.current) {
+      if (isMobileMenuOpen) {
+        gsap.fromTo(
+          mobileMenuRef.current,
+          { height: 0, opacity: 0 },
+          { height: "auto", opacity: 1, duration: 0.3, ease: "power2.out" }
+        );
+      }
+    }
+  }, [isMobileMenuOpen]);
+
   const handleLogout = async () => {
-    gsap.to(headerRef.current, {
-      scale: 1.02,
-      duration: 0.1,
-      yoyo: true,
-      repeat: 1,
-      ease: "power2.out",
-      onComplete: async () => {
-        await signOut(auth);
-        await dispatch(logoutUser());
-        toast.success("Logout successful");
-        navigate("/");
-      },
-    });
+    if (!headerRef.current) return;
+
+    try {
+      await signOut(auth);
+      dispatch(logoutUser());
+      toast.success("Logout successful");
+      navigate("/");
+    } catch (error) {
+      toast.error("Logout failed");
+      console.error("Logout error:", error);
+    }
   };
 
   return (
@@ -104,33 +126,31 @@ const Navbar = () => {
           : "bg-gray-900/80 backdrop-blur-lg"
       }`}
     >
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center">
-            <Link
-              to="/"
-              className="flex items-center space-x-2 group"
-              ref={logoRef}
-            >
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                <BsAirplaneEnginesFill className="text-white text-xl" />
-              </div>
-              <span className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors duration-300">
-                Travel Media
-              </span>
-            </Link>
-          </div>
+          <Link
+            to="/"
+            className="flex items-center space-x-2 group flex-shrink-0"
+            ref={logoRef}
+          >
+            <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+              <BsAirplaneEnginesFill className="text-white text-xl" />
+            </div>
+            <span className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors duration-300 whitespace-nowrap">
+              Travel Media
+            </span>
+          </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center space-x-8">
+          <div className="hidden xl:flex items-center space-x-6 flex-1 justify-center">
             {navigationItems.map((item, index) => (
               <NavLink
                 key={item.to}
                 to={item.to}
                 ref={(el) => (navLinksRef.current[index] = el)}
                 className={({ isActive }) =>
-                  `px-3 py-2 text-sm font-medium transition-all duration-300 ${
+                  `px-3 py-2 text-sm font-medium transition-all duration-300 whitespace-nowrap ${
                     isActive
                       ? "text-blue-400"
                       : "text-gray-300 hover:text-white"
@@ -142,12 +162,12 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Right side */}
-          <div className="flex items-center space-x-4">
+          {/* Right side - Desktop */}
+          <div className="hidden xl:flex items-center space-x-4 flex-shrink-0">
             {userEmail ? (
               <button
                 onClick={handleLogout}
-                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center space-x-2"
+                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center space-x-2 whitespace-nowrap"
               >
                 <FaSignOutAlt />
                 <span>Logout</span>
@@ -155,31 +175,32 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/register"
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:scale-105"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:scale-105 whitespace-nowrap"
               >
                 Register
               </Link>
             )}
-
-            {/* Mobile menu button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 text-gray-400 hover:text-white transition-colors duration-200"
-            >
-              {isMobileMenuOpen ? (
-                <FaTimes className="text-xl" />
-              ) : (
-                <FaBars className="text-xl" />
-              )}
-            </button>
           </div>
+
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="xl:hidden p-2 text-gray-400 hover:text-white transition-colors duration-200 flex-shrink-0"
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? (
+              <FaTimes className="text-xl" />
+            ) : (
+              <FaBars className="text-xl" />
+            )}
+          </button>
         </div>
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
           <div
             ref={mobileMenuRef}
-            className="lg:hidden border-t border-gray-800 bg-gray-900/95 backdrop-blur-xl"
+            className="xl:hidden border-t border-gray-800 bg-gray-900/95 backdrop-blur-xl overflow-hidden"
           >
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navigationItems.map((item) => (
@@ -198,6 +219,30 @@ const Navbar = () => {
                   {item.label}
                 </NavLink>
               ))}
+              
+              {/* Mobile auth button */}
+              <div className="pt-2 border-t border-gray-800 mt-2">
+                {userEmail ? (
+                  <button
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      handleLogout();
+                    }}
+                    className="w-full px-3 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-md transition-all duration-200 flex items-center justify-center space-x-2"
+                  >
+                    <FaSignOutAlt />
+                    <span>Logout</span>
+                  </button>
+                ) : (
+                  <Link
+                    to="/register"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block w-full px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-all duration-200 text-center"
+                  >
+                    Register
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
         )}
