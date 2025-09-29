@@ -29,7 +29,7 @@ const Navbar = () => {
     { to: "/bookings", label: "Bookings" },
     { to: "/paymentHistory", label: "Payment History" },
     { to: "/addTouristSpots", label: "Add-Spots" },
-    { to: "/myTouristSpots", label: "All-Spots" },
+    { to: "/myTouristSpots", label: "My-TouristSpots" },
   ];
 
   // Scroll effect
