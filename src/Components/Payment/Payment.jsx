@@ -10,8 +10,8 @@ const Payment = () => {
   const { id } = useParams();
 
   return (
-    <div className="w-full h-screen bg-gray-100 flex justify-center items-center">
-      <div className="w-11/12 md:w-2/3 lg:w-1/2 bg-white shadow-xl rounded-xl p-6">
+    <div className="w-full h-screen bg-black flex justify-center items-center">
+      <div className="w-11/12 md:w-2/3 lg:w-1/2 bg-gray-900/95 shadow-xl rounded-xl p-6">
         <h1 className="text-xl md:text-2xl font-bold text-center mb-6">
           Complete Your Payment
         </h1>

@@ -154,6 +154,14 @@ const CheckoutForm = () => {
       >
         {isProcessing ? "Processing..." : `Pay ${bookingDetails.travelCost}`}
       </button>
+      <a
+        href="https://docs.stripe.com/testing#cards"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block w-full text-center py-2 bg-purple-600 text-white font-bold rounded-lg hover:bg-purple-500 transition-all duration-300"
+      >
+        Test Cards
+      </a>
       {paymentError && <p className="text-red-500 text-sm">{paymentError}</p>}
     </form>
   );

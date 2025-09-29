@@ -27,6 +27,7 @@ const Navbar = () => {
     { to: "/PopularSpots", label: "Popular Spots" },
     { to: "/AllTouristSpots", label: "All Tourist Spots" },
     { to: "/bookings", label: "Bookings" },
+    { to: "/paymentHistory", label: "Payment History" },
     { to: "/addTouristSpots", label: "Add-Spots" },
     { to: "/myTouristSpots", label: "All-Spots" },
   ];

@@ -23,6 +23,7 @@ import {
   useDeleteBookingMutation,
   useGetBookingsQuery,
 } from "../../Redux/features/api/bookingsApi";
+import { useGetPaymentsQuery } from "../../Redux/features/api/paymentApi";
 
 const Bookings = () => {
   // redux state
@@ -36,6 +37,7 @@ const Bookings = () => {
     error,
   } = useGetBookingsQuery();
   const [deleteBooking] = useDeleteBookingMutation();
+  const { data: payments = [] } = useGetPaymentsQuery();
 
   // States
   const [remainingData, setRemainingData] = useState([]);
@@ -146,6 +148,10 @@ const Bookings = () => {
   const isUpcoming = (dateString) => {
     return new Date(dateString) >= new Date();
   };
+
+  // helper function to check if paid
+  const isPaid = (bookingId) =>
+    payments.some((payment) => payment.bookingId === bookingId);
 
   if (!remainingData || remainingData.length === 0) {
     return (
@@ -462,20 +468,42 @@ const Bookings = () => {
                 </div>
 
                 <div className="flex space-x-2">
+                  {isPaid(booking._id) ? (
+                    <button
+                      disabled
+                      className="flex-1 flex items-center justify-center space-x-2 px-4 py-2 bg-green-600 text-white font-semibold rounded-lg cursor-not-allowed"
+                    >
+                      <FaMoneyBill />
+                      <span>Paid</span>
+                    </button>
+                  ) : (
+                    <Link
+                      to={`/payment/${booking._id}`}
+                      className="flex-1 flex items-center justify-center space-x-2 px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105"
+                    >
+                      <FaMoneyBill />
+                      <span>Pay Now</span>
+                    </Link>
+                  )}
                   <Link
                     to={`/updateBooking/${booking._id}`}
-                    className="flex-1 flex items-center justify-center space-x-2 px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105"
+                    className={`flex-1 flex items-center justify-center space-x-2 px-4 py-2 bg-orange-600 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 ${
+                      isPaid(booking._id)
+                        ? "opacity-50 cursor-not-allowed pointer-events-none"
+                        : "hover:bg-orange-700"
+                    }`}
                   >
                     <FaEdit />
                     <span>Update</span>
                   </Link>
+
                   <button
                     onClick={() => handleDelete(booking._id)}
-                    disabled={deletingId === booking._id}
-                    className={`flex-1 flex items-center justify-center space-x-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 ${
-                      deletingId === booking._id
+                    disabled={deletingId === booking._id || isPaid(booking._id)}
+                    className={`flex-1 flex items-center justify-center space-x-2 px-4 py-2 bg-red-600 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 ${
+                      deletingId === booking._id || isPaid(booking._id)
                         ? "opacity-50 cursor-not-allowed"
-                        : ""
+                        : "hover:bg-red-700"
                     }`}
                   >
                     {deletingId === booking._id ? (
@@ -607,38 +635,60 @@ const Bookings = () => {
                       </td>
                       {/* actions */}
                       <td className="px-6 py-4">
-                        <div className="flex items-center justify-center space-x-2">
-                          <Link
-                           to={`/payment/${booking._id}`} 
-                            className="flex items-center space-x-1 px-3 py-2 bg-yellow-600 hover:bg-yellow-500 text-white font-medium rounded-lg transition-all duration-300 hover:scale-105"
-                          >
-                            <FaMoneyBill className="text-sm" />
-                            <span>Payment</span>
-                          </Link>
-                          <Link
-                            to={`/updateBooking/${booking._id}`}
-                            className="flex items-center space-x-1 px-3 py-2 bg-orange-600 hover:bg-orange-700 text-white font-medium rounded-lg transition-all duration-300 hover:scale-105"
-                          >
-                            <FaEdit className="text-sm" />
-                            <span>Update</span>
-                          </Link>
-                          <button
-                            onClick={() => handleDelete(booking._id)}
-                            disabled={deletingId === booking._id}
-                            className={`flex items-center space-x-1 px-3 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-all duration-300 hover:scale-105 ${
-                              deletingId === booking._id
-                                ? "opacity-50 cursor-not-allowed"
-                                : ""
-                            }`}
-                          >
-                            {deletingId === booking._id ? (
-                              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        <td className="px-6 py-4">
+                          <div className="flex items-center justify-center space-x-2">
+                            {isPaid(booking._id) ? (
+                              <button
+                                disabled
+                                className="flex items-center space-x-1 px-3 py-2 bg-green-600 text-white font-medium rounded-lg cursor-not-allowed"
+                              >
+                                <FaMoneyBill className="text-sm" />
+                                <span>Paid</span>
+                              </button>
                             ) : (
-                              <FaTrash className="text-sm" />
+                              <Link
+                                to={`/payment/${booking._id}`}
+                                className="flex items-center space-x-1 px-3 py-2 bg-yellow-600 hover:bg-yellow-500 text-white font-medium rounded-lg transition-all duration-300 hover:scale-105"
+                              >
+                                <FaMoneyBill className="text-sm" />
+                                <span>Pay Now</span>
+                              </Link>
                             )}
-                            <span>Delete</span>
-                          </button>
-                        </div>
+
+                            <Link
+                              to={`/updateBooking/${booking._id}`}
+                              className={`flex items-center space-x-1 px-3 py-2 bg-orange-600 text-white font-medium rounded-lg transition-all duration-300 hover:scale-105 ${
+                                isPaid(booking._id)
+                                  ? "opacity-50 cursor-not-allowed pointer-events-none"
+                                  : "hover:bg-orange-700"
+                              }`}
+                            >
+                              <FaEdit className="text-sm" />
+                              <span>Update</span>
+                            </Link>
+
+                            <button
+                              onClick={() => handleDelete(booking._id)}
+                              disabled={
+                                deletingId === booking._id ||
+                                isPaid(booking._id)
+                              }
+                              className={`flex items-center space-x-1 px-3 py-2 bg-red-600 text-white font-medium rounded-lg transition-all duration-300 hover:scale-105 ${
+                                deletingId === booking._id ||
+                                isPaid(booking._id)
+                                  ? "opacity-50 cursor-not-allowed"
+                                  : "hover:bg-red-700"
+                              }`}
+                            >
+                              {deletingId === booking._id ? (
+                                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                              ) : (
+                                <FaTrash className="text-sm" />
+                              )}
+                              <span>Delete</span>
+                            </button>
+                          </div>
+                        </td>
                       </td>
                     </tr>
                   ))}
